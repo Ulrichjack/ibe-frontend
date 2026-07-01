@@ -1,5 +1,5 @@
 import { ApplicationConfig, LOCALE_ID } from '@angular/core';
-import { provideRouter, withPreloading, NoPreloading } from '@angular/router';
+import { provideRouter, withPreloading, NoPreloading, withInMemoryScrolling } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideZonelessChangeDetection } from '@angular/core';
 import { provideCloudinaryLoader } from '@angular/common';
@@ -18,7 +18,11 @@ export const appConfig: ApplicationConfig = {
   providers: [
     // Configuration moderne pour votre application d'institut
     provideZonelessChangeDetection(),
-    provideRouter(routes, withPreloading(NoPreloading)),
+    provideRouter(
+      routes,
+       withPreloading(NoPreloading),
+       withInMemoryScrolling({ scrollPositionRestoration: 'top' })
+      ),
     provideHttpClient(withInterceptors([authInterceptor])),
     { provide: LOCALE_ID, useValue: 'fr-FR' },
     provideCloudinaryLoader(`https://res.cloudinary.com/${environment.cloudinaryCloudName}`),

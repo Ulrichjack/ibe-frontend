@@ -1,19 +1,19 @@
-import { Component, OnInit, signal, inject, ElementRef, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
+import { Component, OnInit, signal, inject, ElementRef, ViewChildren, QueryList, AfterViewInit, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 import { FormationService } from '../../shared/services/formation.service';
 import { FormationResponse } from '../formations/data-access/formation.model';
 
-import { CurrencyFcfaPipe } from '../../shared/pipes/currency-fcfa.pipe';
-
 import {
-   LucideArrowRight, LucideClock,
-  LucideUsers, LucideAward, LucideSparkles,
-  LucideGraduationCap, LucideBriefcase, LucideHeartHandshake,
+ 
+  LucideUsers, LucideAward, 
+  LucideBriefcase,
   LucideMapPin, LucidePhone, LucideStar,
   LucideCheck,
-  LucideX
+  LucideX,
+  LucideBanknote,
+  LucideChevronLeft, LucideChevronRight, LucideArrowRight,LucideClock
 } from '@lucide/angular';
 import { TestimonialService } from '../../shared/services/testimonial.service';
 import { TestimonialResponse } from '../testimonial/data-access/testimonial.model';
@@ -22,17 +22,17 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NewsletterService } from '../../shared/services/newsletter.service';
 import { ContactModalComponent } from '../messages/ui/contact-modal/contact-modal.component';
 import { GalleryService } from '../../shared/services/gallery.service';
+import { SeoService } from '../../core/services/seo.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
-    CommonModule, RouterLink, CurrencyFcfaPipe,
-     LucideArrowRight, LucideClock,
-    LucideUsers, LucideAward, LucideSparkles,
-    LucideGraduationCap, LucideBriefcase, LucideHeartHandshake,
+    CommonModule, RouterLink, 
+    LucideUsers, LucideAward, LucideBriefcase,
     LucideMapPin, LucidePhone, LucideStar,
-     ReactiveFormsModule,LucideCheck,LucideX,ContactModalComponent
+    ReactiveFormsModule, LucideCheck, LucideX, ContactModalComponent, LucideBanknote,
+    LucideChevronLeft, LucideChevronRight,LucideArrowRight, LucideClock
   ],
   templateUrl: './home.component.html'
 })
@@ -42,18 +42,22 @@ export class HomeComponent implements OnInit, AfterViewInit {
   private galleryService = inject(GalleryService);
   private newsletterService = inject(NewsletterService);
   private fb = inject(FormBuilder);
+  private seoService = inject(SeoService);
 
-  // Signals pour gérer l'état
   popularFormations = signal<FormationResponse[]>([]);
   testimonials = signal<TestimonialResponse[]>([]);
   galleryImages = signal<GalleryImageResponse[]>([]);
 
+  selectedTestimonial = signal<TestimonialResponse | null>(null);
   isLoadingFormations = signal(true);
   isLoadingTestimonials = signal(true);
   isLoadingGallery = signal(true);
   showContactModal = signal(false);
 
-  // Formulaire Newsletter (Accepte les numéros internationaux)
+  // Références pour les carrousels
+  @ViewChild('carouselContainer') carouselContainer!: ElementRef;
+  @ViewChild('partnersContainer') partnersContainer!: ElementRef;
+
   newsletterForm = this.fb.group({
     telephone: ['', [Validators.required, Validators.pattern(/^\+?[1-9]\d{7,14}$/)]]
   });
@@ -62,13 +66,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
   newsletterSuccess = signal('');
   newsletterError = signal('');
 
-  // Partenaires en dur (car ce sont des logos fixes)
   partenaires = [
-    { nom: "MINEFOP", logo: "assets/img/Minefop.jpg" },
-    { nom: "IIFPI", logo: "assets/img/IIFPI.jpg" },
-    { nom: "Beauty's Company", logo: "assets/img/teb.jpg" },
-    { nom: "ED GLAM'S", logo: "assets/img/ed.jpg" },
-    { nom: "KENFORT", logo: "assets/img/Beaty&Nails.jpg" }
+    { nom: "MINEFOP", logo: "assets/img/Minefop.webp" },
+    { nom: "IIFPI", logo: "assets/img/IIFPI.webp" },
+    { nom: "Beauty's Company", logo: "assets/img/teb.webp" },
+    { nom: "ED GLAM'S", logo: "assets/img/ed.webp" },
+    { nom: "KENFORT", logo: "assets/img/Beaty_Nails.webp" }
   ];
 
   @ViewChildren('statNumber') statElements!: QueryList<ElementRef>;
@@ -80,6 +83,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ];
 
   ngOnInit() {
+    this.seoService.setPageSeo("Institut Beauty's Empire — Accueil", "Formations professionnelles en beauté à Yaoundé.");
+    this.seoService.setOrganizationSchema();
+
     this.loadPopularFormations();
     this.loadTestimonials();
     this.loadGallery();
@@ -102,7 +108,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   loadTestimonials() {
-    this.testimonialService.getPublies(0, 3).subscribe({
+    this.testimonialService.getPublies(0, 5).subscribe({
       next: (res) => {
         if (res.success && res.data) {
           this.testimonials.set(res.data.content);
@@ -114,7 +120,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   loadGallery() {
-    this.galleryService.getImagesPubliques(0, 6).subscribe({
+    this.galleryService.getImagesPubliques(0, 7).subscribe({
       next: (res) => {
         if (res.success && res.data) {
           this.galleryImages.set(res.data.content);
@@ -125,7 +131,33 @@ export class HomeComponent implements OnInit, AfterViewInit {
     });
   }
 
-  // Animation fluide des compteurs (Recompte à chaque scroll)
+  openFullReview(testi: TestimonialResponse) {
+    this.selectedTestimonial.set(testi);
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeFullReview() {
+    this.selectedTestimonial.set(null);
+    document.body.style.overflow = 'auto';
+  }
+
+  // --- NAVIGATION DES CARROUSELS ---
+  scrollCarousel(direction: 'left' | 'right') {
+    if (this.carouselContainer) {
+      const container = this.carouselContainer.nativeElement;
+      const scrollAmount = 374; // Largeur d'une carte avis + gap
+      container.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
+    }
+  }
+
+  scrollPartners(direction: 'left' | 'right') {
+    if (this.partnersContainer) {
+      const container = this.partnersContainer.nativeElement;
+      const scrollAmount = 224; // Largeur d'une carte partenaire + gap
+      container.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
+    }
+  }
+
   private initStatsAnimation() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -134,7 +166,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
           const finalValue = parseInt(target.getAttribute('data-value') || '0', 10);
           this.animateValue(target, 0, finalValue, 2000);
         } else {
-          // Remet à zéro quand on quitte l'écran pour que ça recompte en revenant
           target.innerHTML = '0';
         }
       });
@@ -174,7 +205,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
           this.newsletterSuccess.set('Inscription réussie ! Ouverture de WhatsApp...');
           this.newsletterForm.reset();
 
-          // Ouvre le lien WhatsApp généré par le backend dans un nouvel onglet
           if (res.data.whatsappCatalogueLink) {
             setTimeout(() => {
               window.open(res.data!.whatsappCatalogueLink, '_blank');
@@ -192,6 +222,4 @@ export class HomeComponent implements OnInit, AfterViewInit {
   openContactModal() {
     this.showContactModal.set(true);
   }
-
-
 }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { GalleryImageResponse } from '../../../shared/models/gallery.model';
 import { LucideX, LucideChevronLeft, LucideChevronRight, LucideImage } from '@lucide/angular';
 import { GalleryService } from '../../../shared/services/gallery.service';
+import { SeoService } from '../../../core/services/seo.service';
 
 @Component({
   selector: 'app-gallery-page',
@@ -12,18 +13,16 @@ import { GalleryService } from '../../../shared/services/gallery.service';
 })
 export class GalleryPageComponent implements OnInit {
   private galleryService = inject(GalleryService);
+  private seoService = inject(SeoService);
 
-  // État
   images = signal<GalleryImageResponse[]>([]);
   isLoading = signal(true);
-  activeCategory = signal<string>(''); // '' = Toutes
+  activeCategory = signal<string>('');
   
-  // Pagination
   currentPage = signal(0);
   totalPages = signal(0);
   pageSize = 12;
 
-  // Lightbox (Plein écran)
   isLightboxOpen = signal(false);
   currentImageIndex = signal(0);
 
@@ -35,6 +34,10 @@ export class GalleryPageComponent implements OnInit {
   ];
 
   ngOnInit() {
+    this.seoService.setPageSeo(
+      "Galerie des Réalisations",
+      "Découvrez les réalisations de nos étudiantes en esthétique, coiffure et make-up. Portfolio de l'Institut Beauty's Empire (IBE) à Yaoundé."
+    );
     this.loadImages(0);
   }
 
@@ -42,8 +45,6 @@ export class GalleryPageComponent implements OnInit {
     this.isLoading.set(true);
     this.currentPage.set(page);
 
-    // Si on a une catégorie active, on pourrait filtrer côté backend.
-    // Pour l'instant, on charge tout (ton backend actuel ne filtre pas par catégorie sur la route publique dans le code fourni, on le fera côté front si besoin, ou on charge tout).
     this.galleryService.getImagesPubliques(page, this.pageSize).subscribe({
       next: (res) => {
         if (res.success && res.data) {
@@ -59,10 +60,8 @@ export class GalleryPageComponent implements OnInit {
 
   setCategory(catId: string) {
     this.activeCategory.set(catId);
-    // Ici, on filtre côté frontend pour la fluidité
   }
 
-  // On utilise un Signal calculé (très performant en Angular 20)
   filteredImages = computed(() => {
     const cat = this.activeCategory();
     const imgs = this.images();
@@ -70,11 +69,10 @@ export class GalleryPageComponent implements OnInit {
     return imgs.filter(img => img.categorie === cat);
   });
 
-  // --- LOGIQUE LIGHTBOX ---
   openLightbox(index: number) {
     this.currentImageIndex.set(index);
     this.isLightboxOpen.set(true);
-    document.body.style.overflow = 'hidden'; // Empêche le scroll en arrière-plan
+    document.body.style.overflow = 'hidden';
   }
 
   closeLightbox() {
@@ -96,7 +94,6 @@ export class GalleryPageComponent implements OnInit {
     }
   }
 
-  // Navigation au clavier pour le Lightbox
   @HostListener('window:keydown', ['$event'])
   handleKeyDown(event: KeyboardEvent) {
     if (!this.isLightboxOpen()) return;

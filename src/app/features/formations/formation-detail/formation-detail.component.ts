@@ -9,16 +9,18 @@ import { CurrencyFcfaPipe } from '../../../shared/pipes/currency-fcfa.pipe';
 import {
   LucideArrowLeft, LucideClock, LucideUsers,
   LucideCalendar, LucideAward, LucideCircleCheck,
-  LucideBookOpen, LucideTarget, LucideBriefcase
+  LucideBookOpen, LucideTarget, LucideBriefcase,
+  LucideBanknote, LucideInfo
 } from '@lucide/angular';
 import { InscriptionModalComponent } from '../../messages/ui/inscription-modal/inscription-modal.component';
 import { ContactModalComponent } from '../../messages/ui/contact-modal/contact-modal.component';
+import { SeoService } from '../../../core/services/seo.service';
 
 @Component({
   selector: 'app-formation-detail',
   standalone: true,
   imports: [
-    CommonModule,  CurrencyFcfaPipe,
+    CommonModule, CurrencyFcfaPipe,
     LucideArrowLeft, LucideClock, LucideUsers,
     LucideCalendar, LucideAward, LucideCircleCheck,
     LucideBookOpen, LucideTarget, LucideBriefcase, 
@@ -30,14 +32,14 @@ export class FormationDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private formationService = inject(FormationService);
   private location = inject(Location);
+  private seoService = inject(SeoService);
 
-  // État
   formation = signal<FormationResponse | null>(null);
   isLoading = signal(true);
   errorMessage = signal<string | null>(null);
   showInscriptionModal = signal(false);
   showContactModal = signal(false);
-  // Gestion de l'UI
+  
   activeTab = signal<'programme' | 'objectifs' | 'materiel'>('programme');
   currentImage = signal<string>('');
 
@@ -56,12 +58,19 @@ export class FormationDetailComponent implements OnInit {
       next: (res) => {
         if (res.success && res.data) {
           this.formation.set(res.data);
-          this.currentImage.set(res.data.photoPrincipale || 'assets/img/default-formation.jpg');
+          this.currentImage.set(res.data.photoPrincipale || 'assets/img/default-formation.webp');
+          
+          // INJECTION SEO DYNAMIQUE
+          this.seoService.setPageSeo(
+            `${res.data.nom}`,
+            `Formation ${res.data.nom} certifiée MINEFOP à Yaoundé. ${res.data.duree}, kit inclus, stage pratique. ${res.data.placesRestantesAffichees} places disponibles.`,
+            res.data.photoPrincipale
+          );
         } else {
           this.errorMessage.set("Formation introuvable.");
         }
         this.isLoading.set(false);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: 'instant' });
       },
       error: () => {
         this.errorMessage.set("Erreur lors du chargement des détails.");
@@ -70,17 +79,14 @@ export class FormationDetailComponent implements OnInit {
     });
   }
 
-  // Change l'image principale quand on clique sur une miniature
   setCurrentImage(url: string) {
     this.currentImage.set(url);
   }
 
-  // Change l'onglet actif
   setActiveTab(tab: 'programme' | 'objectifs' | 'materiel') {
     this.activeTab.set(tab);
   }
 
-  // Calcul du taux de remplissage
   getTauxRemplissage(): number {
     const form = this.formation();
     if (!form || !form.nombrePlaces || form.nombrePlaces === 0) return 0;
@@ -92,7 +98,6 @@ export class FormationDetailComponent implements OnInit {
     this.location.back();
   }
 
-  // Ces méthodes ouvriront les modaux qu'on créera au prochain sprint
   openInscriptionModal() {
     this.showInscriptionModal.set(true);
   }

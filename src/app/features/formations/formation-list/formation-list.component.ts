@@ -13,6 +13,7 @@ import {
 } from '@lucide/angular';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { debounceTime, distinctUntilChanged, skip } from 'rxjs';
+import { SeoService } from '../../../core/services/seo.service';
 
 @Component({
   selector: 'app-formation-list',
@@ -26,38 +27,38 @@ import { debounceTime, distinctUntilChanged, skip } from 'rxjs';
 })
 export class FormationListComponent implements OnInit {
   private formationService = inject(FormationService);
-   private destroyRef = inject(DestroyRef); 
+  private destroyRef = inject(DestroyRef);
+  private seoService = inject(SeoService);
 
-  // État
   formations = signal<FormationResponse[]>([]);
   isLoading = signal(true);
   errorMessage = signal<string | null>(null);
 
-  // Recherche & Pagination
   searchQuery = signal('');
   currentPage = signal(0);
   totalPages = signal(0);
   totalElements = signal(0);
   pageSize = 9;
 
-  ngOnInit() {
-    this.loadFormations(0);
-  }
-
-
   constructor() {
-    // Écoute les changements du signal searchQuery en temps réel
     toObservable(this.searchQuery).pipe(
-      skip(1), // Ignore la valeur initiale vide au chargement
-      debounceTime(400), // Attend 400ms après que l'utilisateur ait fini de taper
+      skip(1),
+      debounceTime(400),
       distinctUntilChanged(),
       takeUntilDestroyed(this.destroyRef)
     ).subscribe(query => {
-      // Lance la recherche si on a tapé au moins 2 lettres, ou si on a tout effacé
       if (query.length >= 2 || query.length === 0) {
         this.loadFormations(0);
       }
     });
+  }
+
+  ngOnInit() {
+    this.seoService.setPageSeo(
+      "Nos Formations Beauté Certifiées",
+      "23 formations professionnelles certifiées MINEFOP : esthétique, coiffure, make-up, DQP. Kit professionnel inclus et stage pratique garanti à Yaoundé."
+    );
+    this.loadFormations(0);
   }
 
   loadFormations(page: number) {
@@ -99,15 +100,12 @@ export class FormationListComponent implements OnInit {
     this.loadFormations(0);
   }
 
-  // Calcul du taux de remplissage pour la barre de progression (Social Proof)
- getTauxRemplissage(formation: FormationResponse): number {
+  getTauxRemplissage(formation: FormationResponse): number {
     if (!formation.nombrePlaces || formation.nombrePlaces === 0) return 0;
-    // On utilise directement la valeur calculée par le backend
     const placesPrises = formation.nombrePlaces - formation.placesRestantesAffichees;
     return Math.round((placesPrises / formation.nombrePlaces) * 100);
   }
 
-  // Génère un tableau pour la pagination [0, 1, 2...]
   getPagesArray(): number[] {
     return Array.from({ length: this.totalPages() }, (_, i) => i);
   }

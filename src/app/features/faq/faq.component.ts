@@ -1,8 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { LucidePlus, LucideMinus } from '@lucide/angular';
 import { ContactModalComponent } from '../messages/ui/contact-modal/contact-modal.component';
+import { SeoService } from '../../core/services/seo.service';
 
 @Component({
   selector: 'app-faq',
@@ -15,9 +15,12 @@ import { ContactModalComponent } from '../messages/ui/contact-modal/contact-moda
   ],
   templateUrl: './faq.component.html'
 })
-export class FaqComponent {
-  openIndex = signal<number | null>(0); // Le premier est ouvert par défaut
+export class FaqComponent implements OnInit {
+  private seoService = inject(SeoService);
+
+  openIndex = signal<number | null>(0);
   showContactModal = signal(false);
+  
   faqs = [
     {
       question: "Peut-on payer les frais de formation en plusieurs fois ?",
@@ -45,12 +48,19 @@ export class FaqComponent {
     }
   ];
 
+  ngOnInit() {
+    this.seoService.setPageSeo(
+      "Questions Fréquentes (FAQ)",
+      "Toutes les réponses sur les formations IBE : frais, paiement, certificat MINEFOP, stage pratique, kit professionnel à Yaoundé, Cameroun."
+    );
+    this.seoService.setFaqSchema(this.faqs);
+  }
+
   toggleQuestion(index: number) {
     this.openIndex.update(current => current === index ? null : index);
   }
 
-   openContactModal() {
+  openContactModal() {
     this.showContactModal.set(true);
   }
-
 }

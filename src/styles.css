@@ -8,8 +8,8 @@
   --color-ibe-50: #F7F1FB;       /* fond de page */
   --color-ibe-100: #F1E6FA;      /* fonds sections, badges */
   --color-ibe-200: #E0C8F0;      /* bordures, séparateurs */
-  --color-ibe-300: #C79FE0;      /* icônes secondaires */
   --color-ibe-400: #AD78D1;      /* hover discret */
+  --color-ibe-300: #C79FE0;      /* icônes secondaires */
   --color-ibe-500: #9B5FC0;      /* couleur LOGO (signature) */
   --color-ibe-600: #7E48A3;      /* CTA, liens, nav active */
   --color-ibe-700: #623685;      /* hover CTA, texte fort */
@@ -27,8 +27,8 @@
   --animate-shrink: shrink 4s linear forwards;
 
   /* Polices d'écriture */
-  --font-serif: "Playfair Display", Georgia, serif;
-  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-serif: "Poppins", sans-serif; 
+  --font-sans: "Inter", system-ui, sans-serif; 
 
   /* Arrondis (Border Radius) */
   --radius-sm: 4px;
@@ -74,7 +74,17 @@
   h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); }
   h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); font-weight: 600; }
   p  { margin: 0 0 var(--spacing-s2) 0; color: var(--color-ibe-muted); font-size: 16px; }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    font-style: italic;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 }
+
+
 
 /* ==========================================
    3. COMPOSANTS UTILITAIRES
@@ -193,6 +203,13 @@
     animation: shimmer 1.5s infinite;
     border-radius: var(--radius-md);
   }
+}
+
+/* RESPONSIVE TABLETTE (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .grid-cols-3 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .lg\:col-span-7 { grid-column: span 12 / span 12 !important; }
+  .lg\:col-span-5 { grid-column: span 12 / span 12 !important; }
 }
 
 @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }

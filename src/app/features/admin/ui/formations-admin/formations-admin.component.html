@@ -56,7 +56,7 @@
               <tr class="hover:bg-ibe-50/30 transition-colors">
                 <td class="px-6 py-4">
                   <div class="flex items-center gap-3">
-                    <img [src]="form.photoPrincipale || 'assets/img/default-formation.jpg'" class="w-10 h-10 rounded-lg object-cover border border-ibe-100">
+                    <img [src]="form.photoPrincipale || 'assets/img/default-formation.webp'" class="w-10 h-10 rounded-lg object-cover border border-ibe-100">
                     <span class="font-bold text-ibe-dark">{{ form.nom }}</span>
                   </div>
                 </td>
@@ -91,7 +91,7 @@
         @for (form of formations(); track form.id) {
           <div class="p-4">
             <div class="flex items-center gap-3 mb-3">
-              <img [src]="form.photoPrincipale || 'assets/img/default-formation.jpg'" class="w-12 h-12 rounded-lg object-cover border border-ibe-100">
+              <img [src]="form.photoPrincipale || 'assets/img/default-formation.webp'" class="w-12 h-12 rounded-lg object-cover border border-ibe-100">
               <div>
                 <h4 class="font-bold text-ibe-dark text-sm m-0 line-clamp-1">{{ form.nom }}</h4>
                 <p class="text-xs text-ibe-muted m-0">{{ form.categorie }}</p>
