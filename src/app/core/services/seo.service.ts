@@ -11,7 +11,7 @@ export class SeoService {
   /**
    * Configure le SEO complet d'une page
    */
-  setPageSeo(pageTitle: string, description: string, image: string = '/assets/img/logo-ibe.png') {
+  setPageSeo(pageTitle: string, description: string, image: string = '/assets/img/logo-ibe.webp') {
     const siteName = "Institut Beauty's Empire";
     const fullTitle = `${pageTitle} — ${siteName}`;
     const imageUrl = `https://ibe-yaounde.com${image}`;
@@ -62,7 +62,7 @@ export class SeoService {
       "alternateName": "IBE Yaoundé",
       "description": "Centre de formation professionnelle aux métiers de la beauté à Yaoundé (Esthétique, Coiffure, Make-up).",
       "url": "https://ibe-yaounde.com",
-      "logo": "https://ibe-yaounde.com/assets/img/logo-ibe.png",
+      "logo": "https://ibe-yaounde.com/assets/img/logo-ibe.webp",
       "image": "https://ibe-yaounde.com/assets/img/ibe-ceremony.webp",
       "address": {
         "@type": "PostalAddress",

@@ -101,7 +101,7 @@
 </section>
 
 <!-- 4. FORMATIONS POPULAIRES (Depuis le Backend) -->
-<section class="py-24 bg-ibe-50">
+<section class="py-24 bg-ibe-50 min-h-[600px]">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
     <!-- Nouveaux Titres -->
@@ -129,7 +129,7 @@
             <!-- Image Carrée avec bordure 6px (rounded-md) -->
             <div class="relative aspect-square rounded-md overflow-hidden mb-6 shadow-sm">
               <!-- N'oublie pas de convertir tes images en WebP pour la performance -->
-              <img [src]="optimizeImage(formation.photoPrincipale)" 
+              <img [src]="formation.photoPrincipale | cloudinaryOptimize:400"
                 [alt]="formation.nom" 
                 width="400" height="400" loading="lazy"
                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
@@ -182,7 +182,7 @@
 </section>
 
 <!-- 5. GALERIE (Grille Instagram Luxe & Performante) -->
-<section class="py-24 bg-white">
+<section class="py-24 bg-white min-h-[500px]">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
     <div class="text-center mb-16">
@@ -206,11 +206,11 @@
           <div class="relative aspect-square rounded-md overflow-hidden group cursor-pointer shadow-sm">
             
             <!-- Image optimisée (lazy loading, dimensions explicites) -->
-            <img [src]="img.url" 
-                 [alt]="img.titre" 
-                 width="400" height="400" loading="lazy" decoding="async"
-                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-            
+            <img [src]="img.url | cloudinaryOptimize:400" 
+              [alt]="img.titre" 
+              width="400" height="400" loading="lazy" decoding="async"
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                      
             <!-- Overlay Luxe au survol (Dégradé depuis le bas) -->
             <div class="absolute inset-0 bg-gradient-to-t from-ibe-900/90 via-ibe-900/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 md:p-6">
               <span class="text-ibe-300 text-[10px] md:text-xs font-bold uppercase tracking-widest mb-1">
@@ -235,7 +235,7 @@
 <!-- ==========================================
      6. TÉMOIGNAGES (CHEVRONS SUR LES CÔTÉS)
      ========================================== -->
-    <section class="py-24 bg-ibe-50 relative overflow-hidden">
+    <section class="py-24 bg-ibe-900 text-white relative overflow-hidden min-h-[400px]">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">

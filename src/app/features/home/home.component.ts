@@ -23,12 +23,13 @@ import { NewsletterService } from '../../shared/services/newsletter.service';
 import { ContactModalComponent } from '../messages/ui/contact-modal/contact-modal.component';
 import { GalleryService } from '../../shared/services/gallery.service';
 import { SeoService } from '../../core/services/seo.service';
+import { CloudinaryOptimizePipe } from '../../shared/pipes/cloudinary-optimize.pipe';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
-    CommonModule, RouterLink, 
+    CommonModule, RouterLink, CloudinaryOptimizePipe,
     LucideUsers, LucideAward, LucideBriefcase,
     LucideMapPin, LucidePhone, LucideStar,
     ReactiveFormsModule, LucideCheck, LucideX, ContactModalComponent, LucideBanknote,
