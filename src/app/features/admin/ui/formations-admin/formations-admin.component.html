@@ -1,0 +1,134 @@
+<div class="max-w-7xl mx-auto">
+
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+    <div>
+      <h1 class="text-3xl font-bold text-ibe-dark mb-1">Gestion des Formations</h1>
+      <p class="text-ibe-muted m-0">{{ totalElements() }} formations au total</p>
+    </div>
+    <button (click)="createFormation()" class="btn-primary shadow-[0_8px_20px_rgba(126,72,163,0.25)]">
+      <svg lucidePlus [size]="20"></svg> Nouvelle Formation
+    </button>
+  </div>
+
+  <!-- BARRE DE RECHERCHE & FILTRES -->
+  <div class="bg-white p-4 rounded-2xl border border-ibe-100 shadow-sm mb-8 flex flex-col sm:flex-row gap-4">
+    <div class="relative flex-grow">
+      <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-ibe-400">
+        <svg lucideSearch [size]="20"></svg>
+      </div>
+      <input type="text"
+             [ngModel]="searchQuery()"
+             (ngModelChange)="searchQuery.set($event); onSearch()"
+             class="w-full pl-12 pr-4 py-3 bg-ibe-50 border-none rounded-xl outline-none focus:ring-2 focus:ring-ibe-500/20 transition-all"
+             placeholder="Rechercher par nom ou catégorie...">
+    </div>
+
+    <!-- NOUVEAU : Filtre de statut -->
+    <select [ngModel]="statusFilter()" (ngModelChange)="statusFilter.set($event); onSearch()"
+            class="px-4 py-3 bg-ibe-50 border-none rounded-xl outline-none focus:ring-2 focus:ring-ibe-500/20 text-ibe-dark font-medium min-w-[200px] cursor-pointer">
+      <option value="ALL">Toutes les formations</option>
+      <option value="ACTIVE">Actives uniquement</option>
+      <option value="INACTIVE">Inactives uniquement</option>
+    </select>
+  </div>
+
+  <div class="bg-white rounded-2xl border border-ibe-100 shadow-sm overflow-hidden">
+    @if (isLoading()) {
+      <div class="p-8 text-center text-ibe-muted">Chargement des formations...</div>
+    } @else if (formations().length === 0) {
+      <div class="p-12 text-center">
+        <p class="text-ibe-muted">Aucune formation trouvée.</p>
+      </div>
+    } @else {
+      <div class="hidden md:block overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-ibe-50/50 border-b border-ibe-100 text-xs uppercase tracking-wider text-ibe-muted">
+              <th class="px-6 py-4 font-medium">Formation</th>
+              <th class="px-6 py-4 font-medium">Catégorie</th>
+              <th class="px-6 py-4 font-medium">Prix</th>
+              <th class="px-6 py-4 font-medium text-center">Statut</th>
+              <th class="px-6 py-4 font-medium text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-ibe-100">
+            @for (form of formations(); track form.id) {
+              <tr class="hover:bg-ibe-50/30 transition-colors">
+                <td class="px-6 py-4">
+                  <div class="flex items-center gap-3">
+                    <img [src]="form.photoPrincipale || 'assets/img/default-formation.jpg'" class="w-10 h-10 rounded-lg object-cover border border-ibe-100">
+                    <span class="font-bold text-ibe-dark">{{ form.nom }}</span>
+                  </div>
+                </td>
+                <td class="px-6 py-4 text-sm text-ibe-muted">{{ form.categorie }}</td>
+                <td class="px-6 py-4 font-serif font-bold text-ibe-700">{{ form.prix | currencyFcfa }}</td>
+                <td class="px-6 py-4 text-center">
+                  <button (click)="toggleStatus(form)" class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none" [class]="form.active ? 'bg-ibe-success' : 'bg-ibe-200'">
+                    <span class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform" [class]="form.active ? 'translate-x-6' : 'translate-x-1'"></span>
+                  </button>
+                </td>
+                <td class="px-6 py-4 text-right">
+                  <!-- MODIFIÉ : Boutons toujours visibles avec texte -->
+                  <div class="flex items-center justify-end gap-3">
+                    <button (click)="editFormation(form.id)" class="px-3 py-2 rounded-lg bg-ibe-50 text-ibe-600 flex items-center gap-2 hover:bg-ibe-600 hover:text-white transition-colors font-medium text-sm">
+                      <svg lucidePencil [size]="16"></svg> Modifier
+                    </button>
+                    <button (click)="deleteFormation(form.id)" class="px-3 py-2 rounded-lg bg-ibe-danger/10 text-ibe-danger flex items-center gap-2 hover:bg-ibe-danger hover:text-white transition-colors font-medium text-sm">
+                      <svg lucideTrash2 [size]="16"></svg> Supprimer
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+
+      <!-- Vue Mobile (Cartes) -->
+      <div class="md:hidden divide-y divide-ibe-100">
+        @for (form of formations(); track form.id) {
+          <div class="p-4">
+            <div class="flex items-center gap-3 mb-3">
+              <img [src]="form.photoPrincipale || 'assets/img/default-formation.jpg'" class="w-12 h-12 rounded-lg object-cover border border-ibe-100">
+              <div>
+                <h4 class="font-bold text-ibe-dark text-sm m-0 line-clamp-1">{{ form.nom }}</h4>
+                <p class="text-xs text-ibe-muted m-0">{{ form.categorie }}</p>
+              </div>
+            </div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="font-serif font-bold text-ibe-700">{{ form.prix | currencyFcfa }}</span>
+              <button (click)="toggleStatus(form)" class="text-xs px-3 py-1 rounded-md font-bold transition-colors"
+                      [class]="form.active ? 'bg-ibe-success/10 text-ibe-success' : 'bg-ibe-danger/10 text-ibe-danger'">
+                {{ form.active ? 'ACTIVE' : 'INACTIVE' }}
+              </button>
+            </div>
+            <div class="flex gap-2">
+              <button class="flex-1 py-2 rounded-lg bg-ibe-50 text-ibe-600 text-sm font-medium flex items-center justify-center gap-2">
+                <svg lucidePencil [size]="14"></svg> Modifier
+              </button>
+              <button (click)="deleteFormation(form.id)" class="w-10 rounded-lg bg-ibe-danger/10 text-ibe-danger flex items-center justify-center">
+                <svg lucideTrash2 [size]="14"></svg>
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+
+
+  </div>
+
+  <!-- PAGINATION -->
+  @if (totalPages() > 1) {
+    <div class="flex justify-center items-center gap-2 mt-8">
+      @for (page of getPagesArray(); track page) {
+        <button (click)="loadFormations(page)"
+                class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-colors cursor-pointer select-none"
+                [class]="currentPage() === page ? 'bg-ibe-600 text-white shadow-md' : 'bg-white border border-ibe-200 text-ibe-600 hover:bg-ibe-50'">
+          {{ page + 1 }}
+        </button>
+      }
+    </div>
+  }
+

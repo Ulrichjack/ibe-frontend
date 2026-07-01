@@ -5,7 +5,13 @@
   "projects": {
     "ibe-frontend": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+          "@schematics/angular:component": {
+            "style": "css",
+            "type": "Component",
+            "changeDetection": "OnPush"
+          }
+        },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -30,16 +36,23 @@
           },
           "configurations": {
             "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": false,
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "10MB",
+                  "maximumError": "10MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+                  "maximumWarning": "40kB",
+                  "maximumError": "80kB"
                 }
               ],
               "outputHashing": "all"

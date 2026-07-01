@@ -1,0 +1,69 @@
+<div class="min-h-screen flex bg-ibe-50">
+
+  <!-- Colonne Gauche : Formulaire -->
+  <div class="w-full lg:w-5/12 flex flex-col justify-center px-8 sm:px-16 lg:px-24 bg-white shadow-2xl z-10">
+
+    <div class="mb-12 text-center lg:text-left">
+      <div class="w-16 h-16 bg-ibe-500 rounded-full flex items-center justify-center p-2 mb-6 mx-auto lg:mx-0 shadow-lg">
+        <img src="assets/img/logo-ibe.png" alt="Logo" class="w-full h-full object-contain brightness-0 invert">
+      </div>
+      <h1 class="text-3xl mb-2">Accès <span class="italic text-ibe-500">Sécurisé</span></h1>
+      <p class="text-ibe-muted">Espace d'administration Beauty's Empire</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6">
+
+      @if (errorMessage()) {
+        <div class="bg-ibe-danger/10 border-l-4 border-ibe-danger text-ibe-danger p-4 rounded-r-lg text-sm font-medium animate-in slide-in-from-top-2">
+          {{ errorMessage() }}
+        </div>
+      }
+
+      <div>
+        <label class="block text-sm font-medium text-ibe-dark mb-2">Identifiant</label>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-ibe-400">
+            <svg lucideUser [size]="20"></svg>
+          </div>
+          <input type="text" formControlName="username" class="input-field pl-12 py-4 bg-ibe-50/50" placeholder="Votre identifiant admin">
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-ibe-dark mb-2">Mot de passe</label>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-ibe-400">
+            <svg lucideLock [size]="20"></svg>
+          </div>
+          <input [type]="showPassword() ? 'text' : 'password'" formControlName="password" class="input-field pl-12 pr-12 py-4 bg-ibe-50/50" placeholder="••••••••">
+          <button type="button" (click)="togglePassword()" class="absolute inset-y-0 right-0 pr-4 flex items-center text-ibe-400 hover:text-ibe-600 transition-colors">
+            @if (showPassword()) { <svg lucideEyeOff [size]="20"></svg> }
+            @else { <svg lucideEye [size]="20"></svg> }
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="isLoading() || loginForm.invalid" class="btn-primary w-full py-4 text-lg mt-4 shadow-[0_8px_25px_rgba(126,72,163,0.3)]">
+        {{ isLoading() ? 'Connexion...' : 'Se connecter' }}
+      </button>
+    </form>
+
+    <p class="text-center text-xs text-ibe-muted mt-12">
+      © {{ currentYear }} Institut Beauty's Empire.
+    </p>
+  </div>
+
+  <!-- Colonne Droite : Image de fond (Cachée sur mobile) -->
+  <div class="hidden lg:block lg:w-7/12 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-ibe-900/90 to-ibe-600/80 z-10 mix-blend-multiply"></div>
+    <img src="assets/img/ibe-excellence.jpg" alt="Background" class="absolute inset-0 w-full h-full object-cover">
+
+    <div class="absolute inset-0 z-20 flex flex-col items-center justify-center text-white p-12 text-center">
+      <h2 class="text-white text-5xl mb-6">Système de Gestion</h2>
+      <p class="text-xl text-ibe-100 max-w-lg leading-relaxed">
+        Gérez vos formations, répondez à vos étudiantes et pilotez votre institut depuis une interface unique et sécurisée.
+      </p>
+    </div>
+  </div>
+
+</div>

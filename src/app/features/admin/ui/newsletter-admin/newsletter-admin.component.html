@@ -1,0 +1,54 @@
+<div class="max-w-7xl mx-auto">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-ibe-dark mb-1">Abonnés Catalogue</h1>
+    <p class="text-ibe-muted m-0">Personnes ayant demandé le catalogue depuis la page d'accueil.</p>
+  </div>
+
+  <div class="bg-white rounded-2xl border border-ibe-100 shadow-sm overflow-hidden">
+    @if (isLoading()) {
+      <div class="p-8 text-center text-ibe-muted">Chargement...</div>
+    } @else if (abonnes().length === 0) {
+      <div class="p-12 text-center text-ibe-muted">Aucun abonné pour le moment.</div>
+    } @else {
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-ibe-50/50 border-b border-ibe-100 text-xs uppercase tracking-wider text-ibe-muted">
+              <th class="px-6 py-4 font-medium">Téléphone</th>
+              <th class="px-6 py-4 font-medium">Date</th>
+              <th class="px-6 py-4 font-medium text-center">Statut</th>
+              <th class="px-6 py-4 font-medium text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-ibe-100">
+            @for (abonne of abonnes(); track abonne.id) {
+              <tr class="hover:bg-ibe-50/30 transition-colors" [class.opacity-60]="abonne.contacte">
+                <td class="px-6 py-4 font-bold text-ibe-dark">{{ abonne.telephone }}</td>
+                <td class="px-6 py-4 text-sm text-ibe-muted">{{ formatDate(abonne.dateInscription) }}</td>
+                <td class="px-6 py-4 text-center">
+                  @if (abonne.contacte) {
+                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-ibe-success/10 text-ibe-success">CONTACTÉ</span>
+                  } @else {
+                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-ibe-warning/10 text-ibe-warning">À CONTACTER</span>
+                  }
+                </td>
+                <td class="px-6 py-4 text-right">
+                  <div class="flex items-center justify-end gap-3">
+                    <button (click)="openWhatsApp(abonne.whatsappCatalogueLink, abonne.telephone)" class="px-3 py-2 rounded-lg bg-ibe-wa/10 text-ibe-wa flex items-center gap-2 hover:bg-ibe-wa hover:text-white transition-colors font-medium text-sm">
+                      <svg lucideMessageCircle [size]="16"></svg> Envoyer Catalogue
+                    </button>
+                    @if (!abonne.contacte) {
+                      <button (click)="marquerContacte(abonne.id)" class="px-3 py-2 rounded-lg bg-ibe-50 text-ibe-600 flex items-center gap-2 hover:bg-ibe-600 hover:text-white transition-colors font-medium text-sm">
+                        <svg lucideCircleCheck [size]="16"></svg> Fait
+                      </button>
+                    }
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+</div>

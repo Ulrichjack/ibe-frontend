@@ -1,1 +1,203 @@
-/* You can add global styles to this file, and also import other style files */
+/* ==========================================
+   1. IMPORTATION & THEME (Ancienne Étape 3)
+   ========================================== */
+@import "tailwindcss";
+
+@theme {
+  /* Palette de couleurs Violette Strict IBE */
+  --color-ibe-50: #F7F1FB;       /* fond de page */
+  --color-ibe-100: #F1E6FA;      /* fonds sections, badges */
+  --color-ibe-200: #E0C8F0;      /* bordures, séparateurs */
+  --color-ibe-300: #C79FE0;      /* icônes secondaires */
+  --color-ibe-400: #AD78D1;      /* hover discret */
+  --color-ibe-500: #9B5FC0;      /* couleur LOGO (signature) */
+  --color-ibe-600: #7E48A3;      /* CTA, liens, nav active */
+  --color-ibe-700: #623685;      /* hover CTA, texte fort */
+  --color-ibe-800: #472566;      /* sidebar admin, footer */
+  --color-ibe-900: #2D1640;      /* overlay hero, gradient foncé */
+  --color-ibe-dark: #221B2E;     /* texte principal (jamais #000) */
+  --color-ibe-muted: #6E647C;    /* texte secondaire */
+  --color-ibe-surface: #FFFFFF;  /* cards, modals */
+  --color-ibe-wa: #25D366;       /* EXCLUSIF WhatsApp */
+  --color-ibe-wa-hover: #1DA855;
+  --color-ibe-success: #3FA66A;
+  --color-ibe-warning: #D89A3A;
+  --color-ibe-danger: #DC2626;
+
+  --animate-shrink: shrink 4s linear forwards;
+
+  /* Polices d'écriture */
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "DM Sans", system-ui, sans-serif;
+
+  /* Arrondis (Border Radius) */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+
+  /* Espacement — règle ×8 OBLIGATOIRE (Génère des classes comme p-s2, m-s4...) */
+  --spacing-s1: 8px;
+  --spacing-s2: 16px;
+  --spacing-s3: 24px;
+  --spacing-s4: 32px;
+  --spacing-s6: 48px;
+  --spacing-s8: 64px;
+}
+
+/* ==========================================
+   2. STYLES DE BASE (Ancienne Étape 4)
+   ========================================== */
+@layer base {
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--color-ibe-50);
+    color: var(--color-ibe-dark);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0 0 var(--spacing-s2) 0;
+    color: var(--color-ibe-dark);
+  }
+
+  h1 { font-size: clamp(1.75rem, 6vw, 3.5rem); }
+  h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); }
+  h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); font-weight: 600; }
+  p  { margin: 0 0 var(--spacing-s2) 0; color: var(--color-ibe-muted); font-size: 16px; }
+}
+
+/* ==========================================
+   3. COMPOSANTS UTILITAIRES
+   ========================================== */
+@layer components {
+  /* Bouton Principal Violet */
+  .btn-primary {
+    background: var(--color-ibe-600);
+    color: #fff;
+    padding: var(--spacing-s2) var(--spacing-s3);
+    border: none;
+    border-radius: var(--radius-pill);
+    font-weight: 500;
+    font-size: 16px;
+    cursor: pointer;
+    min-height: 48px;
+    min-width: 48px;
+    transition: background .2s, transform .15s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-s1);
+  }
+  .btn-primary:hover:not(:disabled) {
+    background: var(--color-ibe-700);
+    transform: translateY(-1px);
+  }
+  .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  /* Bouton Outline */
+  .btn-outline {
+    background: transparent;
+    color: var(--color-ibe-600);
+    border: 2px solid var(--color-ibe-600);
+    padding: var(--spacing-s2) var(--spacing-s3);
+    border-radius: var(--radius-pill);
+    font-weight: 500;
+    font-size: 16px;
+    cursor: pointer;
+    min-height: 48px;
+    transition: background .2s, color .2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-s1);
+  }
+  .btn-outline:hover {
+    background: var(--color-ibe-600);
+    color: #fff;
+  }
+
+  /* Bouton Vert WhatsApp */
+  .btn-whatsapp {
+    background: var(--color-ibe-wa);
+    color: #fff;
+    padding: var(--spacing-s2) var(--spacing-s3);
+    border: none;
+    border-radius: var(--radius-pill);
+    font-weight: 500;
+    font-size: 16px;
+    cursor: pointer;
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-s1);
+    transition: background .2s;
+  }
+  .btn-whatsapp:hover { background: var(--color-ibe-wa-hover); }
+
+  /* Cartes de Prestations */
+  .card-ibe {
+    background: var(--color-ibe-surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-ibe-200);
+    overflow: hidden;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .card-ibe:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(34, 27, 46, .10);
+  }
+
+  /* Badges de Catégories */
+  .badge-ibe {
+    background: var(--color-ibe-100);
+    color: var(--color-ibe-700);
+    padding: 4px 12px;
+    border-radius: var(--radius-sm);
+    font-size: .75rem;
+    font-weight: 500;
+    display: inline-block;
+  }
+
+  /* Champs de Formulaires */
+  .input-field {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--color-ibe-200);
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    color: var(--color-ibe-dark);
+    background: var(--color-ibe-surface);
+    transition: border-color .2s;
+    outline: none;
+  }
+  .input-field:focus { border-color: var(--color-ibe-500); }
+  .input-field.error { border-color: var(--color-ibe-danger); }
+
+  .error-message { color: var(--color-ibe-danger); font-size: .8rem; margin-top: 4px; }
+
+  /* Skeleton Loader pour le chargement */
+  .skeleton {
+    background: linear-gradient(90deg, var(--color-ibe-100) 25%, var(--color-ibe-50) 50%, var(--color-ibe-100) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: var(--radius-md);
+  }
+}
+
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+@keyframes shrink {
+  from { width: 100%; }
+  to { width: 0%; }
+}
+

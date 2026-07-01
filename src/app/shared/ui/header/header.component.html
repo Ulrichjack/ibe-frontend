@@ -1,0 +1,97 @@
+<!-- Header Fixe avec effet Glassmorphism (Verre dépoli) au scroll -->
+<header
+  class="fixed top-0 w-full z-50 transition-all duration-500"
+  [class]="isScrolled() ? 'bg-white/90 backdrop-blur-md shadow-[0_4px_30px_rgba(34,27,46,0.05)] py-2' : 'bg-white py-4'">
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center">
+
+      <!-- Logo & Nom de l'Institut -->
+      <a routerLink="/" class="flex items-center gap-4 group" (click)="closeMenu()">
+        <div class="w-18 h-18 rounded-full overflow-hidden border border-ibe-200 shadow-sm group-hover:shadow-md transition-all duration-300">
+          <img src="assets/img/logo-ibe.png" alt="Logo IBE" class="w-full h-full object-cover">
+        </div>
+        <div class="flex flex-col">
+          <span class="font-serif font-bold text-ibe-dark text-xl leading-none tracking-wide group-hover:text-ibe-500 transition-colors duration-300">
+            Beauty's Empire
+          </span>
+          <span class="font-sans text-[10px] uppercase tracking-[0.2em] text-ibe-muted mt-1">
+            Institut de Beauté
+          </span>
+        </div>
+      </a>
+
+      <!-- Navigation Desktop (Luxe : liens épurés avec soulignement animé) -->
+      <nav class="hidden md:flex items-center gap-10">
+        <a routerLink="/" routerLinkActive="text-ibe-600 after:w-full" [routerLinkActiveOptions]="{exact: true}"
+           class="relative font-sans text-[15px] font-medium text-ibe-muted hover:text-ibe-600 transition-colors py-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-ibe-500 after:transition-all after:duration-300 hover:after:w-full">
+          Accueil
+        </a>
+        <a routerLink="/formations" routerLinkActive="text-ibe-600 after:w-full"
+           class="relative font-sans text-[15px] font-medium text-ibe-muted hover:text-ibe-600 transition-colors py-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-ibe-500 after:transition-all after:duration-300 hover:after:w-full">
+          Formations
+        </a>
+        <a routerLink="/galerie" routerLinkActive="text-ibe-600 after:w-full"
+           class="relative font-sans text-[15px] font-medium text-ibe-muted hover:text-ibe-600 transition-colors py-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-ibe-500 after:transition-all after:duration-300 hover:after:w-full">
+          Galerie
+        </a>
+
+        <a routerLink="/a-propos" routerLinkActive="text-ibe-600 after:w-full"
+           class="relative font-sans text-[15px] font-medium text-ibe-muted hover:text-ibe-600 transition-colors py-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-ibe-500 after:transition-all after:duration-300 hover:after:w-full">
+          À propos
+        </a>
+
+        <a routerLink="/localisation" routerLinkActive="text-ibe-600 after:w-full"
+           class="relative font-sans text-[15px] font-medium text-ibe-muted hover:text-ibe-600 transition-colors py-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-ibe-500 after:transition-all after:duration-300 hover:after:w-full">
+          Localisation
+        </a>
+
+        <a routerLink="/faq" routerLinkActive="text-ibe-600 after:w-full"
+           class="relative font-sans text-[15px] font-medium text-ibe-muted hover:text-ibe-600 transition-colors py-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-ibe-500 after:transition-all after:duration-300 hover:after:w-full">
+          FAQ
+        </a>
+
+      </nav>
+
+      <!-- CTA Desktop -->
+      <div class="hidden md:flex">
+        <button (click)="openContactModal()" class="btn-primary">
+          Nous Contacter
+        </button>
+      </div>
+
+      <!-- Bouton Menu Mobile -->
+      <button class="md:hidden p-2 text-ibe-dark hover:text-ibe-500 transition-colors" (click)="toggleMenu()" aria-label="Menu">
+        @if (isMenuOpen()) {
+          <svg lucideX [size]="28" [strokeWidth]="1.5"></svg>
+        } @else {
+          <svg lucideMenu [size]="28" [strokeWidth]="1.5"></svg>
+        }
+      </button>
+    </div>
+  </div>
+
+  <!-- Menu Mobile (Overlay élégant) -->
+  @if (isMenuOpen()) {
+    <div class="md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-b border-ibe-100 shadow-2xl animate-[slideDown_0.3s_ease-out]">
+      <nav class="flex flex-col px-6 py-8 gap-6">
+        <a routerLink="/" (click)="closeMenu()" class="font-serif text-2xl text-ibe-dark hover:text-ibe-500 transition-colors animate-in slide-in-from-left-8 duration-500 delay-75">Accueil</a>
+        <a routerLink="/formations" (click)="closeMenu()" class="font-serif text-2xl text-ibe-dark hover:text-ibe-500 transition-colors animate-in slide-in-from-left-8 duration-500 delay-100">Nos Formations</a>
+        <a routerLink="/galerie" (click)="closeMenu()" class="font-serif text-2xl text-ibe-dark hover:text-ibe-500 transition-colors animate-in slide-in-from-left-8 duration-500 delay-150">Galerie</a>
+        <a routerLink="/a-propos" (click)="closeMenu()" class="font-serif text-2xl text-ibe-dark hover:text-ibe-500 transition-colors animate-in slide-in-from-left-8 duration-500 delay-200">À propos</a>
+        <a routerLink="/localisation" (click)="closeMenu()" class="font-serif text-2xl text-ibe-dark hover:text-ibe-500 transition-colors animate-in slide-in-from-left-8 duration-500 delay-300">Localisation</a>
+        <a routerLink="/faq" (click)="closeMenu()" class="font-serif text-2xl text-ibe-dark hover:text-ibe-500 transition-colors animate-in slide-in-from-left-8 duration-500 delay-500">FAQ</a>
+
+        <div class="h-px w-full bg-ibe-100 my-2 animate-in fade-in duration-500 delay-500"></div>
+
+        <button (click)="openContactModal(); closeMenu()" class="btn-primary w-full justify-center animate-in slide-in-from-bottom-4 duration-500 delay-700">
+          Nous Contacter
+        </button>
+      </nav>
+    </div>
+  }
+</header>
+
+@if (showContactModal()) {
+  <app-contact-modal (close)="showContactModal.set(false)" />
+}

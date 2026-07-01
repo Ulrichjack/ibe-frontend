@@ -1,0 +1,87 @@
+<!-- HEADER DE PAGE -->
+<section class="bg-ibe-900 pt-32 pb-20 relative overflow-hidden">
+  <div class="absolute inset-0 bg-[url('/assets/img/ibe-ceremony.jpg')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
+  <div class="absolute inset-0 bg-linear-to-t from-ibe-900 to-transparent"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+    <p class="text-ibe-300 font-medium tracking-widest uppercase text-sm mb-4">Contact & Accès</p>
+    <h1 class="text-white mb-6">Notre <span class="italic text-ibe-200">Localisation</span></h1>
+    <p class="text-ibe-100 text-lg max-w-2xl mx-auto">
+      Venez nous rendre visite dans nos campus à Yaoundé pour découvrir nos installations et rencontrer notre équipe.
+    </p>
+  </div>
+</section>
+
+<section class="py-24 bg-ibe-50 min-h-screen">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+
+      <!-- COLONNE GAUCHE : Informations -->
+      <div class="lg:col-span-5 space-y-12">
+
+        <!-- Campus 1 -->
+        <div class="bg-white p-8 rounded-3xl shadow-sm border border-ibe-100 relative overflow-hidden group hover:shadow-md transition-shadow">
+          <div class="absolute top-0 left-0 w-2 h-full bg-ibe-500"></div>
+          <h3 class="text-2xl mb-6 flex items-center gap-3">
+            <svg lucideMapPin [size]="28" class="text-ibe-500"></svg> Campus Tsinga
+          </h3>
+          <p class="text-ibe-muted leading-relaxed mb-6">
+            Entrée PMI Tsinga, près du Centre de Promotion de la Femme et de la Famille. Face à l'Agence de Promotion des PME.
+          </p>
+          <a href="https://maps.google.com/?q=PMI+Tsinga+Yaounde" target="_blank" class="inline-flex items-center gap-2 text-sm font-bold text-ibe-600 hover:text-ibe-700 uppercase tracking-wider">
+            <svg lucideNavigation [size]="16"></svg> Itinéraire
+          </a>
+        </div>
+
+        <!-- Campus 2 -->
+        <div class="bg-white p-8 rounded-3xl shadow-sm border border-ibe-100 relative overflow-hidden group hover:shadow-md transition-shadow">
+          <div class="absolute top-0 left-0 w-2 h-full bg-ibe-300"></div>
+          <h3 class="text-2xl mb-6 flex items-center gap-3">
+            <svg lucideMapPin [size]="28" class="text-ibe-400"></svg> Campus Nkoabang
+          </h3>
+          <p class="text-ibe-muted leading-relaxed mb-6">
+            Carrefour 10ème Arrêt Nkoabang, Yaoundé. Un cadre d'apprentissage moderne et accessible.
+          </p>
+          <a href="https://maps.google.com/?q=Carrefour 10ème arrêt, RHXG+72V, N10, Yaoundé+Yaounde" target="_blank" class="inline-flex items-center gap-2 text-sm font-bold text-ibe-600 hover:text-ibe-700 uppercase tracking-wider">
+            <svg lucideNavigation [size]="16"></svg> Itinéraire
+          </a>
+        </div>
+
+        <!-- Horaires & Contact -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div class="bg-white p-6 rounded-2xl border border-ibe-100">
+            <svg lucideClock [size]="24" class="text-ibe-500 mb-4"></svg>
+            <h4 class="text-lg mb-2">Horaires</h4>
+            <p class="text-sm text-ibe-muted m-0">Lun - Ven : 08h00 - 18h30</p>
+            <p class="text-sm text-ibe-muted m-0">Samedi : 09h00 - 17h00</p>
+          </div>
+          <div class="bg-white p-6 rounded-2xl border border-ibe-100">
+            <svg lucidePhone [size]="24" class="text-ibe-500 mb-4"></svg>
+            <h4 class="text-lg mb-2">Téléphone</h4>
+            <p class="text-sm text-ibe-muted m-0"><a href="tel:+237690566836" class="hover:text-ibe-600">690 56 68 36</a></p>
+            <p class="text-sm text-ibe-muted m-0"><a href="tel:+237679358484" class="hover:text-white">679 35 84 84</a></p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- COLONNE DROITE : Carte Google Maps -->
+      <div class="lg:col-span-7 h-[600px] lg:h-full min-h-[600px] rounded-3xl overflow-hidden shadow-[0_20px_40px_rgba(34,27,46,0.08)] border border-ibe-100 relative group lg:sticky lg:top-32">
+        <!-- Overlay interactif pour éviter le scroll accidentel sur la carte -->
+        <div class="absolute inset-0 bg-ibe-900/5 group-hover:pointer-events-none transition-colors duration-500 z-10 flex items-center justify-center">
+          <span class="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium text-ibe-700 shadow-sm group-hover:opacity-0 transition-opacity duration-300">
+            Cliquez pour interagir
+          </span>
+        </div>
+
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d995.1666402884808!2d11.502187620949455!3d3.8814715894893124!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2scm!4v1758312893505!5m2!1sfr!2scm"
+          width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          class="absolute inset-0">
+        </iframe>
+      </div>
+
+    </div>
+  </div>
+</section>

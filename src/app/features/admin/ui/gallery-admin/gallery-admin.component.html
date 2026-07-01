@@ -1,0 +1,59 @@
+<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+  
+  <!-- Formulaire Upload -->
+  <div class="lg:col-span-1">
+    <div class="bg-white p-6 rounded-3xl shadow-sm border border-ibe-100 sticky top-8">
+      <h3 class="text-xl mb-6">Ajouter une image</h3>
+      
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+        
+        <div class="relative border-2 border-dashed border-ibe-200 rounded-xl p-6 text-center hover:border-ibe-500 cursor-pointer">
+          <input type="file" (change)="onFileSelected($event)" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+          
+          @if (previewUrl()) {
+            <img [src]="previewUrl()" class="w-full h-32 object-cover rounded-lg">
+          } @else {
+            <svg lucideCloudUpload [size]="32" class="mx-auto text-ibe-400 mb-2"></svg>
+            <span class="text-sm text-ibe-muted">Cliquez pour uploader</span>
+          }
+        </div>
+
+        <div>
+          <input type="text" formControlName="titre" class="input-field" 
+                 [class.error]="form.get('titre')?.invalid && form.get('titre')?.touched" 
+                 placeholder="Titre de l'image *">
+          
+          @if (form.get('titre')?.invalid && form.get('titre')?.touched) {
+            <p class="error-message">Le titre est obligatoire.</p>
+          }
+        </div>        <select formControlName="categorie" class="input-field">
+          <option value="EVENEMENT">Événement</option>
+          <option value="FORMATION">Formation</option>
+          <option value="INSTITUT">Institut</option>
+        </select>
+
+        <button type="submit" [disabled]="isUploading() || !selectedFile()" class="btn-primary w-full">
+          {{ isUploading() ? 'Upload en cours...' : 'Enregistrer' }}
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Grille Images -->
+  <div class="lg:col-span-2">
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      @for (img of images(); track img.id) {
+        <div class="relative aspect-square rounded-2xl overflow-hidden group">
+          <img [src]="img.url" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-ibe-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2">
+            <span class="text-white text-xs font-bold">{{ img.categorie }}</span>
+            <button (click)="deleteImage(img.id)" class="w-10 h-10 rounded-full bg-ibe-danger text-white flex items-center justify-center hover:scale-110 transition-transform">
+              <svg lucideTrash2 [size]="18"></svg>
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+</div>

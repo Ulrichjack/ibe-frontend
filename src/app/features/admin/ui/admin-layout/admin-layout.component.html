@@ -1,0 +1,136 @@
+<div class="flex h-screen overflow-hidden bg-ibe-50 font-sans">
+
+  <!-- ==========================================
+       SIDEBAR (Desktop)
+       ========================================== -->
+  <aside class="hidden lg:flex flex-col w-64 h-full bg-ibe-800 text-white shadow-xl z-50">
+
+    <!-- Logo -->
+    <div class="h-20 flex items-center gap-3 px-6 border-b border-white/10">
+      <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center p-1">
+        <img src="assets/img/logo-ibe.png" alt="Logo" class="w-full h-full object-contain">
+      </div>
+      <span class="font-serif font-bold text-lg leading-tight">IBE Admin</span>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="flex-1 overflow-y-auto py-6 px-4 space-y-2">
+      <p class="px-2 text-xs font-bold uppercase tracking-wider text-ibe-300 mb-4">Menu Principal</p>
+
+      <a routerLink="/admin/dashboard" routerLinkActive="bg-ibe-600 text-white" class="flex items-center gap-3 px-4 py-3 rounded-xl text-ibe-100 hover:bg-ibe-700 transition-colors">
+        <svg lucideLayoutDashboard [size]="20"></svg> Tableau de bord
+      </a>
+
+      <a routerLink="/admin/formations" routerLinkActive="bg-ibe-600 text-white" class="flex items-center gap-3 px-4 py-3 rounded-xl text-ibe-100 hover:bg-ibe-700 transition-colors">
+        <svg lucideGraduationCap [size]="20"></svg> Formations
+      </a>
+
+      <!-- Lien Messages (Desktop) -->
+      <a routerLink="/admin/messages" routerLinkActive="bg-ibe-600 text-white" class="flex items-center justify-between px-4 py-3 rounded-xl text-ibe-100 hover:bg-ibe-700 transition-colors">
+        <div class="flex items-center gap-3"><svg lucideMessageSquare [size]="20"></svg> Messages</div>
+        
+        <!-- Badge Dynamique -->
+        @if (unreadCount() > 0) {
+          <span class="bg-ibe-danger text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+            {{ unreadCount() }}
+          </span>
+        }
+      </a>
+
+      <a routerLink="/admin/newsletter" routerLinkActive="bg-ibe-600 text-white" class="flex items-center gap-3 px-4 py-3 rounded-xl text-ibe-100 hover:bg-ibe-700 transition-colors">
+        <svg lucideUsers [size]="20"></svg> Abonnés
+      </a>
+
+      <a routerLink="/admin/galerie" routerLinkActive="bg-ibe-600 text-white" class="flex items-center gap-3 px-4 py-3 rounded-xl text-ibe-100 hover:bg-ibe-700 transition-colors">
+        <svg lucideImage [size]="20"></svg> Galerie
+      </a>
+
+      <a routerLink="/admin/temoignages" routerLinkActive="bg-ibe-600 text-white" class="flex items-center gap-3 px-4 py-3 rounded-xl text-ibe-100 hover:bg-ibe-700 transition-colors">
+        <svg lucideStar [size]="20"></svg> Témoignages
+      </a>
+    </nav>
+
+    <!-- Footer Sidebar (Déconnexion) -->
+    <div class="p-4 border-t border-white/10">
+      <button (click)="logout()" class="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-ibe-200 hover:bg-white/10 hover:text-white transition-colors">
+        <svg lucideLogOut [size]="18"></svg> Déconnexion
+      </button>
+    </div>
+  </aside>
+
+  <!-- ==========================================
+       SIDEBAR (Mobile Overlay)
+       ========================================== -->
+  @if (isSidebarOpen()) {
+    <div class="fixed inset-0 z-40 bg-ibe-900/60 backdrop-blur-sm lg:hidden animate-in fade-in duration-300" (click)="closeSidebar()"></div>
+
+    <aside class="fixed inset-y-0 left-0 z-50 w-64 bg-ibe-800 text-white shadow-2xl lg:hidden flex flex-col animate-in slide-in-from-left duration-300">
+      <!-- Même contenu que la sidebar desktop -->
+      <div class="h-20 flex items-center justify-between px-6 border-b border-white/10">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center p-1">
+            <img src="assets/img/logo-ibe.png" alt="Logo" class="w-full h-full object-contain">
+          </div>
+          <span class="font-serif font-bold text-lg">IBE Admin</span>
+        </div>
+        <button (click)="closeSidebar()" class="text-ibe-200 hover:text-white"><svg lucideX [size]="24"></svg></button>
+      </div>
+
+      <nav class="flex-1 overflow-y-auto py-6 px-4 space-y-2">
+        <a routerLink="/admin/dashboard" (click)="closeSidebar()" routerLinkActive="bg-ibe-600 text-white" class="flex items-center gap-3 px-4 py-3 rounded-xl text-ibe-100 hover:bg-ibe-700">
+          <svg lucideLayoutDashboard [size]="20"></svg> Tableau de bord
+        </a>
+        <a routerLink="/admin/formations" (click)="closeSidebar()" routerLinkActive="bg-ibe-600 text-white" class="flex items-center gap-3 px-4 py-3 rounded-xl text-ibe-100 hover:bg-ibe-700">
+          <svg lucideGraduationCap [size]="20"></svg> Formations
+        </a>
+        <a routerLink="/admin/messages" (click)="closeSidebar()" routerLinkActive="bg-ibe-600 text-white" class="flex items-center gap-3 px-4 py-3 rounded-xl text-ibe-100 hover:bg-ibe-700">
+          <svg lucideMessageSquare [size]="20"></svg> Messages
+        </a>
+
+         <a routerLink="/admin/newsletter" routerLinkActive="bg-ibe-600 text-white" class="flex items-center gap-3 px-4 py-3 rounded-xl text-ibe-100 hover:bg-ibe-700 transition-colors">
+        <svg lucideUsers [size]="20"></svg> Abonnés
+      </a>
+
+      <a routerLink="/admin/galerie" routerLinkActive="bg-ibe-600 text-white" class="flex items-center gap-3 px-4 py-3 rounded-xl text-ibe-100 hover:bg-ibe-700 transition-colors">
+        <svg lucideImage [size]="20"></svg> Galerie
+      </a>
+
+      <a routerLink="/admin/temoignages" routerLinkActive="bg-ibe-600 text-white" class="flex items-center gap-3 px-4 py-3 rounded-xl text-ibe-100 hover:bg-ibe-700 transition-colors">
+        <svg lucideStar [size]="20"></svg> Témoignages
+      </a>
+
+      </nav>
+
+      <div class="p-4 border-t border-white/10">
+        <button (click)="logout()" class="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-ibe-200 hover:bg-white/10 hover:text-white">
+          <svg lucideLogOut [size]="18"></svg> Déconnexion
+        </button>
+      </div>
+    </aside>
+  }
+
+  <!-- ==========================================
+       MAIN CONTENT (Topbar + Router Outlet)
+       ========================================== -->
+  <div class="flex-1 flex flex-col overflow-hidden">
+
+    <!-- Topbar Mobile -->
+    <header class="lg:hidden h-16 bg-white border-b border-ibe-200 flex items-center justify-between px-4 shrink-0">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 bg-ibe-500 rounded-full flex items-center justify-center p-1">
+          <img src="assets/img/logo-ibe.png" alt="Logo" class="w-full h-full object-contain brightness-0 invert">
+        </div>
+        <span class="font-serif font-bold text-ibe-dark">IBE Admin</span>
+      </div>
+      <button (click)="toggleSidebar()" class="text-ibe-dark p-2">
+        <svg lucideMenu [size]="24"></svg>
+      </button>
+    </header>
+
+    <!-- Contenu de la page (Dashboard, etc.) -->
+    <main class="flex-1 overflow-x-hidden overflow-y-auto bg-ibe-50 p-4 md:p-8">
+      <router-outlet></router-outlet>
+    </main>
+
+  </div>
+</div>

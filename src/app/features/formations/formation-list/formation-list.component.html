@@ -1,0 +1,158 @@
+<!-- HEADER DE PAGE -->
+<section class="bg-ibe-900 pt-32 pb-20 relative overflow-hidden">
+  <div class="absolute inset-0 bg-[url('/assets/img/ibe-formation.jpg')] bg-cover bg-center opacity-20 mix-blend-overlay"></div>
+  <div class="absolute inset-0 bg-linear-to-t  from-ibe-900 to-transparent"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+    <p class="text-ibe-300 font-medium tracking-widest uppercase text-sm mb-4">Catalogue Complet</p>
+    <h1 class="text-white mb-6">Nos <span class="italic text-ibe-200">Formations</span></h1>
+    <p class="text-ibe-100 text-lg max-w-2xl mx-auto">
+      Explorez notre gamme complète de formations professionnelles certifiées, conçues pour vous accompagner vers l'excellence.
+    </p>
+  </div>
+</section>
+
+<!-- BARRE DE RECHERCHE (Glassmorphism) -->
+<section class="relative z-20 -mt-8 max-w-3xl mx-auto px-4 sm:px-6">
+  <div class="bg-white/90 backdrop-blur-xl p-2 rounded-full shadow-[0_8px_30px_rgba(34,27,46,0.08)] border border-ibe-100 flex items-center">
+    <div class="pl-4 pr-2 text-ibe-400">
+      <svg lucideSearch [size]="20"></svg>
+    </div>
+    <input
+      type="text"
+      [ngModel]="searchQuery()"
+      (ngModelChange)="searchQuery.set($event)"
+      (keyup.enter)="onSearch()"
+      placeholder="Rechercher une formation (ex: Onglerie, Make-up...)"
+      class="flex-grow bg-transparent border-none outline-none text-ibe-dark placeholder:text-ibe-300 py-3 text-[16px]">
+
+    @if (searchQuery()) {
+      <button (click)="clearSearch()" class="p-2 text-ibe-400 hover:text-ibe-danger transition-colors">
+        <svg lucideX [size]="18"></svg>
+      </button>
+    }
+    <button (click)="onSearch()" class="btn-primary py-3 px-6 ml-2">
+      Rechercher
+    </button>
+  </div>
+</section>
+
+<!-- LISTE DES FORMATIONS -->
+<section class="py-20 bg-ibe-50 min-h-[50vh]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- États de chargement / Erreur / Vide -->
+    @if (isLoading()) {
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        @for (i of [1,2,3,4,5,6]; track i) { <div class="h-96 skeleton"></div> }
+      </div>
+    } @else if (errorMessage()) {
+      <div class="text-center py-20">
+        <div class="w-20 h-20 bg-ibe-danger/10 rounded-full flex items-center justify-center mx-auto mb-6 text-ibe-danger">
+          <svg lucideX [size]="32"></svg>
+        </div>
+        <h3 class="text-ibe-danger mb-2">Oups !</h3>
+        <p>{{ errorMessage() }}</p>
+        <button (click)="loadFormations(0)" class="btn-outline mt-4">Réessayer</button>
+      </div>
+    } @else if (formations().length === 0) {
+      <div class="text-center py-20">
+        <div class="w-20 h-20 bg-ibe-200 rounded-full flex items-center justify-center mx-auto mb-6 text-ibe-500">
+          <svg lucideSearch [size]="32"></svg>
+        </div>
+        <h3>Aucune formation trouvée</h3>
+        <p>Essayez avec d'autres mots-clés ou parcourez notre catalogue complet.</p>
+        <button (click)="clearSearch()" class="btn-outline mt-4">Voir toutes les formations</button>
+      </div>
+    } @else {
+
+      <!-- Grille des résultats -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        @for (formation of formations(); track formation.id) {
+
+          <div class="card-luxe group flex flex-col bg-white">
+            <!-- Image -->
+            <div class="relative h-56 overflow-hidden">
+              <img [src]="formation.photoPrincipale || 'assets/img/default-formation.jpg'" [alt]="formation.nom" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+              <div class="absolute inset-0 bg-ibe-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+              <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-ibe-700 uppercase tracking-wider shadow-sm">
+                {{ formation.categorie }}
+              </div>
+
+              @if (formation.isPromoActive) {
+                <div class="absolute top-4 right-4 bg-ibe-danger text-white px-3 py-1 rounded-full text-xs font-bold shadow-sm animate-pulse">
+                  PROMO
+                </div>
+              }
+            </div>
+
+            <!-- Contenu -->
+            <div class="p-6 flex flex-col flex-grow">
+              <h3 class="text-xl mb-2 group-hover:text-ibe-600 transition-colors line-clamp-2">{{ formation.nom }}</h3>
+              <p class="text-sm text-ibe-muted line-clamp-2 mb-4">{{ formation.description }}</p>
+
+              <div class="flex items-center gap-4 text-sm text-ibe-muted mb-6">
+                <span class="flex items-center gap-1.5"><svg lucideClock [size]="16"></svg> {{ formation.duree }}</span>
+              </div>
+
+              <!-- SOCIAL PROOF : Barre de progression -->
+              <div class="mb-6 bg-ibe-50 p-3 rounded-xl border border-ibe-100">
+                <div class="flex justify-between text-xs font-medium mb-2">
+                  <span class="text-ibe-700 flex items-center gap-1"><svg lucideUsers [size]="14"></svg> Places limitées</span>
+                  <span class="text-ibe-danger">{{ formation.placesRestantesAffichees }} restantes</span>
+                </div>
+                <div class="h-2 w-full bg-ibe-200 rounded-full overflow-hidden">
+                  <div class="h-full bg-gradient-to-r from-ibe-400 to-ibe-600 rounded-full transition-all duration-1000"
+                       [style.width.%]="getTauxRemplissage(formation)"></div>
+                </div>
+              </div>
+
+              <!-- Prix et Bouton -->
+              <div class="mt-auto pt-4 border-t border-ibe-100 flex items-center justify-between">
+                <div>
+                  <p class="text-xs text-ibe-muted uppercase tracking-wider mb-1">Prix</p>
+                  <div class="flex items-center gap-2">
+                    <p class="font-serif text-xl font-bold text-ibe-dark m-0">{{ (formation.isPromoActive ? formation.prixAvecReduction : formation.prix) | currencyFcfa }}</p>
+                    @if (formation.isPromoActive) {
+                      <span class="text-xs text-ibe-muted line-through">{{ formation.prix | currencyFcfa }}</span>
+                    }
+                  </div>
+                </div>
+
+                <a [routerLink]="['/formations', formation.slug]" class="w-12 h-12 rounded-full bg-ibe-50 flex items-center justify-center text-ibe-600 group-hover:bg-ibe-600 group-hover:text-white transition-all duration-300">
+                  <svg lucideArrowRight [size]="20"></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        }
+      </div>
+
+      <!-- PAGINATION -->
+      @if (totalPages() > 1) {
+        <div class="flex justify-center items-center gap-2">
+          <button [disabled]="currentPage() === 0" (click)="loadFormations(currentPage() - 1)"
+                  class="w-10 h-10 rounded-full flex items-center justify-center border border-ibe-200 text-ibe-600 hover:bg-ibe-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer select-none">
+            <svg lucideChevronLeft [size]="20"></svg>
+          </button>
+
+          @for (page of getPagesArray(); track page) {
+            <button (click)="loadFormations(page)"
+                    class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-colors cursor-pointer select-none"
+                    [class]="currentPage() === page ? 'bg-ibe-600 text-white shadow-md' : 'border border-ibe-200 text-ibe-600 hover:bg-ibe-50'">
+              {{ page + 1 }}
+            </button>
+          }
+
+          <button [disabled]="currentPage() === totalPages() - 1" (click)="loadFormations(currentPage() + 1)"
+                  class="w-10 h-10 rounded-full flex items-center justify-center border border-ibe-200 text-ibe-600 hover:bg-ibe-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer select-none">
+            <svg lucideChevronRight [size]="20"></svg>
+          </button>
+        </div>
+      }
+
+    }
+  </div>
+</section>

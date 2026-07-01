@@ -1,0 +1,93 @@
+<footer class="bg-ibe-900 text-ibe-100 pt-20 pb-10 border-t-[6px] border-ibe-500">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+
+      <!-- Marque & Histoire -->
+      <div class="col-span-1 lg:col-span-1">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-22 h-22 bg-white rounded-full flex items-center justify-center p-1">
+            <img src="assets/img/logo-ibe.png" alt="Logo IBE" class="w-full h-full object-contain">
+          </div>
+          <span class="font-serif font-bold text-white text-xl leading-tight">Beauty's<br>Empire</span>
+        </div>
+        <p class="text-sm text-ibe-200 leading-relaxed mb-6">
+          L'excellence et l'innovation dans la formation beauté au Cameroun depuis 2020. Dirigé par Pavel Lutherking.
+        </p>
+        <!-- Réseaux Sociaux -->
+        <!-- Réseaux Sociaux -->
+        <div class="flex gap-4">
+          <a href="https://www.facebook.com/p/Institut-Beautys-Empire-IBE-100084740873597/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Suivez-nous sur Facebook"
+            class="w-10 h-10 rounded-full border border-ibe-400/30 flex items-center justify-center hover:bg-ibe-500 hover:border-ibe-500 transition-all duration-300 group">
+
+            <!-- SVG Facebook -->
+            <svg class="w-5 h-5 fill-ibe-200 group-hover:fill-white transition-colors" viewBox="0 0 24 24">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+
+          </a>
+        </div>
+      </div>
+
+      <!-- Nos Campus (Vraies infos) -->
+      <div>
+        <h4 class="font-serif text-white text-lg mb-6 tracking-wide">Nos Campus</h4>
+        <ul class="space-y-5 text-sm text-ibe-200">
+          <li class="flex items-start gap-3">
+            <svg lucideMapPin [size]="18" class="text-ibe-400 shrink-0 mt-1"></svg>
+            <div>
+              <strong class="text-white block mb-1">Campus N°01 (Tsinga)</strong>
+              Entrée PMI Tsinga, près du Centre de Promotion de la Femme. Face à l'Agence des PME.
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg lucideMapPin [size]="18" class="text-ibe-400 shrink-0 mt-1"></svg>
+            <div>
+              <strong class="text-white block mb-1">Campus N°02 (Nkoabang)</strong>
+              Carrefour 10ème Arrêt Nkoabang, Yaoundé.
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contact Rapide -->
+      <div>
+        <h4 class="font-serif text-white text-lg mb-6 tracking-wide">Contact</h4>
+        <ul class="space-y-4 text-sm text-ibe-200">
+          <li class="flex items-center gap-3">
+            <svg lucidePhone [size]="18" class="text-ibe-400"></svg>
+            <a href="tel:+237690566836" class="hover:text-white transition-colors">+237 690 56 68 36</a>
+          </li>
+          <li class="flex items-center gap-3">
+            <svg lucidePhone [size]="18" class="text-ibe-400"></svg>
+            <a href="tel:+237679358484" class="hover:text-white transition-colors">+237 679 35 84 84</a>
+          </li>
+          <li class="flex items-center gap-3">
+            <svg lucideMail [size]="18" class="text-ibe-400"></svg>
+            <a href="mailto:beautysempire47@gmail.com" class="hover:text-white transition-colors">beautysempire47&#64;gmail.com</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Liens Rapides -->
+      <div>
+        <h4 class="font-serif text-white text-lg mb-6 tracking-wide">Liens Rapides</h4>
+        <ul class="space-y-3 text-sm text-ibe-200">
+          <li><a routerLink="/formations" class="hover:text-white hover:translate-x-1 inline-block transition-all">Toutes nos formations</a></li>
+          <li><a routerLink="/galerie" class="hover:text-white hover:translate-x-1 inline-block transition-all">Nos réalisations</a></li>
+          <li><a routerLink="/a-propos" class="hover:text-white hover:translate-x-1 inline-block transition-all">À propos de l'institut</a></li>
+          <li><a routerLink="/faq" class="hover:text-white hover:translate-x-1 inline-block transition-all">Questions fréquentes</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Copyright -->
+    <div class="border-t border-ibe-700/50 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-ibe-300">
+      <p>© {{ currentYear }} Institut Beauty's Empire. Tous droits réservés.</p>
+      <p>Formation certifiée MINEFOP — Yaoundé, Cameroun</p>
+    </div>
+  </div>
+</footer>

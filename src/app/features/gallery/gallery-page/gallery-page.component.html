@@ -1,0 +1,100 @@
+<!-- HEADER DE PAGE -->
+<section class="bg-ibe-900 pt-32 pb-20 relative overflow-hidden">
+  <div class="absolute inset-0 bg-[url('/assets/img/ibe-excellence.jpg')] bg-cover bg-center opacity-20 mix-blend-overlay"></div>
+  <div class="absolute inset-0 bg-gradient-to-t from-ibe-900 to-transparent"></div>
+  
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+    <p class="text-ibe-300 font-medium tracking-widest uppercase text-sm mb-4">Portfolio</p>
+    <h1 class="text-white mb-6">Notre <span class="italic text-ibe-200">Galerie</span></h1>
+    <p class="text-ibe-100 text-lg max-w-2xl mx-auto">
+      Découvrez le talent de nos étudiantes, l'ambiance de nos formations et les événements de l'Institut.
+    </p>
+  </div>
+</section>
+
+<section class="py-16 bg-ibe-50 min-h-screen">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- FILTRES -->
+    <div class="flex flex-wrap justify-center gap-3 mb-12">
+      @for (cat of categories; track cat.id) {
+        <button (click)="setCategory(cat.id)"
+                class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300"
+                [class]="activeCategory() === cat.id ? 'bg-ibe-600 text-white shadow-md' : 'bg-white text-ibe-600 border border-ibe-200 hover:bg-ibe-100'">
+          {{ cat.label }}
+        </button>
+      }
+    </div>
+
+    <!-- GRILLE D'IMAGES -->
+    @if (isLoading()) {
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+        @for (i of [1,2,3,4,5,6,7,8]; track i) { <div class="aspect-square skeleton rounded-2xl"></div> }
+      </div>
+    } @else if (filteredImages().length === 0) {
+      <div class="text-center py-20">
+        <div class="w-20 h-20 bg-ibe-200 rounded-full flex items-center justify-center mx-auto mb-6 text-ibe-500">
+          <svg lucideImage [size]="32"></svg>
+        </div>
+        <h3>Aucune photo dans cette catégorie</h3>
+      </div>
+    } @else {
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+        @for (img of filteredImages(); track img.id; let idx = $index) {
+          <div (click)="openLightbox(idx)" class="group relative aspect-square rounded-2xl overflow-hidden cursor-pointer bg-white shadow-sm hover:shadow-xl transition-all duration-500">
+            <img [src]="img.url" [alt]="img.titre" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            
+            <!-- Overlay au survol -->
+            <div class="absolute inset-0 bg-gradient-to-t from-ibe-900/80 via-ibe-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+              <span class="text-ibe-300 text-xs font-bold uppercase tracking-wider mb-1">{{ img.categorie }}</span>
+              <h4 class="text-white text-lg font-medium m-0 line-clamp-1">{{ img.titre }}</h4>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</section>
+
+<!-- LIGHTBOX (Plein écran) -->
+@if (isLightboxOpen()) {
+  <div class="fixed inset-0 z-[200] bg-ibe-900/95 backdrop-blur-xl flex items-center justify-center animate-in fade-in duration-300" (click)="closeLightbox()">
+    
+    <!-- Bouton Fermer -->
+    <button class="absolute top-6 right-6 text-white/70 hover:text-white transition-colors z-50" (click)="closeLightbox()">
+      <svg lucideX [size]="32"></svg>
+    </button>
+
+    <!-- Compteur -->
+    <div class="absolute top-6 left-6 text-white/70 font-medium tracking-widest text-sm z-50">
+      {{ currentImageIndex() + 1 }} / {{ filteredImages().length }}
+    </div>
+
+    <!-- Bouton Précédent -->
+    <button class="absolute left-4 md:left-10 text-white/50 hover:text-white transition-colors z-50 disabled:opacity-20" 
+            [disabled]="currentImageIndex() === 0" (click)="prevImage($event)">
+      <svg lucideChevronLeft [size]="48" [strokeWidth]="1"></svg>
+    </button>
+
+    <!-- Image Centrale -->
+    <div class="relative max-w-5xl max-h-[85vh] w-full px-12 md:px-24 flex flex-col items-center" (click)="$event.stopPropagation()">
+      <img [src]="filteredImages()[currentImageIndex()].url" 
+           [alt]="filteredImages()[currentImageIndex()].titre" 
+           class="max-w-full max-h-[75vh] object-contain rounded-lg shadow-2xl animate-in zoom-in-95 duration-300">
+      
+      <div class="text-center mt-6">
+        <h3 class="text-white text-2xl m-0">{{ filteredImages()[currentImageIndex()].titre }}</h3>
+        @if (filteredImages()[currentImageIndex()].description) {
+          <p class="text-ibe-200 mt-2">{{ filteredImages()[currentImageIndex()].description }}</p>
+        }
+      </div>
+    </div>
+
+    <!-- Bouton Suivant -->
+    <button class="absolute right-4 md:right-10 text-white/50 hover:text-white transition-colors z-50 disabled:opacity-20" 
+            [disabled]="currentImageIndex() === filteredImages().length - 1" (click)="nextImage($event)">
+      <svg lucideChevronRight [size]="48" [strokeWidth]="1"></svg>
+    </button>
+
+  </div>
+}

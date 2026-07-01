@@ -1,0 +1,197 @@
+<div class="max-w-7xl mx-auto h-[calc(100vh-8rem)] flex flex-col">
+  
+  <!-- HEADER & FILTRES -->
+  <div class="mb-6 shrink-0">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+      <div>
+        <h1 class="text-3xl font-bold text-ibe-dark mb-1">Boîte de Réception</h1>
+        <p class="text-ibe-muted m-0">{{ totalElements() }} messages au total</p>
+      </div>
+    </div>
+
+    <div class="bg-white p-4 rounded-2xl border border-ibe-100 shadow-sm flex flex-col lg:flex-row gap-4">
+      <div class="relative flex-grow">
+        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-ibe-400">
+          <svg lucideSearch [size]="20"></svg>
+        </div>
+        <input type="text" [ngModel]="searchQuery()" (ngModelChange)="searchQuery.set($event); onSearch()"
+               class="w-full pl-12 pr-4 py-3 bg-ibe-50 border-none rounded-xl outline-none focus:ring-2 focus:ring-ibe-500/20" 
+               placeholder="Rechercher un nom ou un numéro...">
+      </div>
+      
+      <select [ngModel]="typeFilter()" (ngModelChange)="typeFilter.set($event); onSearch()" 
+              class="px-4 py-3 bg-ibe-50 border-none rounded-xl outline-none focus:ring-2 focus:ring-ibe-500/20 text-ibe-dark font-medium cursor-pointer">
+        <option value="ALL">Tous les types</option>
+        <option value="PRE_INSCRIPTION">Pré-inscriptions</option>
+        <option value="CONTACT_GENERAL">Contacts Généraux</option>
+      </select>
+
+      <select [ngModel]="statusFilter()" (ngModelChange)="statusFilter.set($event); onSearch()" 
+              class="px-4 py-3 bg-ibe-50 border-none rounded-xl outline-none focus:ring-2 focus:ring-ibe-500/20 text-ibe-dark font-medium cursor-pointer">
+        <option value="ALL">Tous les statuts</option>
+        <option value="NON_LU">Non Lus</option>
+        <option value="LU">Lus</option>
+        <option value="TRAITE">Traités</option>
+        <option value="ARCHIVE">Archivés</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- SPLIT VIEW (Liste à gauche, Détail à droite) -->
+  <div class="flex-grow flex gap-6 overflow-hidden pb-6">
+    
+    <!-- COLONNE GAUCHE : Liste des messages -->
+    <div class="w-full lg:w-5/12 bg-white rounded-2xl border border-ibe-100 shadow-sm flex flex-col overflow-hidden">
+      
+      <div class="flex-grow overflow-y-auto divide-y divide-ibe-100">
+        @if (isLoading()) {
+          <div class="p-8 text-center text-ibe-muted">Chargement...</div>
+        } @else if (messages().length === 0) {
+          <div class="p-12 text-center text-ibe-muted">Aucun message trouvé.</div>
+        } @else {
+          @for (msg of messages(); track msg.id) {
+            <div (click)="selectMessage(msg)" 
+                 class="p-5 cursor-pointer transition-colors border-l-4"
+                 [class]="selectedMessage()?.id === msg.id ? 'bg-ibe-50 border-ibe-500' : 'hover:bg-ibe-50/50 border-transparent'">
+              
+              <div class="flex justify-between items-start mb-2">
+                <h4 class="font-bold text-ibe-dark m-0 flex items-center gap-2">
+                  {{ msg.nom }}
+                  @if (msg.statut === 'NON_LU') { <span class="w-2 h-2 rounded-full bg-ibe-danger"></span> }
+                </h4>
+                <span class="text-xs text-ibe-muted">{{ formatDate(msg.dateCreation).split(' ')[0] }}</span>
+              </div>
+              
+              <p class="text-sm font-medium m-0 mb-1" [class]="msg.type === 'PRE_INSCRIPTION' ? 'text-ibe-600' : 'text-ibe-400'">
+                {{ msg.type === 'PRE_INSCRIPTION' ? 'Pré-inscription' : 'Contact' }}
+              </p>
+              
+              <p class="text-sm text-ibe-muted m-0 line-clamp-1">
+                {{ msg.formationNom || msg.sujet || 'Nouveau message' }}
+              </p>
+            </div>
+          }
+        }
+      </div>
+
+      <!-- Pagination -->
+      @if (totalPages() > 1) {
+        <div class="p-4 border-t border-ibe-100 flex justify-center gap-2 bg-ibe-50/50 shrink-0">
+          @for (page of getPagesArray(); track page) {
+            <button (click)="loadMessages(page)" 
+                    class="w-8 h-8 rounded-full text-xs font-medium transition-colors"
+                    [class]="currentPage() === page ? 'bg-ibe-600 text-white' : 'bg-white border border-ibe-200 text-ibe-600 hover:bg-ibe-50'">
+              {{ page + 1 }}
+            </button>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- COLONNE DROITE : Détail du message (Cachée sur mobile si aucun message sélectionné) -->
+    <div class="hidden lg:flex w-7/12 bg-white rounded-2xl border border-ibe-100 shadow-sm flex-col overflow-hidden"
+         [class.!flex]="selectedMessage() !== null" [class.absolute]="true" [class.inset-0]="true" [class.z-50]="true" [class.lg:relative]="true" [class.lg:z-auto]="true">
+      
+      @if (selectedMessage(); as msg) {
+        <!-- Header Détail -->
+        <div class="p-6 border-b border-ibe-100 bg-ibe-50/50 flex items-start justify-between shrink-0">
+          <div class="flex items-center gap-4">
+            <button class="lg:hidden w-10 h-10 rounded-full bg-white border border-ibe-200 flex items-center justify-center text-ibe-dark" (click)="selectedMessage.set(null)">
+              <svg lucideX [size]="20"></svg>
+            </button>
+            <div class="w-14 h-14 rounded-full bg-ibe-500 flex items-center justify-center text-white font-serif font-bold text-2xl shadow-sm">
+              {{ msg.nom.charAt(0) | uppercase }}
+            </div>
+            <div>
+              <h2 class="text-2xl font-bold text-ibe-dark m-0">{{ msg.nom }}</h2>
+              <p class="text-sm text-ibe-muted m-0">{{ formatDate(msg.dateCreation) }}</p>
+            </div>
+          </div>
+          
+          <!-- Badges Statut & Type -->
+          <div class="flex flex-col items-end gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider"
+                  [class]="msg.type === 'PRE_INSCRIPTION' ? 'bg-ibe-600/10 text-ibe-600' : 'bg-ibe-400/10 text-ibe-400'">
+              {{ msg.type === 'PRE_INSCRIPTION' ? 'Pré-inscription' : 'Contact' }}
+            </span>
+            <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider"
+                  [class.bg-ibe-danger]="msg.statut === 'NON_LU'" [class.text-white]="msg.statut === 'NON_LU'"
+                  [class.bg-ibe-warning]="msg.statut === 'LU'" [class.text-white]="msg.statut === 'LU'"
+                  [class.bg-ibe-success]="msg.statut === 'TRAITE'" [class.text-white]="msg.statut === 'TRAITE'"
+                  [class.bg-ibe-200]="msg.statut === 'ARCHIVE'" [class.text-ibe-700]="msg.statut === 'ARCHIVE'">
+              {{ msg.statut.replace('_', ' ') }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Corps du message -->
+        <div class="p-8 flex-grow overflow-y-auto">
+          
+          <!-- Infos Client -->
+          <div class="grid grid-cols-2 gap-6 mb-8 p-6 bg-ibe-50 rounded-2xl border border-ibe-100">
+            <div>
+              <p class="text-xs text-ibe-muted uppercase tracking-wider mb-1 flex items-center gap-1"><svg lucidePhone [size]="14"></svg> Téléphone</p>
+              <p class="font-medium text-ibe-dark m-0">{{ msg.telephone }}</p>
+            </div>
+            @if (msg.formationNom) {
+              <div>
+                <p class="text-xs text-ibe-muted uppercase tracking-wider mb-1 flex items-center gap-1"><svg lucideGraduationCap [size]="14"></svg> Formation souhaitée</p>
+                <p class="font-medium text-ibe-600 m-0">{{ msg.formationNom }}</p>
+              </div>
+            }
+            @if (msg.sujet) {
+              <div class="col-span-2">
+                <p class="text-xs text-ibe-muted uppercase tracking-wider mb-1 flex items-center gap-1"><svg lucideMessageCircle [size]="14"></svg> Sujet</p>
+                <p class="font-medium text-ibe-dark m-0">{{ msg.sujet }}</p>
+              </div>
+            }
+          </div>
+
+          <!-- Le Message -->
+          <div>
+            <h4 class="text-sm font-bold text-ibe-muted uppercase tracking-wider mb-4">Message</h4>
+            <div class="bg-white border border-ibe-100 p-6 rounded-2xl shadow-sm">
+              <!-- Dans ton backend actuel, le champ "message" n'est pas renvoyé dans MessageListResponse. 
+                   Il faudra s'assurer que le backend le renvoie, ou faire un appel getMessageById(id).
+                   Pour l'instant on affiche un texte générique si vide. -->
+              <p class="text-ibe-dark leading-relaxed whitespace-pre-line m-0">
+                L'étudiante a laissé ses coordonnées pour être recontactée concernant la formation {{ msg.formationNom || 'demandée' }}.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Footer Actions -->
+        <div class="p-6 border-t border-ibe-100 bg-white shrink-0 flex flex-wrap items-center gap-4">
+          <button (click)="openWhatsApp(msg.telephone, msg.nom)" class="btn-whatsapp flex-grow shadow-[0_4px_15px_rgba(37,211,102,0.2)]">
+            <svg lucideMessageCircle [size]="20"></svg> Répondre sur WhatsApp
+          </button>
+          
+          <!-- N'apparaît QUE si le message n'est ni traité, ni archivé -->
+          @if (msg.statut !== 'TRAITE' && msg.statut !== 'ARCHIVE') {
+            <button (click)="changerStatut(msg.id, 'TRAITE')" class="btn-outline border-ibe-success text-ibe-success hover:bg-ibe-success hover:text-white">
+              <svg lucideCheckCircle2 [size]="20"></svg> Marquer Traité
+            </button>
+          }
+          
+          <!-- N'apparaît QUE si le message n'est pas déjà archivé -->
+          @if (msg.statut !== 'ARCHIVE') {
+            <button (click)="changerStatut(msg.id, 'ARCHIVE')" class="btn-outline border-ibe-muted text-ibe-muted hover:bg-ibe-muted hover:text-white">
+              <svg lucideArchive [size]="20"></svg> Archiver
+            </button>
+          }
+        </div>
+      } @else {
+        <div class="flex-grow flex flex-col items-center justify-center text-ibe-muted p-8">
+          <div class="w-24 h-24 bg-ibe-50 rounded-full flex items-center justify-center mb-6">
+            <svg lucideMailOpen [size]="40" class="text-ibe-300"></svg>
+          </div>
+          <h3 class="text-xl text-ibe-dark mb-2">Aucun message sélectionné</h3>
+          <p>Sélectionnez un message dans la liste pour lire son contenu.</p>
+        </div>
+      }
+    </div>
+
+  </div>
+</div>

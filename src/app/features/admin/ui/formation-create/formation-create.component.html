@@ -1,0 +1,306 @@
+<div class="max-w-7xl mx-auto">
+
+  <!-- HEADER -->
+  <div class="flex items-center justify-between mb-8">
+    <div class="flex items-center gap-4">
+      <a routerLink="/admin/formations" class="w-10 h-10 rounded-full bg-white border border-ibe-200 flex items-center justify-center text-ibe-muted hover:text-ibe-600 hover:bg-ibe-50 transition-colors">
+        <svg lucideArrowLeft [size]="20"></svg>
+      </a>
+      <div>
+        <h1 class="text-2xl font-bold text-ibe-dark m-0">
+          {{ isEditMode() ? 'Modifier la formation' : 'Nouvelle Formation' }}
+        </h1>
+      </div>
+    </div>
+    <button (click)="onSubmit()" [disabled]="isSubmitting()" class="btn-primary shadow-[0_8px_20px_rgba(126,72,163,0.25)]">
+      <svg lucideSave [size]="18"></svg> {{ isSubmitting() ? 'Enregistrement...' : 'Enregistrer' }}
+    </button>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+    <!-- ==========================================
+         COLONNE GAUCHE : APERÇU EN TEMPS RÉEL
+         ========================================== -->
+    <div class="lg:col-span-5 lg:sticky lg:top-8">
+      <p class="text-xs font-bold text-ibe-muted uppercase tracking-wider mb-4">Aperçu sur le site</p>
+
+      <!-- Carte identique à celle du site public -->
+      <div class="card-luxe group flex flex-col bg-white pointer-events-none">
+        <div class="relative h-56 overflow-hidden bg-ibe-50 flex items-center justify-center">
+          @if (previewData().photoPrincipale) {
+            <img [src]="previewData().photoPrincipale" class="w-full h-full object-cover">
+          } @else {
+            <div class="text-ibe-300 flex flex-col items-center">
+              <svg lucideImage [size]="40" class="mb-2"></svg>
+              <span class="text-sm font-medium">Aucune image</span>
+            </div>
+          }
+
+          <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-ibe-700 uppercase tracking-wider shadow-sm">
+            {{ previewData().categorie || 'Catégorie' }}
+          </div>
+
+          @if (previewData().isPromoActive) {
+            <div class="absolute top-4 right-4 bg-ibe-danger text-white px-3 py-1 rounded-full text-xs font-bold shadow-sm">
+              PROMO -{{ previewData().pourcentageReduction }}%
+            </div>
+          }
+        </div>
+
+        <div class="p-6 flex flex-col flex-grow">
+          <h3 class="text-xl mb-2 text-ibe-dark line-clamp-2">
+            {{ previewData().nom || 'Nom de la formation' }}
+          </h3>
+          <p class="text-sm text-ibe-muted line-clamp-2 mb-4">
+            {{ previewData().description || 'Description courte de la formation qui apparaîtra sur la carte...' }}
+          </p>
+
+          <div class="flex items-center gap-4 text-sm text-ibe-muted mb-6">
+            <span class="flex items-center gap-1.5"><svg lucideClock [size]="16"></svg> {{ previewData().duree || 'Durée' }}</span>
+            <span class="flex items-center gap-1.5"><svg lucideUsers [size]="16"></svg> {{ previewData().nombrePlaces || 0 }} places</span>
+          </div>
+
+          <div class="mt-auto pt-4 border-t border-ibe-100 flex items-center justify-between">
+            <div>
+              <p class="text-xs text-ibe-muted uppercase tracking-wider mb-1">Prix</p>
+              <p class="font-serif text-xl font-bold text-ibe-dark m-0">
+                {{ (previewData().prix || 0) | currencyFcfa }}
+              </p>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-ibe-50 flex items-center justify-center text-ibe-600">
+              <svg lucideArrowRight [size]="18"></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================
+         COLONNE DROITE : FORMULAIRE
+         ========================================== -->
+    <div class="lg:col-span-7 space-y-6">
+      <form [formGroup]="form" class="space-y-6">
+
+        <!-- Bloc 1 : Infos Générales -->
+        <div class="bg-white p-6 md:p-8 rounded-2xl border border-ibe-100 shadow-sm">
+          <h3 class="text-lg mb-6 border-b border-ibe-50 pb-4">Informations Générales</h3>
+
+          <div class="space-y-5">
+            <div>
+              <label class="block text-sm font-medium text-ibe-dark mb-1">Nom de la formation *</label>
+              <input type="text" formControlName="nom" class="input-field" placeholder="Ex: Onglerie Professionnelle">
+            </div>
+
+            <div class="grid grid-cols-2 gap-5">
+              <div>
+                <label class="block text-sm font-medium text-ibe-dark mb-1">Catégorie *</label>
+                <select formControlName="categorie" class="input-field cursor-pointer">
+                  <option value="">Sélectionner...</option>
+                  <option value="Esthétique">Esthétique</option>
+                  <option value="Coiffure">Coiffure</option>
+                  <option value="Make-up">Make-up</option>
+                  <option value="Pack Beauté">Pack Beauté</option>
+                  <option value="DQP">DQP</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-ibe-dark mb-1">Durée *</label>
+                <input type="text" formControlName="duree" class="input-field" placeholder="Ex: 2 mois">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-ibe-dark mb-1">Description courte *</label>
+              <textarea formControlName="description" rows="3" class="input-field resize-none" placeholder="Sera affichée sur la carte..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bloc 2 : Tarifs & Places -->
+        <div class="bg-white p-6 md:p-8 rounded-2xl border border-ibe-100 shadow-sm">
+          <h3 class="text-lg mb-6 border-b border-ibe-50 pb-4">Tarifs & Places</h3>
+
+          <div class="grid grid-cols-2 gap-5 mb-5">
+            <div>
+              <label class="block text-sm font-medium text-ibe-dark mb-1">Prix de la formation (FCFA) *</label>
+              <input type="number" formControlName="prix" class="input-field" placeholder="Ex: 60000">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-ibe-dark mb-1">Frais d'inscription (FCFA) *</label>
+              <input type="number" formControlName="fraisInscription" class="input-field" placeholder="Ex: 15000">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-5">
+            <div>
+              <label class="block text-sm font-medium text-ibe-dark mb-1">Nombre de places total *</label>
+              <input type="number" formControlName="nombrePlaces" class="input-field" placeholder="Ex: 20">
+            </div>
+          </div>
+        </div>
+
+        <!-- Bloc 3 : Médias -->
+        <!-- Bloc 3 : Médias (Upload Cloudinary) -->
+        <div class="bg-white p-6 md:p-8 rounded-2xl border border-ibe-100 shadow-sm">
+          <h3 class="text-lg mb-6 border-b border-ibe-50 pb-4">Médias & Galerie</h3>
+
+          <!-- Image Principale -->
+          <div class="mb-8">
+            <label class="block text-sm font-medium text-ibe-dark mb-2">Photo principale *</label>
+            <div class="relative border-2 border-dashed border-ibe-200 rounded-xl p-6 text-center hover:border-ibe-500 hover:bg-ibe-50/50 transition-colors cursor-pointer group"
+                 [class.border-ibe-success]="previewData().photoPrincipale">
+              
+              <input type="file" (change)="onFileSelected($event)" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+              
+              @if (isImageUploading()) {
+                <div class="flex flex-col items-center gap-2 text-ibe-500">
+                  <div class="w-8 h-8 border-4 border-ibe-200 border-t-ibe-500 rounded-full animate-spin"></div>
+                  <span class="text-sm font-medium">Upload en cours...</span>
+                </div>
+              } @else if (previewData().photoPrincipale) {
+                <div class="flex flex-col items-center gap-2 text-ibe-success">
+                  <svg lucideCheckCircle2 [size]="32"></svg>
+                  <span class="text-sm font-medium">Image sélectionnée (Cliquez pour changer)</span>
+                </div>
+              } @else {
+                <div class="flex flex-col items-center gap-2 text-ibe-400 group-hover:text-ibe-600">
+                  <svg lucideUploadCloud [size]="32"></svg>
+                  <span class="text-sm font-medium">Cliquez ou glissez une image ici</span>
+                  <span class="text-xs text-ibe-muted">PNG, JPG jusqu'à 5MB</span>
+                </div>
+              }
+            </div>
+          </div>
+
+          <!-- Galerie d'images -->
+          <div>
+            <label class="block text-sm font-medium text-ibe-dark mb-2">Galerie d'images (Optionnel, max 10)</label>
+            <div class="relative border-2 border-dashed border-ibe-200 rounded-xl p-4 text-center hover:border-ibe-500 hover:bg-ibe-50/50 transition-colors cursor-pointer group mb-4">
+              <input type="file" (change)="onGalleryFilesSelected($event)" accept="image/*" multiple class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+              <div class="flex items-center justify-center gap-2 text-ibe-400 group-hover:text-ibe-600">
+                <svg lucideImage [size]="24"></svg>
+                <span class="text-sm font-medium">Ajouter des images à la galerie</span>
+              </div>
+            </div>
+
+            <!-- Aperçu de la galerie -->
+            @if (galleryImagePreviews().length > 0) {
+              <div class="grid grid-cols-4 sm:grid-cols-5 gap-3">
+                @for (img of galleryImagePreviews(); track img; let idx = $index) {
+                  <div class="relative aspect-square rounded-lg overflow-hidden border border-ibe-100 group">
+                    <img [src]="img" class="w-full h-full object-cover">
+                    <button type="button" (click)="removeGalleryImage(idx)" class="absolute top-1 right-1 w-6 h-6 bg-ibe-danger text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md z-20">
+                      <svg lucideX [size]="14"></svg>
+                    </button>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+
+        </div>
+
+        <!-- Bloc 4 : Programme & Détails -->
+        <div class="bg-white p-6 md:p-8 rounded-2xl border border-ibe-100 shadow-sm">
+          <h3 class="text-lg mb-6 border-b border-ibe-50 pb-4">Programme & Détails</h3>
+          
+          <div class="space-y-5">
+            <div>
+              <label class="block text-sm font-medium text-ibe-dark mb-1">Programme détaillé</label>
+              <textarea formControlName="programme" rows="4" class="input-field resize-none" placeholder="Décrivez le programme module par module..."></textarea>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-ibe-dark mb-1">Objectifs de la formation</label>
+              <textarea formControlName="objectifs" rows="3" class="input-field resize-none" placeholder="Quelles compétences l'étudiante va-t-elle acquérir ?"></textarea>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-ibe-dark mb-1">Matériel fourni (Kit)</label>
+              <textarea formControlName="materielFourni" rows="2" class="input-field resize-none" placeholder="Ex: Pinceaux, palettes, limes..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bloc 5 : Organisation & Horaires -->
+        <div class="bg-white p-6 md:p-8 rounded-2xl border border-ibe-100 shadow-sm">
+          <h3 class="text-lg mb-6 border-b border-ibe-50 pb-4">Organisation</h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+            <div>
+              <label class="block text-sm font-medium text-ibe-dark mb-1">Jours de formation</label>
+              <input type="text" formControlName="joursFormation" class="input-field" placeholder="Ex: Lundi, Mercredi, Vendredi">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-ibe-dark mb-1">Horaires</label>
+              <input type="text" formControlName="horaires" class="input-field" placeholder="Ex: 08h00 - 13h30">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+            <div>
+              <label class="block text-sm font-medium text-ibe-dark mb-1">Fréquence</label>
+              <input type="text" formControlName="frequence" class="input-field" placeholder="Ex: 3 fois par semaine">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-ibe-dark mb-1">Date de démarrage</label>
+              <input type="date" formControlName="dateDemarrage" class="input-field">
+            </div>
+          </div>
+        </div>
+
+        <!-- Bloc 6 : Certification & Social Proof -->
+        <div class="bg-white p-6 md:p-8 rounded-2xl border border-ibe-100 shadow-sm">
+          <h3 class="text-lg mb-6 border-b border-ibe-50 pb-4">Marketing & Certification</h3>
+          
+          <div class="space-y-5">
+            <!-- Certification -->
+            <div class="flex items-center gap-3 p-4 bg-ibe-50 rounded-xl border border-ibe-100">
+              <input type="checkbox" formControlName="certificatDelivre" id="certif" class="w-5 h-5 accent-ibe-600 cursor-pointer">
+              <label for="certif" class="font-medium text-ibe-dark cursor-pointer">Cette formation délivre un certificat</label>
+            </div>
+            
+            @if (form.get('certificatDelivre')?.value) {
+              <div class="pl-8 animate-in fade-in slide-in-from-top-2">
+                <label class="block text-sm font-medium text-ibe-dark mb-1">Nom du certificat</label>
+                <input type="text" formControlName="nomCertificat" class="input-field" placeholder="Ex: Certificat MINEFOP en Onglerie">
+              </div>
+            }
+
+            <!-- Social Proof -->
+            <div class="flex items-center gap-3 p-4 bg-ibe-50 rounded-xl border border-ibe-100 mt-4">
+              <input type="checkbox" formControlName="socialProofActif" id="social" class="w-5 h-5 accent-ibe-600 cursor-pointer">
+              <label for="social" class="font-medium text-ibe-dark cursor-pointer">Activer le Social Proof (Faux nombre d'inscrits)</label>
+            </div>
+
+            @if (form.get('socialProofActif')?.value) {
+              <div class="pl-8 animate-in fade-in slide-in-from-top-2">
+                <label class="block text-sm font-medium text-ibe-dark mb-1">Nombre d'inscrits à afficher</label>
+                <input type="number" formControlName="nombreInscritsAffiche" class="input-field" placeholder="Ex: 12">
+              </div>
+            }
+
+            <!-- Promotion -->
+            <div class="flex items-center gap-3 p-4 bg-ibe-danger/5 rounded-xl border border-ibe-danger/20 mt-4">
+              <input type="checkbox" formControlName="enPromotion" id="promo" class="w-5 h-5 accent-ibe-danger cursor-pointer">
+              <label for="promo" class="font-medium text-ibe-danger cursor-pointer">Mettre cette formation en promotion</label>
+            </div>
+
+            @if (form.get('enPromotion')?.value) {
+              <div class="pl-8 grid grid-cols-1 md:grid-cols-2 gap-5 animate-in fade-in slide-in-from-top-2">
+                <div>
+                  <label class="block text-sm font-medium text-ibe-dark mb-1">Pourcentage de réduction (%)</label>
+                  <input type="number" formControlName="pourcentageReduction" class="input-field border-ibe-danger/30 focus:border-ibe-danger" placeholder="Ex: 20">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-ibe-dark mb-1">Date de fin de promo</label>
+                  <input type="datetime-local" formControlName="dateFinPromo" class="input-field border-ibe-danger/30 focus:border-ibe-danger">
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

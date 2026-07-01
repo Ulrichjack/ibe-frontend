@@ -1,0 +1,347 @@
+<!-- 1. HERO SECTION -->
+<section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
+  <div class="absolute inset-0 w-full h-full">
+    <img src="assets/img/ibe-ceremony.jpg" alt="Institut Beauty's Empire"
+         class="w-full h-full object-cover animate-[slowZoom_20s_ease-in-out_infinite_alternate]">
+  </div>
+  <div class="absolute inset-0 bg-gradient-to-r from-ibe-900/95 via-ibe-900/80 to-ibe-700/40"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-20">
+    <div class="max-w-3xl">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-ibe-300/30 bg-white/10 backdrop-blur-md mb-8">
+        <svg lucideAward [size]="16" class="text-ibe-300"></svg>
+        <span class="text-ibe-100 text-sm font-medium tracking-wide uppercase">Certifié MINEFOP Cameroun</span>
+      </div>
+      <h1 class="text-white mb-6">
+        L'Excellence de la <br>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-ibe-200 to-ibe-400 italic">Beauté Professionnelle</span>
+      </h1>
+      <p class="text-ibe-100 text-lg md:text-xl mb-10 max-w-2xl leading-relaxed">
+        Transformez votre passion en une carrière prestigieuse. Découvrez nos formations 100% pratiques avec kit professionnel inclus et stage garanti à Yaoundé.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a routerLink="/formations" class="btn-primary bg-white text-ibe-700 hover:bg-ibe-50">Découvrir nos formations</a>
+       <button (click)="openContactModal()" class="btn-outline border-white text-white hover:bg-white hover:text-ibe-700">
+          Nous contacter
+        </button>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. STATISTIQUES -->
+<section class="bg-white border-b border-ibe-100 relative z-20 -mt-8 mx-4 md:mx-auto max-w-6xl rounded-2xl shadow-[0_20px_40px_rgba(34,27,46,0.05)]">
+  <div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-ibe-100/50">
+    @for (stat of stats; track stat.label) {
+      <div class="p-8 text-center group">
+        <div class="flex items-center justify-center gap-1 mb-2">
+          <span #statNumber [attr.data-value]="stat.value" class="font-serif text-4xl md:text-5xl font-bold text-ibe-600 group-hover:text-ibe-500 transition-colors">0</span>
+          <span class="font-serif text-3xl font-bold text-ibe-400">{{ stat.suffix }}</span>
+        </div>
+        <p class="text-sm font-medium text-ibe-muted uppercase tracking-wider m-0">{{ stat.label }}</p>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- 3. AVANTAGES (Pourquoi IBE) -->
+<section class="py-24 bg-white relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="mb-6">L'Art de la <span class="italic text-ibe-500">Transmission</span></h2>
+      <p class="text-lg">Plus qu'une école, Beauty's Empire est un véritable tremplin pour votre carrière.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div class="p-8 rounded-2xl bg-white border border-ibe-100 shadow-[0_8px_30px_rgba(34,27,46,0.03)] hover:shadow-[0_8px_30px_rgba(155,95,192,0.1)] transition-all duration-300 group">
+        <div class="w-14 h-14 rounded-full bg-ibe-50 flex items-center justify-center mb-6 group-hover:bg-ibe-500 transition-colors duration-300">
+          <svg lucideGraduationCap [size]="28" class="text-ibe-500 group-hover:text-white transition-colors duration-300"></svg>
+        </div>
+        <h3 class="text-xl mb-3">Diplôme Reconnu</h3>
+        <p class="text-sm leading-relaxed">Toutes nos formations sont certifiées par le MINEFOP. Votre diplôme a une véritable valeur sur le marché du travail.</p>
+      </div>
+      <div class="p-8 rounded-2xl bg-white border border-ibe-100 shadow-[0_8px_30px_rgba(34,27,46,0.03)] hover:shadow-[0_8px_30px_rgba(155,95,192,0.1)] transition-all duration-300 group">
+        <div class="w-14 h-14 rounded-full bg-ibe-50 flex items-center justify-center mb-6 group-hover:bg-ibe-500 transition-colors duration-300">
+          <svg lucideBriefcase [size]="28" class="text-ibe-500 group-hover:text-white transition-colors duration-300"></svg>
+        </div>
+        <h3 class="text-xl mb-3">Kit Pro & Stage</h3>
+        <p class="text-sm leading-relaxed">Dès le premier jour, recevez votre matériel professionnel complet. Chaque cursus inclut un stage pratique garanti.</p>
+      </div>
+      <div class="p-8 rounded-2xl bg-white border border-ibe-100 shadow-[0_8px_30px_rgba(34,27,46,0.03)] hover:shadow-[0_8px_30px_rgba(155,95,192,0.1)] transition-all duration-300 group">
+        <div class="w-14 h-14 rounded-full bg-ibe-50 flex items-center justify-center mb-6 group-hover:bg-ibe-500 transition-colors duration-300">
+          <svg lucideHeartHandshake [size]="28" class="text-ibe-500 group-hover:text-white transition-colors duration-300"></svg>
+        </div>
+        <h3 class="text-xl mb-3">Paiement Flexible</h3>
+        <p class="text-sm leading-relaxed">L'excellence doit être accessible. Nous proposons des facilités de paiement en plusieurs tranches.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. FORMATIONS POPULAIRES (Depuis le Backend) -->
+<section class="py-24 bg-ibe-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <div class="flex items-center justify-center gap-2 mb-4">
+        <svg lucideSparkles [size]="20" class="text-ibe-500"></svg>
+        <span class="text-ibe-600 font-semibold tracking-widest uppercase text-sm">Nos Best-Sellers</span>
+      </div>
+      <h2>Formations <span class="italic text-ibe-500">Populaires</span></h2>
+    </div>
+
+    @if (isLoadingFormations()) {
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="h-96 skeleton"></div><div class="h-96 skeleton"></div><div class="h-96 skeleton"></div>
+      </div>
+    } @else {
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        @for (formation of popularFormations(); track formation.id) {
+          <div class="card-luxe group flex flex-col bg-white">
+            <div class="relative h-64 overflow-hidden">
+              <img [src]="formation.photoPrincipale || 'assets/img/default-formation.jpg'" [alt]="formation.nom" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+              <div class="absolute inset-0 bg-ibe-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-ibe-700 uppercase tracking-wider shadow-sm">
+                {{ formation.categorie }}
+              </div>
+              <!-- Social Proof -->
+              @if (formation.isPromoActive) {
+                <div class="absolute top-4 right-4 bg-ibe-danger text-white px-3 py-1 rounded-full text-xs font-bold shadow-sm animate-pulse">
+                  PROMO
+                </div>
+              }
+            </div>
+            <div class="p-6 flex flex-col flex-grow">
+              <h3 class="text-xl mb-3 group-hover:text-ibe-600 transition-colors line-clamp-2">{{ formation.nom }}</h3>
+              <div class="flex items-center gap-4 text-sm text-ibe-muted mb-4">
+                <span class="flex items-center gap-1.5"><svg lucideClock [size]="16"></svg> {{ formation.duree }}</span>
+                <span class="flex items-center gap-1.5"><svg lucideUsers [size]="16"></svg> {{ formation.placesRestantesAffichees }} places dispo</span>
+              </div>
+              <div class="mt-auto pt-6 border-t border-ibe-100 flex items-center justify-between">
+                <div>
+                  <p class="text-xs text-ibe-muted uppercase tracking-wider mb-1">À partir de</p>
+                  <p class="font-serif text-xl font-bold text-ibe-dark m-0">{{ formation.prix | currencyFcfa }}</p>
+                </div>
+                <a [routerLink]="['/formations', formation.slug]" class="w-12 h-12 rounded-full bg-ibe-50 flex items-center justify-center text-ibe-600 group-hover:bg-ibe-600 group-hover:text-white transition-all duration-300">
+                  <svg lucideArrowRight [size]="20"></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+      <div class="text-center mt-16">
+        <a routerLink="/formations" class="btn-outline">Voir le catalogue complet</a>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- 5. GALERIE (Depuis le Backend) -->
+<section class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2>Nos <span class="italic text-ibe-500">Réalisations</span></h2>
+      <p>Le talent de nos étudiantes en images.</p>
+    </div>
+
+    @if (isLoadingGallery()) {
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div class="h-48 skeleton"></div><div class="h-48 skeleton"></div><div class="h-48 skeleton"></div>
+      </div>
+    } @else {
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        @for (img of galleryImages(); track img.id) {
+          <div class="relative h-48 md:h-64 rounded-xl overflow-hidden group cursor-pointer">
+            <img [src]="img.url" [alt]="img.titre" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-ibe-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <span class="text-white font-medium text-sm border border-white/50 px-4 py-2 rounded-full backdrop-blur-sm">{{ img.categorie }}</span>
+            </div>
+          </div>
+        }
+      </div>
+      <div class="text-center mt-12">
+        <a routerLink="/galerie" class="btn-outline">Voir toute la galerie</a>
+      </div>
+    }
+  </div>
+</section>
+<!-- ==========================================
+     6. TÉMOIGNAGES (Depuis le Backend)
+     ========================================== -->
+<section class="py-24 bg-ibe-900 text-white relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="mb-16 text-center">
+      <h2 class="text-white mb-4">Elles ont choisi <span class="italic text-ibe-300">l'Excellence</span></h2>
+      <p class="text-ibe-200 text-lg max-w-2xl mx-auto">Découvrez les parcours inspirants de nos étudiantes qui brillent aujourd'hui dans le monde de la beauté.</p>
+    </div>
+
+    @if (isLoadingTestimonials()) {
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="h-64 skeleton opacity-20"></div>
+        <div class="h-64 skeleton opacity-20"></div>
+        <div class="h-64 skeleton opacity-20"></div>
+      </div>
+    } @else {
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        @for (testi of testimonials(); track testi.id) {
+          <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-2xl hover:bg-white/10 transition-colors duration-300 flex flex-col">
+
+            <!-- Étoiles -->
+            <div class="flex gap-1 mb-6">
+              @for (star of [1,2,3,4,5]; track star) {
+                <svg lucideStar [size]="18" [class]="star <= testi.note ? 'text-ibe-warning fill-ibe-warning' : 'text-white/20'"></svg>
+              }
+            </div>
+
+            <div class="text-ibe-400 mb-4 text-4xl font-serif leading-none">"</div>
+            <p class="text-ibe-100 leading-relaxed mb-8 italic flex-grow">
+              {{ testi.temoignage }}
+            </p>
+
+            <div class="flex items-center gap-4 mt-auto">
+              <!-- Avatar (Photo ou Initiale) -->
+              @if (testi.photoUrl) {
+                <img [src]="testi.photoUrl" [alt]="testi.nomEtudiant" class="w-20 h-20 rounded-full object-cover border-2 border-ibe-500">
+              } @else {
+                <div class="w-20 h-20 rounded-full bg-ibe-500 flex items-center justify-center text-white font-serif font-bold text-xl">
+                  {{ testi.nomEtudiant.charAt(0) | uppercase }}
+                </div>
+              }
+              <div>
+                <h4 class="text-white text-base m-0">{{ testi.nomEtudiant }}</h4>
+                <p class="text-ibe-300 text-xs m-0 uppercase tracking-wider">{{ testi.formationSuivie }}</p>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</section>
+
+<!-- ==========================================
+     7. NOS PARTENAIRES (Logos en dur)
+     ========================================== -->
+<section class="py-16 bg-white border-b border-ibe-100">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <p class="text-center text-sm font-bold text-ibe-muted uppercase tracking-widest mb-10">Ils nous font confiance</p>
+
+    <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16">
+      @for (partenaire of partenaires; track partenaire.nom) {
+        <div class="group relative flex items-center justify-center w-32 h-32  transition-all duration-500">
+          <img [src]="partenaire.logo" [alt]="partenaire.nom" class="max-w-full max-h-full object-contain  group-hover:opacity-200 transition-opacity">
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     8. LOCALISATION (Yaoundé)
+     ========================================== -->
+<section class="py-24 bg-ibe-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+      <!-- Infos -->
+      <div>
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-ibe-200 mb-6">
+          <svg lucideMapPin [size]="16" class="text-ibe-500"></svg>
+          <span class="text-ibe-700 text-sm font-medium">Nos Campus à Yaoundé</span>
+        </div>
+        <h2 class="mb-6">Venez nous rendre <span class="italic text-ibe-500">visite</span></h2>
+        <p class="text-lg mb-10">L'Institut Beauty's Empire vous accueille dans des locaux modernes et équipés pour vous offrir les meilleures conditions d'apprentissage.</p>
+
+        <div class="space-y-8">
+          <div class="flex gap-4">
+            <div class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center shrink-0 text-ibe-500">01</div>
+            <div>
+              <h4 class="text-xl mb-2">Campus Tsinga</h4>
+              <p class="text-sm m-0">Entrée PMI Tsinga, près du Centre de Promotion de la Femme et de la Famille. Face à l'Agence de Promotion des PME.</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center shrink-0 text-ibe-500">02</div>
+            <div>
+              <h4 class="text-xl mb-2">Campus Nkoabang</h4>
+              <p class="text-sm m-0">Carrefour 10ème Arrêt Nkoabang.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10 pt-10 border-t border-ibe-200 flex gap-4">
+          <a href="tel:+237690566836" class="btn-outline bg-white">
+            <svg lucidePhone [size]="18"></svg> Appeler
+          </a>
+        </div>
+      </div>
+
+      <!-- Carte Google Maps -->
+      <div class="h-[500px] rounded-3xl overflow-hidden shadow-[0_20px_40px_rgba(34,27,46,0.08)] border border-ibe-100 relative group">
+        <div class="absolute inset-0 bg-ibe-500/10 group-hover:bg-transparent transition-colors duration-500 pointer-events-none"></div>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d995.1666402884808!2d11.502187620949455!3d3.8814715894893124!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2scm!4v1758312893505!5m2!1sfr!2scm"
+          width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+        </iframe>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     9. CTA CATALOGUE (Newsletter WhatsApp)
+     ========================================== -->
+<section class="py-24 bg-gradient-to-br from-ibe-700 to-ibe-500 relative overflow-hidden">
+  <div class="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+  <div class="absolute bottom-0 left-0 w-96 h-96 bg-ibe-900/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+    <h2 class="text-white mb-6">Recevez notre <span class="italic text-ibe-200">Catalogue Gratuit</span></h2>
+    <p class="text-ibe-100 text-lg mb-10">Toutes nos formations, tarifs et programmes détaillés envoyés directement sur votre WhatsApp.</p>
+
+    <!-- Formulaire Fonctionnel -->
+    <form [formGroup]="newsletterForm" (ngSubmit)="submitNewsletter()" class="max-w-2xl mx-auto">
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <div class="relative flex-grow text-left">
+          <input type="tel"
+                 formControlName="telephone"
+                 placeholder="Numéro WhatsApp (ex: +237 690... ou 690...)"
+                 class="w-full px-6 py-4 rounded-pill bg-white/10 border text-white placeholder:text-white/50 outline-none focus:bg-white/20 transition-all text-[16px]"
+                 [class.border-ibe-danger]="newsletterForm.get('telephone')?.invalid && newsletterForm.get('telephone')?.touched"
+                 [class.border-white.20]="!(newsletterForm.get('telephone')?.invalid && newsletterForm.get('telephone')?.touched)">
+
+          @if (newsletterForm.get('telephone')?.invalid && newsletterForm.get('telephone')?.touched) {
+            <p class="text-ibe-danger text-xs mt-2 ml-4 absolute -bottom-6">Format invalide. Ex: +237690123456</p>
+          }
+        </div>
+
+        <button type="submit" [disabled]="isSubmittingNewsletter()" class="btn-whatsapp whitespace-nowrap px-8 py-4 disabled:opacity-70">
+          @if (isSubmittingNewsletter()) {
+            Envoi en cours...
+          } @else {
+            Recevoir sur WhatsApp
+          }
+        </button>
+      </div>
+
+      <!-- Messages de retour -->
+      @if (newsletterSuccess()) {
+        <div class="mt-6 inline-flex items-center gap-2 bg-ibe-success/20 text-white px-4 py-2 rounded-lg border border-ibe-success/50">
+          <svg lucideCheck [size]="18"></svg> {{ newsletterSuccess() }}
+        </div>
+      }
+      @if (newsletterError()) {
+        <div class="mt-6 inline-flex items-center gap-2 bg-ibe-danger/20 text-white px-4 py-2 rounded-lg border border-ibe-danger/50">
+          <svg lucideX [size]="18"></svg> {{ newsletterError() }}
+        </div>
+      }
+    </form>
+
+    <p class="text-white/60 text-xs mt-8 italic">En cliquant, WhatsApp s'ouvrira avec un message pré-rempli.</p>
+  </div>
+</section>
+
+@if (showContactModal()) {
+  <app-contact-modal (close)="showContactModal.set(false)" />
+}

@@ -1,0 +1,127 @@
+<div class="max-w-7xl mx-auto">
+
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-ibe-dark mb-2">Tableau de bord</h1>
+    <p class="text-ibe-muted">Bienvenue dans votre espace de gestion Beauty's Empire.</p>
+  </div>
+
+  @if (isLoading()) {
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+      @for (i of [1,2,3,4]; track i) { <div class="h-32 skeleton rounded-2xl"></div> }
+    </div>
+    <div class="h-96 skeleton rounded-2xl"></div>
+  } @else {
+
+    <!-- ==========================================
+         CARTES DE STATISTIQUES (Vraies données)
+         ========================================== -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+
+      <!-- Messages Non Lus -->
+      <div class="bg-white p-6 rounded-2xl border border-ibe-100 shadow-sm flex items-center gap-4">
+        <div class="w-14 h-14 rounded-full bg-ibe-danger/10 flex items-center justify-center text-ibe-danger shrink-0">
+          <svg lucideMail [size]="24"></svg>
+        </div>
+        <div>
+          <p class="text-3xl font-bold text-ibe-dark m-0">{{ stats()?.messagesNonLus || 0 }}</p>
+          <p class="text-sm text-ibe-muted m-0 font-medium">Messages non lus</p>
+        </div>
+      </div>
+
+      <!-- Formations Actives -->
+      <div class="bg-white p-6 rounded-2xl border border-ibe-100 shadow-sm flex items-center gap-4">
+        <div class="w-14 h-14 rounded-full bg-ibe-500/10 flex items-center justify-center text-ibe-500 shrink-0">
+          <svg lucideGraduationCap [size]="24"></svg>
+        </div>
+        <div>
+          <p class="text-3xl font-bold text-ibe-dark m-0">{{ stats()?.formationsActives || 0 }}</p>
+          <p class="text-sm text-ibe-muted m-0 font-medium">Formations actives</p>
+        </div>
+      </div>
+
+      <!-- Abonnés Newsletter -->
+      <div class="bg-white p-6 rounded-2xl border border-ibe-100 shadow-sm flex items-center gap-4">
+        <div class="w-14 h-14 rounded-full bg-ibe-success/10 flex items-center justify-center text-ibe-success shrink-0">
+          <svg lucideUsers [size]="24"></svg>
+        </div>
+        <div>
+          <p class="text-3xl font-bold text-ibe-dark m-0">{{ stats()?.abonnesNewsletter || 0 }}</p>
+          <p class="text-sm text-ibe-muted m-0 font-medium">Abonnés Newsletter</p>
+        </div>
+      </div>
+
+      <!-- Témoignages -->
+      <div class="bg-white p-6 rounded-2xl border border-ibe-100 shadow-sm flex items-center gap-4">
+        <div class="w-14 h-14 rounded-full bg-ibe-warning/10 flex items-center justify-center text-ibe-warning shrink-0">
+          <svg lucideTrendingUp [size]="24"></svg>
+        </div>
+        <div>
+          <p class="text-3xl font-bold text-ibe-dark m-0">{{ stats()?.totalTemoignages || 0 }}</p>
+          <p class="text-sm text-ibe-muted m-0 font-medium">Témoignages reçus</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ==========================================
+         MESSAGES RÉCENTS
+         ========================================== -->
+    <div class="bg-white rounded-2xl border border-ibe-100 shadow-sm overflow-hidden">
+      <div class="px-6 py-5 border-b border-ibe-100 flex items-center justify-between bg-ibe-50/50">
+        <h2 class="text-lg font-bold text-ibe-dark m-0 flex items-center gap-2">
+          <svg lucideMessageSquare [size]="20" class="text-ibe-500"></svg> Derniers messages reçus
+        </h2>
+        <a routerLink="/admin/messages" class="text-sm font-medium text-ibe-600 hover:text-ibe-700 flex items-center gap-1">
+          Voir tout <svg lucideArrowRight [size]="16"></svg>
+        </a>
+      </div>
+
+      <div class="divide-y divide-ibe-100">
+        @if (recentMessages().length === 0) {
+          <div class="p-8 text-center text-ibe-muted">
+            Aucun message récent.
+          </div>
+        } @else {
+          @for (msg of recentMessages(); track msg.id) {
+            <div class="p-6 hover:bg-ibe-50/50 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+
+              <div class="flex items-start gap-4">
+                <!-- Avatar Initiale -->
+                <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold shrink-0"
+                     [class.bg-ibe-500]="msg.type === 'PRE_INSCRIPTION'"
+                     [class.bg-ibe-400]="msg.type === 'CONTACT_GENERAL'">
+                  {{ msg.nom.charAt(0) | uppercase }}
+                </div>
+
+                <div>
+                  <div class="flex items-center gap-2 mb-1">
+                    <h4 class="text-base font-bold text-ibe-dark m-0">{{ msg.nom }}</h4>
+                    @if (msg.statut === 'NON_LU') {
+                      <span class="bg-ibe-danger text-white text-[10px] font-bold px-2 py-0.5 rounded-full">NOUVEAU</span>
+                    }
+                  </div>
+                  <p class="text-sm text-ibe-muted m-0">
+                    <span class="font-medium text-ibe-600">{{ msg.type === 'PRE_INSCRIPTION' ? 'Pré-inscription' : 'Contact' }}</span>
+                    @if (msg.formationNom) { • {{ msg.formationNom }} }
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-4 sm:text-right">
+                <div class="text-sm text-ibe-muted">
+                  <p class="m-0">{{ msg.telephone }}</p>
+                  <p class="m-0 text-xs">{{ formatDate(msg.dateCreation) }}</p>
+                </div>
+                <a routerLink="/admin/messages" class="w-8 h-8 rounded-full bg-ibe-100 flex items-center justify-center text-ibe-600 hover:bg-ibe-600 hover:text-white transition-colors">
+                  <svg lucideArrowRight [size]="16"></svg>
+                </a>
+              </div>
+
+            </div>
+          }
+        }
+      </div>
+    </div>
+
+  }
+</div>

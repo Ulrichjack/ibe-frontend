@@ -1,0 +1,76 @@
+<!-- HEADER DE PAGE -->
+<section class="bg-ibe-900 pt-32 pb-20 relative overflow-hidden">
+  <div class="absolute inset-0 bg-[url('/assets/img/ibe-formation.jpg')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
+  <div class="absolute inset-0 bg-linear-to-t from-ibe-900 to-transparent"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+    <p class="text-ibe-300 font-medium tracking-widest uppercase text-sm mb-4">Aide & Support</p>
+    <h1 class="text-white mb-6">Questions <span class="italic text-ibe-200">Fréquentes</span></h1>
+    <p class="text-ibe-100 text-lg max-w-2xl mx-auto">
+      Retrouvez toutes les réponses à vos questions concernant nos formations, les paiements et les inscriptions.
+    </p>
+  </div>
+</section>
+
+<section class="py-24 bg-ibe-50 min-h-screen">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- ACCORDÉON FAQ -->
+    <div class="space-y-4">
+      @for (faq of faqs; track faq.question; let idx = $index) {
+        <div class="bg-white rounded-2xl border border-ibe-100 shadow-sm overflow-hidden transition-all duration-300"
+             [class.shadow-md]="openIndex() === idx"
+             [class.border-ibe-300]="openIndex() === idx">
+
+          <button (click)="toggleQuestion(idx)"
+                  class="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none">
+            <span class="font-serif text-lg font-bold transition-colors"
+                  [class.text-ibe-600]="openIndex() === idx"
+                  [class.text-ibe-dark]="openIndex() !== idx">
+              {{ faq.question }}
+            </span>
+            <div class="shrink-0 ml-4 text-ibe-400">
+              @if (openIndex() === idx) {
+                <svg lucideMinus [size]="24"></svg>
+              } @else {
+                <svg lucidePlus [size]="24"></svg>
+              }
+            </div>
+          </button>
+
+          <!-- Contenu (Animation de hauteur via CSS Grid) -->
+          <div class="grid transition-all duration-300 ease-in-out"
+               [class.grid-rows-[1fr]]="openIndex() === idx"
+               [class.grid-rows-[0fr]]="openIndex() !== idx">
+            <div class="overflow-hidden">
+              <div class="px-6 pb-6 pt-0 text-ibe-muted leading-relaxed">
+                {{ faq.answer }}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      }
+    </div>
+
+    <!-- CTA CONTACT -->
+    <div class="mt-16 bg-white p-10 rounded-3xl text-center border border-ibe-100 shadow-sm">
+      <h3 class="mb-4">Vous avez d'autres questions ?</h3>
+      <p class="text-ibe-muted mb-8">Notre équipe est à votre disposition pour vous répondre dans les plus brefs délais.</p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        
+        <div class="hidden md:flex">
+        <button (click)="openContactModal()" class="btn-primary">
+          Nous écrire un message
+        </button>
+      </div>
+        <a href="https://wa.me/237690566836" target="_blank" class="btn-whatsapp">Discuter sur WhatsApp</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+@if (showContactModal()) {
+  <app-contact-modal (close)="showContactModal.set(false)" />
+}
