@@ -32,7 +32,7 @@
 </section>
 
 <!-- 2. STATISTIQUES -->
- @defer (on viewport) {
+ 
   <section class="bg-white border-b border-ibe-100 relative z-20 -mt-8 mx-4 md:mx-auto max-w-6xl rounded-2xl shadow-[0_20px_40px_rgba(34,27,46,0.05)]">
     <div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-ibe-100/50">
       @for (stat of stats; track stat.label) {
@@ -47,207 +47,194 @@
       }
     </div>
   </section>
- } @placeholder {
-  <div class="h-32 w-full max-w-6xl mx-auto bg-white rounded-2xl shadow-sm -mt-8 relative z-20"></div>
-}
+
 <!-- 3. AVANTAGES (Pourquoi IBE) -->
- @defer (on viewport) {
-  <section class="py-24 bg-white relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+<section class="py-24 bg-white relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="mb-6">L'Art de la <span class="italic text-ibe-500">Transmission</span></h2>
+      <p class="text-lg text-ibe-muted">Plus qu'une école, Beauty's Empire est un véritable tremplin pour votre carrière.</p>
+    </div>
+
+    <!-- Grille 4 colonnes (1 sur mobile, 2 sur tablette, 4 sur PC) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
       
-      <div class="text-center max-w-3xl mx-auto mb-16">
-        <h2 class="mb-6">L'Art de la <span class="italic text-ibe-500">Transmission</span></h2>
-        <p class="text-lg text-ibe-muted">Plus qu'une école, Beauty's Empire est un véritable tremplin pour votre carrière.</p>
+      <!-- Avantage 1 : Diplôme -->
+      <div class="flex flex-col items-center text-center group">
+        <div class="w-28 h-28 rounded-full bg-ibe-50 flex items-center justify-center mb-6 group-hover:bg-ibe-500 group-hover:scale-110 transition-all duration-500 shadow-sm border border-ibe-100 group-hover:border-ibe-500">
+          <svg lucideAward [size]="48" class="text-ibe-700 group-hover:text-white transition-colors duration-500"></svg>
+        </div>
+        <h3 class="text-lg mb-3 font-bold text-ibe-dark">Diplôme Reconnu</h3>
+        <p class="text-sm text-ibe-muted leading-relaxed">Formations certifiées par le MINEFOP. Votre diplôme a une véritable valeur sur le marché du travail.</p>
       </div>
 
-      <!-- Grille 4 colonnes (1 sur mobile, 2 sur tablette, 4 sur PC) -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
-        
-        <!-- Avantage 1 : Diplôme -->
-        <div class="flex flex-col items-center text-center group">
-          <div class="w-28 h-28 rounded-full bg-ibe-50 flex items-center justify-center mb-6 group-hover:bg-ibe-500 group-hover:scale-110 transition-all duration-500 shadow-sm border border-ibe-100 group-hover:border-ibe-500">
-            <svg lucideAward [size]="48" class="text-ibe-700 group-hover:text-white transition-colors duration-500"></svg>
-          </div>
-          <h3 class="text-lg mb-3 font-bold text-ibe-dark">Diplôme Reconnu</h3>
-          <p class="text-sm text-ibe-muted leading-relaxed">Formations certifiées par le MINEFOP. Votre diplôme a une véritable valeur sur le marché du travail.</p>
+      <!-- Avantage 2 : Kit & Stage -->
+      <div class="flex flex-col items-center text-center group">
+        <div class="w-28 h-28 rounded-full bg-ibe-50 flex items-center justify-center mb-6 group-hover:bg-ibe-500 group-hover:scale-110 transition-all duration-500 shadow-sm border border-ibe-100 group-hover:border-ibe-500">
+          <svg lucideBriefcase [size]="48" class="text-ibe-700 group-hover:text-white transition-colors duration-500"></svg>
         </div>
+        <h3 class="text-lg mb-3 font-bold text-ibe-dark">Kit Pro & Stage</h3>
+        <p class="text-sm text-ibe-muted leading-relaxed">Dès le premier jour, recevez votre matériel professionnel. Chaque cursus inclut un stage garanti.</p>
+      </div>
 
-        <!-- Avantage 2 : Kit & Stage -->
-        <div class="flex flex-col items-center text-center group">
-          <div class="w-28 h-28 rounded-full bg-ibe-50 flex items-center justify-center mb-6 group-hover:bg-ibe-500 group-hover:scale-110 transition-all duration-500 shadow-sm border border-ibe-100 group-hover:border-ibe-500">
-            <svg lucideBriefcase [size]="48" class="text-ibe-700 group-hover:text-white transition-colors duration-500"></svg>
-          </div>
-          <h3 class="text-lg mb-3 font-bold text-ibe-dark">Kit Pro & Stage</h3>
-          <p class="text-sm text-ibe-muted leading-relaxed">Dès le premier jour, recevez votre matériel professionnel. Chaque cursus inclut un stage garanti.</p>
+      <!-- Avantage 3 : Paiement (Nouvelle icône Argent) -->
+      <div class="flex flex-col items-center text-center group">
+        <div class="w-28 h-28 rounded-full bg-ibe-50 flex items-center justify-center mb-6 group-hover:bg-ibe-500 group-hover:scale-110 transition-all duration-500 shadow-sm border border-ibe-100 group-hover:border-ibe-500">
+          <svg lucideBanknote [size]="48" class="text-ibe-700 group-hover:text-white transition-colors duration-500"></svg>
         </div>
+        <h3 class="text-lg mb-3 font-bold text-ibe-dark">Paiement Flexible</h3>
+        <p class="text-sm text-ibe-muted leading-relaxed">L'excellence doit être accessible. Nous proposons des facilités de paiement en plusieurs tranches.</p>
+      </div>
 
-        <!-- Avantage 3 : Paiement (Nouvelle icône Argent) -->
-        <div class="flex flex-col items-center text-center group">
-          <div class="w-28 h-28 rounded-full bg-ibe-50 flex items-center justify-center mb-6 group-hover:bg-ibe-500 group-hover:scale-110 transition-all duration-500 shadow-sm border border-ibe-100 group-hover:border-ibe-500">
-            <svg lucideBanknote [size]="48" class="text-ibe-700 group-hover:text-white transition-colors duration-500"></svg>
-          </div>
-          <h3 class="text-lg mb-3 font-bold text-ibe-dark">Paiement Flexible</h3>
-          <p class="text-sm text-ibe-muted leading-relaxed">L'excellence doit être accessible. Nous proposons des facilités de paiement en plusieurs tranches.</p>
+      <!-- Avantage 4 : Experts (Nouveau, inspiré de ton exemple) -->
+      <div class="flex flex-col items-center text-center group">
+        <div class="w-28 h-28 rounded-full bg-ibe-50 flex items-center justify-center mb-6 group-hover:bg-ibe-500 group-hover:scale-110 transition-all duration-500 shadow-sm border border-ibe-100 group-hover:border-ibe-500">
+          <svg lucideUsers [size]="48" class="text-ibe-700 group-hover:text-white transition-colors duration-500"></svg>
         </div>
+        <h3 class="text-lg mb-3 font-bold text-ibe-dark">Experts du Secteur</h3>
+        <p class="text-sm text-ibe-muted leading-relaxed">Formation assurée par des professionnels passionnés, actifs dans les secteurs de la beauté et du luxe.</p>
+      </div>
 
-        <!-- Avantage 4 : Experts (Nouveau, inspiré de ton exemple) -->
-        <div class="flex flex-col items-center text-center group">
-          <div class="w-28 h-28 rounded-full bg-ibe-50 flex items-center justify-center mb-6 group-hover:bg-ibe-500 group-hover:scale-110 transition-all duration-500 shadow-sm border border-ibe-100 group-hover:border-ibe-500">
-            <svg lucideUsers [size]="48" class="text-ibe-700 group-hover:text-white transition-colors duration-500"></svg>
-          </div>
-          <h3 class="text-lg mb-3 font-bold text-ibe-dark">Experts du Secteur</h3>
-          <p class="text-sm text-ibe-muted leading-relaxed">Formation assurée par des professionnels passionnés, actifs dans les secteurs de la beauté et du luxe.</p>
-        </div>
+    </div>
+  </div>
+</section>
 
+<!-- 4. FORMATIONS POPULAIRES (Depuis le Backend) -->
+<section class="py-24 bg-ibe-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Nouveaux Titres -->
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      
+      <h2>Nos <span class="italic text-ibe-500">Formations</span></h2>
+      <div class="flex items-center justify-center gap-2 mb-4">
+        <span class="text-ibe-600 font-semibold tracking-widest uppercase text-sm">Les plus Populaires</span>
       </div>
     </div>
-  </section>
- }@placeholder {
-  <div class="h-96 w-full bg-white"></div>
-}
-<!-- 4. FORMATIONS POPULAIRES (Depuis le Backend) -->
- @defer (on viewport) {
-  <section class="py-24 bg-ibe-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <!-- Nouveaux Titres -->
-      <div class="text-center max-w-2xl mx-auto mb-16">
-        
-        <h2>Nos <span class="italic text-ibe-500">Formations</span></h2>
-        <div class="flex items-center justify-center gap-2 mb-4">
-          <span class="text-ibe-600 font-semibold tracking-widest uppercase text-sm">Les plus Populaires</span>
-        </div>
-      </div>
 
-      @if (isLoadingFormations()) {
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-          <div class="aspect-square skeleton rounded-md"></div>
-          <div class="aspect-square skeleton rounded-md"></div>
-          <div class="aspect-square skeleton rounded-md"></div>
-        </div>
-      } @else {
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
-          @for (formation of popularFormations(); track formation.id) {
+    @if (isLoadingFormations()) {
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div class="aspect-square skeleton rounded-md"></div>
+        <div class="aspect-square skeleton rounded-md"></div>
+        <div class="aspect-square skeleton rounded-md"></div>
+      </div>
+    } @else {
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
+        @for (formation of popularFormations(); track formation.id) {
+          
+          <!-- Nouvelle Carte Style "Luxe / Épuré" -->
+          <div class="flex flex-col group h-full">
             
-            <!-- Nouvelle Carte Style "Luxe / Épuré" -->
-            <div class="flex flex-col group h-full">
-              
-              <!-- Image Carrée avec bordure 6px (rounded-md) -->
-              <div class="relative aspect-square rounded-md overflow-hidden mb-6 shadow-sm">
-                <!-- N'oublie pas de convertir tes images en WebP pour la performance -->
-                <img [src]="optimizeImage(formation.photoPrincipale)" 
-                  [alt]="formation.nom" 
-                  width="400" height="400" loading="lazy"
-                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                            
-                <!-- Badge Promo optionnel -->
-                @if (formation.isPromoActive) {
-                  <div class="absolute top-4 right-4 bg-ibe-danger text-white px-3 py-1 rounded-full text-xs font-bold shadow-sm animate-pulse">
-                    PROMO
-                  </div>
-                }
+            <!-- Image Carrée avec bordure 6px (rounded-md) -->
+            <div class="relative aspect-square rounded-md overflow-hidden mb-6 shadow-sm">
+              <!-- N'oublie pas de convertir tes images en WebP pour la performance -->
+              <img [src]="optimizeImage(formation.photoPrincipale)" 
+                [alt]="formation.nom" 
+                width="400" height="400" loading="lazy"
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                          
+              <!-- Badge Promo optionnel -->
+              @if (formation.isPromoActive) {
+                <div class="absolute top-4 right-4 bg-ibe-danger text-white px-3 py-1 rounded-full text-xs font-bold shadow-sm animate-pulse">
+                  PROMO
+                </div>
+              }
+            </div>
+
+            <!-- Catégorie (Centrée, violette) -->
+            <p class="text-center text-ibe-700 font-bold text-sm uppercase tracking-widest mb-2 m-0">
+              {{ formation.categorie }}
+            </p>
+
+             <div class="p-6 flex flex-col grow">
+              <h3 class="text-xl mb-2 group-hover:text-ibe-600 transition-colors line-clamp-2">{{ formation.nom }}</h3>
+
+              <div class="flex items-center gap-4 text-sm text-ibe-muted mb-4">
+                <span class="flex items-center gap-1.5"><svg lucideClock [size]="16"></svg> {{ formation.duree }}</span>
               </div>
 
-              <!-- Catégorie (Centrée, violette) -->
-              <p class="text-center text-ibe-700 font-bold text-sm uppercase tracking-widest mb-2 m-0">
-                {{ formation.categorie }}
+              <p class="text-sm text-ibe-600 font-medium mb-4 flex items-center gap-1">
+                <svg lucideUsers [size]="14"></svg> {{ formation.placesRestantesAffichees }} places disponibles
               </p>
 
-              <div class="p-6 flex flex-col grow">
-                <h3 class="text-xl mb-2 group-hover:text-ibe-600 transition-colors line-clamp-2">{{ formation.nom }}</h3>
-
-                <div class="flex items-center gap-4 text-sm text-ibe-muted mb-4">
-                  <span class="flex items-center gap-1.5"><svg lucideClock [size]="16"></svg> {{ formation.duree }}</span>
-                </div>
-
-                <p class="text-sm text-ibe-600 font-medium mb-4 flex items-center gap-1">
-                  <svg lucideUsers [size]="14"></svg> {{ formation.placesRestantesAffichees }} places disponibles
-                </p>
-
-                <!-- Remplacement du prix par un CTA clair -->
-                <div class="mt-auto pt-4 border-t border-ibe-100 flex items-center justify-between">
-                  <span class="text-sm text-ibe-muted font-medium">Kit professionnel inclus</span>
-                  <a [routerLink]="['/formations', formation.slug]" 
-                    [attr.aria-label]="'Voir les détails de la formation ' + formation.nom"
-                    class="inline-block border-2 border-ibe-600 text-ibe-600 hover:bg-ibe-600 hover:text-white font-medium px-8 py-3 rounded-full transition-colors duration-300 uppercase text-sm tracking-wider">
-                    Voir la formation
-                  </a>
-                </div>
+              <!-- Remplacement du prix par un CTA clair -->
+              <div class="mt-auto pt-4 border-t border-ibe-100 flex items-center justify-between">
+                <span class="text-sm text-ibe-muted font-medium">Kit professionnel inclus</span>
+                <a [routerLink]="['/formations', formation.slug]" 
+                  [attr.aria-label]="'Voir les détails de la formation ' + formation.nom"
+                  class="inline-block border-2 border-ibe-600 text-ibe-600 hover:bg-ibe-600 hover:text-white font-medium px-8 py-3 rounded-full transition-colors duration-300 uppercase text-sm tracking-wider">
+                  Voir la formation
+                </a>
               </div>
-
             </div>
-          }
-        </div>
-        
-        <!-- Bouton Catalogue Complet -->
-        <div class="text-center mt-16">
-          <a routerLink="/formations" class="btn-primary">Voir le catalogue complet</a>
-        </div>
-      }
-    </div>
-  </section>
-} @placeholder {
-  <div class="h-150 w-full bg-ibe-50"></div>
-}
-<!-- 5. GALERIE (Grille Instagram Luxe & Performante) -->
-@defer (on viewport) {
-  <section class="py-24 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="text-center mb-16">
-        
-        <h2>Nos <span class="italic text-ibe-500">Réalisations</span></h2>
-        <p class="text-ibe-muted">Le talent de nos étudiantes en images.</p>
+
+          </div>
+        }
       </div>
+      
+      <!-- Bouton Catalogue Complet -->
+      <div class="text-center mt-16">
+        <a routerLink="/formations" class="btn-primary">Voir le catalogue complet</a>
+      </div>
+    }
+  </div>
+</section>
 
-      @if (isLoadingGallery()) {
-        <!-- Skeletons carrés pour éviter le Layout Shift (CLS) -->
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-          @for (i of [1,2,3,4,5,6]; track i) { 
-            <div class="aspect-square skeleton rounded-md"></div> 
-          }
-        </div>
-      } @else {
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-          @for (img of galleryImages(); track img.id) {
-            
-            <!-- Carte Image Carrée (aspect-square) -->
-            <div class="relative aspect-square rounded-md overflow-hidden group cursor-pointer shadow-sm">
-              
-              <!-- Image optimisée (lazy loading, dimensions explicites) -->
-              <img [src]="img.url" 
-                  [alt]="img.titre" 
-                  width="400" height="400" loading="lazy" decoding="async"
-                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-              
-              <!-- Overlay Luxe au survol (Dégradé depuis le bas) -->
-              <div class="absolute inset-0 bg-gradient-to-t from-ibe-900/90 via-ibe-900/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 md:p-6">
-                <span class="text-ibe-300 text-[10px] md:text-xs font-bold uppercase tracking-widest mb-1">
-                  {{ img.categorie }}
-                </span>
-                <h4 class="text-white text-sm md:text-base font-medium m-0 line-clamp-1">
-                  {{ img.titre }}
-                </h4>
-              </div>
-
-            </div>
-          }
-        </div>
-        
-        <div class="text-center mt-12">
-          <a routerLink="/galerie" class="btn-outline">Voir toute la galerie</a>
-        </div>
-      }
+<!-- 5. GALERIE (Grille Instagram Luxe & Performante) -->
+<section class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="text-center mb-16">
+      
+      <h2>Nos <span class="italic text-ibe-500">Réalisations</span></h2>
+      <p class="text-ibe-muted">Le talent de nos étudiantes en images.</p>
     </div>
-  </section>
-}@placeholder {
-  <div class="h-125 w-full bg-white"></div>
-}
+
+    @if (isLoadingGallery()) {
+      <!-- Skeletons carrés pour éviter le Layout Shift (CLS) -->
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        @for (i of [1,2,3,4,5,6]; track i) { 
+          <div class="aspect-square skeleton rounded-md"></div> 
+        }
+      </div>
+    } @else {
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+        @for (img of galleryImages(); track img.id) {
+          
+          <!-- Carte Image Carrée (aspect-square) -->
+          <div class="relative aspect-square rounded-md overflow-hidden group cursor-pointer shadow-sm">
+            
+            <!-- Image optimisée (lazy loading, dimensions explicites) -->
+            <img [src]="img.url" 
+                 [alt]="img.titre" 
+                 width="400" height="400" loading="lazy" decoding="async"
+                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+            
+            <!-- Overlay Luxe au survol (Dégradé depuis le bas) -->
+            <div class="absolute inset-0 bg-gradient-to-t from-ibe-900/90 via-ibe-900/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 md:p-6">
+              <span class="text-ibe-300 text-[10px] md:text-xs font-bold uppercase tracking-widest mb-1">
+                {{ img.categorie }}
+              </span>
+              <h3 class="text-white text-sm md:text-base font-medium m-0 line-clamp-1">
+                {{ img.titre }}
+              </h3>
+            </div>
+
+          </div>
+        }
+      </div>
+      
+      <div class="text-center mt-12">
+        <a routerLink="/galerie" class="btn-outline">Voir toute la galerie</a>
+      </div>
+    }
+  </div>
+</section>
 
 <!-- ==========================================
      6. TÉMOIGNAGES (CHEVRONS SUR LES CÔTÉS)
      ========================================== -->
- @defer (on viewport) {    
     <section class="py-24 bg-ibe-50 relative overflow-hidden">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -297,7 +284,7 @@
                       </div>
                     }
                     <div>
-                      <h4 class="font-bold text-ibe-dark text-base m-0 leading-tight">{{ testi.nomEtudiant }}</h4>
+                      <h3 class="font-bold text-ibe-dark text-base m-0 leading-tight">{{ testi.nomEtudiant }}</h3>
                       <div class="flex gap-0.5 text-ibe-warning mt-1">
                         @for (star of [1,2,3,4,5]; track star) { 
                           <svg lucideStar [size]="14" [class]="star <= testi.note ? 'fill-ibe-warning' : 'text-ibe-200'"></svg> 
@@ -325,86 +312,80 @@
         </div>
       </div>
     </section>
-  
-  <!-- ==========================================
-      MODAL AVIS COMPLET
-      ========================================== -->
-  @if (selectedTestimonial(); as fullTesti) {
-    <div class="fixed inset-0 z-[100] bg-ibe-900/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-300" (click)="closeFullReview()">
-      <div class="bg-white w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-3xl shadow-2xl p-6 md:p-8 relative animate-in zoom-in-95 duration-300" (click)="$event.stopPropagation()">
-        <button (click)="closeFullReview()" class="absolute top-6 right-6 w-10 h-10 rounded-full bg-ibe-50 flex items-center justify-center text-ibe-muted hover:bg-ibe-100 hover:text-ibe-dark transition-colors">
-          <svg lucideX [size]="20"></svg>
-        </button>
-        <div class="flex flex-col md:flex-row gap-6 md:gap-8 mt-4">
-          <div class="md:w-1/3 shrink-0 flex flex-col items-center md:items-start text-center md:text-left">
-            @if (fullTesti.photoUrl) {
-              <img [src]="fullTesti.photoUrl" [alt]="fullTesti.nomEtudiant" class="w-24 h-24 rounded-full object-cover border-4 border-ibe-50 mb-4 shadow-sm">
-            } @else {
-              <div class="w-24 h-24 rounded-full bg-ibe-500 flex items-center justify-center text-white font-serif font-bold text-4xl mb-4 shadow-sm">
-                {{ fullTesti.nomEtudiant.charAt(0) | uppercase }}
-              </div>
+
+<!-- ==========================================
+     MODAL AVIS COMPLET
+     ========================================== -->
+@if (selectedTestimonial(); as fullTesti) {
+  <div class="fixed inset-0 z-[100] bg-ibe-900/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-300" (click)="closeFullReview()">
+    <div class="bg-white w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-3xl shadow-2xl p-6 md:p-8 relative animate-in zoom-in-95 duration-300" (click)="$event.stopPropagation()">
+      <button (click)="closeFullReview()" class="absolute top-6 right-6 w-10 h-10 rounded-full bg-ibe-50 flex items-center justify-center text-ibe-muted hover:bg-ibe-100 hover:text-ibe-dark transition-colors">
+        <svg lucideX [size]="20"></svg>
+      </button>
+      <div class="flex flex-col md:flex-row gap-6 md:gap-8 mt-4">
+        <div class="md:w-1/3 shrink-0 flex flex-col items-center md:items-start text-center md:text-left">
+          @if (fullTesti.photoUrl) {
+            <img [src]="fullTesti.photoUrl" [alt]="fullTesti.nomEtudiant" class="w-24 h-24 rounded-full object-cover border-4 border-ibe-50 mb-4 shadow-sm">
+          } @else {
+            <div class="w-24 h-24 rounded-full bg-ibe-500 flex items-center justify-center text-white font-serif font-bold text-4xl mb-4 shadow-sm">
+              {{ fullTesti.nomEtudiant.charAt(0) | uppercase }}
+            </div>
+          }
+          <h3 class="font-bold text-ibe-dark text-xl m-0 mb-2">{{ fullTesti.nomEtudiant }}</h3>
+          <div class="flex gap-1 text-ibe-warning mb-4 justify-center md:justify-start">
+            @for (star of [1,2,3,4,5]; track star) { 
+              <svg lucideStar [size]="16" [class]="star <= fullTesti.note ? 'fill-ibe-warning' : 'text-ibe-200'"></svg> 
             }
-            <h4 class="font-bold text-ibe-dark text-xl m-0 mb-2">{{ fullTesti.nomEtudiant }}</h4>
-            <div class="flex gap-1 text-ibe-warning mb-4 justify-center md:justify-start">
-              @for (star of [1,2,3,4,5]; track star) { 
-                <svg lucideStar [size]="16" [class]="star <= fullTesti.note ? 'fill-ibe-warning' : 'text-ibe-200'"></svg> 
-              }
-            </div>
-            <div class="inline-block px-3 py-1 bg-ibe-50 text-ibe-600 text-xs font-bold uppercase tracking-wider rounded-full">
-              {{ fullTesti.formationSuivie }}
-            </div>
           </div>
-          <div class="md:w-2/3">
-            <p class="text-ibe-dark leading-relaxed whitespace-pre-line m-0">
-              {{ fullTesti.temoignage }}
-            </p>
+          <div class="inline-block px-3 py-1 bg-ibe-50 text-ibe-600 text-xs font-bold uppercase tracking-wider rounded-full">
+            {{ fullTesti.formationSuivie }}
           </div>
+        </div>
+        <div class="md:w-2/3">
+          <p class="text-ibe-dark leading-relaxed whitespace-pre-line m-0">
+            {{ fullTesti.temoignage }}
+          </p>
         </div>
       </div>
     </div>
-  }
-}@placeholder {
-  <div class="h-100 w-full bg-ibe-900"></div>
+  </div>
 }
+
 <!-- ==========================================
      7. NOS PARTENAIRES (CARROUSEL UNIFORME)
      ========================================== -->
- @defer (on viewport) {
-  <section class="py-16 bg-white border-b border-ibe-100 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-  <h2 class="text-center uppercase tracking-widest mb-10">Nos<span class="italic text-ibe-500"> partenaires</span></h2>
-      <div class="relative group px-2 md:px-12">
-        
-        <!-- Chevron Gauche Partenaires -->
-        <button (click)="scrollPartners('left')" aria-label="Précédent" class="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white border border-ibe-200 shadow-md flex items-center justify-center text-ibe-500 hover:bg-ibe-500 hover:text-white hover:border-ibe-500 transition-all opacity-0 group-hover:opacity-100 md:flex">
-          <svg lucideChevronLeft [size]="20"></svg>
-        </button>
+<section class="py-16 bg-white border-b border-ibe-100 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<h2 class="text-center uppercase tracking-widest mb-10">Nos<span class="italic text-ibe-500"> partenaires</span></h2>
+    <div class="relative group px-2 md:px-12">
+      
+      <!-- Chevron Gauche Partenaires -->
+      <button (click)="scrollPartners('left')" aria-label="Précédent" class="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white border border-ibe-200 shadow-md flex items-center justify-center text-ibe-500 hover:bg-ibe-500 hover:text-white hover:border-ibe-500 transition-all opacity-0 group-hover:opacity-100 md:flex">
+        <svg lucideChevronLeft [size]="20"></svg>
+      </button>
 
-        <!-- Carrousel Partenaires (Cartes uniformes, sans scrollbar) -->
-        <div #partnersContainer class="flex gap-15 overflow-x-auto snap-x snap-mandatory py-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none">
-          @for (partenaire of partenaires; track partenaire.nom) {
-            <!-- Carte Partenaire : Carré parfait, fond blanc, bordure -->
-            <div class="snap-start shrink-0 w-40 h-40 bg-white rounded-2xl border border-ibe-100 shadow-sm hover:shadow-md hover:border-ibe-300 transition-all duration-300 flex items-center justify-center p-6 group/card cursor-pointer">
-              <img [src]="partenaire.logo" [alt]="partenaire.nom" width="110" height="110" loading="lazy" class="max-w-full max-h-full object-contain grayscale opacity-70 group-hover/card:grayscale-0 group-hover/card:opacity-100 transition-all duration-500">
-            </div>
-          }
-        </div>
-
-        <!-- Chevron Droit Partenaires -->
-        <button (click)="scrollPartners('right')" aria-label="Suivant" class="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white border border-ibe-200 shadow-md flex items-center justify-center text-ibe-500 hover:bg-ibe-500 hover:text-white hover:border-ibe-500 transition-all opacity-0 group-hover:opacity-100 md:flex">
-          <svg lucideChevronRight [size]="20"></svg>
-        </button>
-
+      <!-- Carrousel Partenaires (Cartes uniformes, sans scrollbar) -->
+      <div #partnersContainer class="flex gap-15 overflow-x-auto snap-x snap-mandatory py-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none">
+        @for (partenaire of partenaires; track partenaire.nom) {
+          <!-- Carte Partenaire : Carré parfait, fond blanc, bordure -->
+          <div class="snap-start shrink-0 w-40 h-40 bg-white rounded-2xl border border-ibe-100 shadow-sm hover:shadow-md hover:border-ibe-300 transition-all duration-300 flex items-center justify-center p-6 group/card cursor-pointer">
+            <img [src]="partenaire.logo" [alt]="partenaire.nom" width="110" height="110" loading="lazy" class="max-w-full max-h-full object-contain grayscale opacity-70 group-hover/card:grayscale-0 group-hover/card:opacity-100 transition-all duration-500">
+          </div>
+        }
       </div>
+
+      <!-- Chevron Droit Partenaires -->
+      <button (click)="scrollPartners('right')" aria-label="Suivant" class="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white border border-ibe-200 shadow-md flex items-center justify-center text-ibe-500 hover:bg-ibe-500 hover:text-white hover:border-ibe-500 transition-all opacity-0 group-hover:opacity-100 md:flex">
+        <svg lucideChevronRight [size]="20"></svg>
+      </button>
+
     </div>
-  </section>
-} @placeholder {
-  <div class="h-48 w-full bg-white"></div>
-}
+  </div>
+</section>
+
 <!-- ==========================================
      8. LOCALISATION (Yaoundé)
      ========================================== -->
-@defer (on viewport) {
 <section class="py-24 bg-ibe-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -455,65 +436,59 @@
     </div>
   </div>
 </section>
-}@placeholder {
-  <div class="h-150 w-full bg-ibe-700"></div>
-}
+
 <!-- ==========================================
      9. CTA CATALOGUE (Newsletter WhatsApp)
      ========================================== -->
-  @defer (on viewport) {   
-  <section class="py-24 bg-linear-to-br from-ibe-700 to-ibe-500 relative overflow-hidden">
-    <div class="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-    <div class="absolute bottom-0 left-0 w-96 h-96 bg-ibe-900/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+<section class="py-24 bg-linear-to-br from-ibe-700 to-ibe-500 relative overflow-hidden">
+  <div class="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+  <div class="absolute bottom-0 left-0 w-96 h-96 bg-ibe-900/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
 
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-      <h2 class="text-white mb-6">Recevez notre <span class="italic text-ibe-200">Catalogue Gratuit</span></h2>
-      <p class="text-ibe-100 text-lg mb-10">Toutes nos formations, tarifs et programmes détaillés envoyés directement sur votre WhatsApp.</p>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+    <h2 class="text-white mb-6">Recevez notre <span class="italic text-ibe-200">Catalogue Gratuit</span></h2>
+    <p class="text-ibe-100 text-lg mb-10">Toutes nos formations, tarifs et programmes détaillés envoyés directement sur votre WhatsApp.</p>
 
-      <!-- Formulaire Fonctionnel -->
-      <form [formGroup]="newsletterForm" (ngSubmit)="submitNewsletter()" class="max-w-2xl mx-auto">
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <div class="relative flex-grow text-left">
-            <input type="tel"
-                  formControlName="telephone"
-                  placeholder="Numéro WhatsApp (ex: +237 690... ou 690...)"
-                  class="w-full px-6 py-4 rounded-pill bg-white/10 border text-white placeholder:text-white/50 outline-none focus:bg-white/20 transition-all text-[16px]"
-                  [class.border-ibe-danger]="newsletterForm.get('telephone')?.invalid && newsletterForm.get('telephone')?.touched"
-                  [class.border-white.20]="!(newsletterForm.get('telephone')?.invalid && newsletterForm.get('telephone')?.touched)">
+    <!-- Formulaire Fonctionnel -->
+    <form [formGroup]="newsletterForm" (ngSubmit)="submitNewsletter()" class="max-w-2xl mx-auto">
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <div class="relative flex-grow text-left">
+          <input type="tel"
+                 formControlName="telephone"
+                 placeholder="Numéro WhatsApp (ex: +237 690... ou 690...)"
+                 class="w-full px-6 py-4 rounded-pill bg-white/10 border text-white placeholder:text-white/50 outline-none focus:bg-white/20 transition-all text-[16px]"
+                 [class.border-ibe-danger]="newsletterForm.get('telephone')?.invalid && newsletterForm.get('telephone')?.touched"
+                 [class.border-white.20]="!(newsletterForm.get('telephone')?.invalid && newsletterForm.get('telephone')?.touched)">
 
-            @if (newsletterForm.get('telephone')?.invalid && newsletterForm.get('telephone')?.touched) {
-              <p class="text-ibe-danger text-xs mt-2 ml-4 absolute -bottom-6">Format invalide. Ex: +237690123456</p>
-            }
-          </div>
-
-          <button type="submit" [disabled]="isSubmittingNewsletter()" class="btn-whatsapp whitespace-nowrap px-8 py-4 disabled:opacity-70">
-            @if (isSubmittingNewsletter()) {
-              Envoi en cours...
-            } @else {
-              Recevoir sur WhatsApp
-            }
-          </button>
+          @if (newsletterForm.get('telephone')?.invalid && newsletterForm.get('telephone')?.touched) {
+            <p class="text-ibe-danger text-xs mt-2 ml-4 absolute -bottom-6">Format invalide. Ex: +237690123456</p>
+          }
         </div>
 
-        <!-- Messages de retour -->
-        @if (newsletterSuccess()) {
-          <div class="mt-6 inline-flex items-center gap-2 bg-ibe-success/20 text-white px-4 py-2 rounded-lg border border-ibe-success/50">
-            <svg lucideCheck [size]="18"></svg> {{ newsletterSuccess() }}
-          </div>
-        }
-        @if (newsletterError()) {
-          <div class="mt-6 inline-flex items-center gap-2 bg-ibe-danger/20 text-white px-4 py-2 rounded-lg border border-ibe-danger/50">
-            <svg lucideX [size]="18"></svg> {{ newsletterError() }}
-          </div>
-        }
-      </form>
+        <button type="submit" [disabled]="isSubmittingNewsletter()" class="btn-whatsapp whitespace-nowrap px-8 py-4 disabled:opacity-70">
+          @if (isSubmittingNewsletter()) {
+            Envoi en cours...
+          } @else {
+            Recevoir sur WhatsApp
+          }
+        </button>
+      </div>
 
-      <p class="text-white/60 text-xs mt-8 italic">En cliquant, WhatsApp s'ouvrira avec un message pré-rempli.</p>
-    </div>
-  </section>
-}@placeholder {
-  <div class="h-96 w-full bg-ibe-700"></div>
-}
+      <!-- Messages de retour -->
+      @if (newsletterSuccess()) {
+        <div class="mt-6 inline-flex items-center gap-2 bg-ibe-success/20 text-white px-4 py-2 rounded-lg border border-ibe-success/50">
+          <svg lucideCheck [size]="18"></svg> {{ newsletterSuccess() }}
+        </div>
+      }
+      @if (newsletterError()) {
+        <div class="mt-6 inline-flex items-center gap-2 bg-ibe-danger/20 text-white px-4 py-2 rounded-lg border border-ibe-danger/50">
+          <svg lucideX [size]="18"></svg> {{ newsletterError() }}
+        </div>
+      }
+    </form>
+
+    <p class="text-white/60 text-xs mt-8 italic">En cliquant, WhatsApp s'ouvrira avec un message pré-rempli.</p>
+  </div>
+</section>
 
 @if (showContactModal()) {
   <app-contact-modal (close)="showContactModal.set(false)" />

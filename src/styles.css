@@ -18,8 +18,8 @@
   --color-ibe-dark: #221B2E;     /* texte principal (jamais #000) */
   --color-ibe-muted: #6E647C;    /* texte secondaire */
   --color-ibe-surface: #FFFFFF;  /* cards, modals */
-  --color-ibe-wa: #0F766A;       
-  --color-ibe-wa-hover: #0A524A;
+  --color-ibe-wa: #0D655A;       /* Vert très foncé pour contraste parfait */
+  --color-ibe-wa-hover: #094A42;
   --color-ibe-success: #3FA66A;
   --color-ibe-warning: #D89A3A;
   --color-ibe-danger: #DC2626;
