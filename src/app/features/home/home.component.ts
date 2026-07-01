@@ -121,7 +121,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   loadGallery() {
-    this.galleryService.getImagesPubliques(0, 7).subscribe({
+    this.galleryService.getImagesPubliques(0, 6).subscribe({
       next: (res) => {
         if (res.success && res.data) {
           this.galleryImages.set(res.data.content);

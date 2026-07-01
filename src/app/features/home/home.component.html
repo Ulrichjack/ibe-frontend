@@ -3,13 +3,16 @@
   <!-- 1. HERO SECTION -->
   <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
     <div class="absolute inset-0 w-full h-full">
-     <!-- On utilise srcset pour que le mobile charge une version plus petite -->
-     <img src="assets/img/ibe-ceremony.webp" 
-         srcset="assets/img/ibe-ceremony-mobile.webp 600w, assets/img/ibe-ceremony.webp 1920w"
-         sizes="100vw"
-         alt="Institut Beauty's Empire"
-         fetchpriority="high" width="1920" height="1080"
-         class="w-full h-full object-cover">
+      <picture>
+        <!-- Sur mobile (max 768px), on force l'image mobile -->
+        <source media="(max-width: 768px)" srcset="assets/img/ibe-ceremony-mobile.webp">
+        <!-- Sur PC, on met la grande image -->
+        <source media="(min-width: 769px)" srcset="assets/img/ibe-ceremony.webp">
+        <!-- Fallback par défaut -->
+        <img src="assets/img/ibe-ceremony.webp" alt="Institut Beauty's Empire"
+              fetchpriority="high" width="1920" height="1080"
+              class="w-full h-full object-cover">
+      </picture>
   </div>
     <div class="absolute inset-0 bg-linear-to-r from-ibe-900/95 via-ibe-900/80 to-ibe-700/40"></div>
 
@@ -120,11 +123,16 @@
       </div>
 
       @if (isLoadingFormations()) {
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-          <div class="aspect-square skeleton rounded-md"></div>
-          <div class="aspect-square skeleton rounded-md"></div>
-          <div class="aspect-square skeleton rounded-md"></div>
-        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
+        @for (i of [1,2,3]; track i) {
+          <div class="flex flex-col h-full bg-white rounded-md p-4 border border-ibe-100">
+            <div class="aspect-square skeleton rounded-md mb-6"></div>
+            <div class="h-4 w-1/3 skeleton mx-auto mb-4"></div>
+            <div class="h-6 w-3/4 skeleton mx-auto mb-6"></div>
+            <div class="h-10 w-full skeleton mt-auto rounded-full"></div>
+          </div>
+        }
+      </div>
       } @else {
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
           @for (formation of popularFormations(); track formation.id) {
@@ -199,11 +207,12 @@
 
       @if (isLoadingGallery()) {
         <!-- Skeletons carrés pour éviter le Layout Shift (CLS) -->
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+          <!-- On met exactement 6 skeletons -->
           @for (i of [1,2,3,4,5,6]; track i) { 
             <div class="aspect-square skeleton rounded-md"></div> 
           }
-        </div>
+       </div>
       } @else {
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
           @for (img of galleryImages(); track img.id) {
