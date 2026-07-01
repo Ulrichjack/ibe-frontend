@@ -222,4 +222,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
   openContactModal() {
     this.showContactModal.set(true);
   }
+
+  // Ajoute cette méthode dans la classe HomeComponent
+  optimizeImage(url: string | undefined): string {
+    if (!url) return 'assets/img/default-formation.webp';
+    // Si c'est une URL Cloudinary non optimisée, on injecte les paramètres de compression
+    if (url.includes('cloudinary.com') && !url.includes('f_auto')) {
+      return url.replace('/upload/', '/upload/f_auto,q_auto,w_800/');
+    }
+    return url;
+  }
 }

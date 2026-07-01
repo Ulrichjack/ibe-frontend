@@ -18,8 +18,8 @@
   --color-ibe-dark: #221B2E;     /* texte principal (jamais #000) */
   --color-ibe-muted: #6E647C;    /* texte secondaire */
   --color-ibe-surface: #FFFFFF;  /* cards, modals */
-  --color-ibe-wa: #25D366;       /* EXCLUSIF WhatsApp */
-  --color-ibe-wa-hover: #1DA855;
+ --color-ibe-wa: #128C7E;       /* Vert WhatsApp accessible (Contraste 4.6:1) */
+  --color-ibe-wa-hover: #075E54;
   --color-ibe-success: #3FA66A;
   --color-ibe-warning: #D89A3A;
   --color-ibe-danger: #DC2626;
@@ -198,10 +198,18 @@
 
   /* Skeleton Loader pour le chargement */
   .skeleton {
-    background: linear-gradient(90deg, var(--color-ibe-100) 25%, var(--color-ibe-50) 50%, var(--color-ibe-100) 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
+    background-color: var(--color-ibe-100);
+    position: relative;
+    overflow: hidden;
     border-radius: var(--radius-md);
+  }
+  .skeleton::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+    transform: translateX(-100%);
+    animation: shimmer 1.5s infinite;
   }
 }
 
@@ -212,7 +220,9 @@
   .lg\:col-span-5 { grid-column: span 12 / span 12 !important; }
 }
 
-@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+@keyframes shimmer { 
+  100% { transform: translateX(100%); } 
+}
 @keyframes shrink {
   from { width: 100%; }
   to { width: 0%; }
