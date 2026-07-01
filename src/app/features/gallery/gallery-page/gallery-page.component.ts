@@ -4,11 +4,15 @@ import { GalleryImageResponse } from '../../../shared/models/gallery.model';
 import { LucideX, LucideChevronLeft, LucideChevronRight, LucideImage } from '@lucide/angular';
 import { GalleryService } from '../../../shared/services/gallery.service';
 import { SeoService } from '../../../core/services/seo.service';
+import { CloudinaryOptimizePipe } from '../../../shared/pipes/cloudinary-optimize.pipe';
 
 @Component({
   selector: 'app-gallery-page',
   standalone: true,
-  imports: [CommonModule, LucideX, LucideChevronLeft, LucideChevronRight, LucideImage],
+  imports: [
+    CommonModule, LucideX, 
+    LucideChevronLeft, LucideChevronRight, LucideImage, CloudinaryOptimizePipe
+  ],
   templateUrl: './gallery-page.component.html'
 })
 export class GalleryPageComponent implements OnInit {

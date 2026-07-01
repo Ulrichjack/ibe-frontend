@@ -15,6 +15,7 @@ import {
 import { InscriptionModalComponent } from '../../messages/ui/inscription-modal/inscription-modal.component';
 import { ContactModalComponent } from '../../messages/ui/contact-modal/contact-modal.component';
 import { SeoService } from '../../../core/services/seo.service';
+import { CloudinaryOptimizePipe } from '../../../shared/pipes/cloudinary-optimize.pipe';
 
 @Component({
   selector: 'app-formation-detail',
@@ -24,7 +25,7 @@ import { SeoService } from '../../../core/services/seo.service';
     LucideArrowLeft, LucideClock, LucideUsers,
     LucideCalendar, LucideAward, LucideCircleCheck,
     LucideBookOpen, LucideTarget, LucideBriefcase, 
-    InscriptionModalComponent, ContactModalComponent
+    InscriptionModalComponent, ContactModalComponent,CloudinaryOptimizePipe
   ],
   templateUrl: './formation-detail.component.html'
 })

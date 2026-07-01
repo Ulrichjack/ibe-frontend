@@ -11,6 +11,7 @@ import {
 } from '@lucide/angular';
 import { FormationService } from '../../../../shared/services/formation.service';
 import { FormationResponse } from '../../../formations/data-access/formation.model';
+import { CloudinaryOptimizePipe } from '../../../../shared/pipes/cloudinary-optimize.pipe';
 
 @Component({
   selector: 'app-formations-admin',
@@ -18,7 +19,7 @@ import { FormationResponse } from '../../../formations/data-access/formation.mod
   imports: [
     CommonModule, FormsModule, CurrencyFcfaPipe,
     LucideSearch, LucidePlus, LucidePencil,
-    LucideTrash2
+    LucideTrash2,CloudinaryOptimizePipe
   ],
   templateUrl: './formations-admin.component.html'
 })

@@ -37,7 +37,8 @@
     @for (stat of stats; track stat.label) {
       <div class="p-8 text-center group">
         <div class="flex items-center justify-center gap-1 mb-2">
-          <span #statNumber [attr.data-value]="stat.value" class="font-serif text-4xl md:text-5xl font-bold text-ibe-600 group-hover:text-ibe-500 transition-colors inline-block min-w-[3ch] text-right">0</span>
+         <!-- Ligne 31 environ -->
+          <span #statNumber [attr.data-value]="stat.value" class="font-serif text-4xl md:text-5xl font-bold text-ibe-600 group-hover:text-ibe-500 transition-colors tabular-nums inline-block min-w-[4ch] text-right">0</span>
           <span class="font-serif text-3xl font-bold text-ibe-400">{{ stat.suffix }}</span>
         </div>
         <p class="text-sm font-medium text-ibe-muted uppercase tracking-wider m-0">{{ stat.label }}</p>
@@ -399,16 +400,16 @@
 
         <div class="space-y-8">
           <div class="flex gap-4">
-            <div class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center shrink-0 text-ibe-500">01</div>
+            <div class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center shrink-0 text-ibe-700">01</div>
             <div>
-              <h4 class="text-xl mb-2">Campus Tsinga</h4>
+              <h3 class="text-xl mb-2">Campus Tsinga</h3>
               <p class="text-sm m-0">Entrée PMI Tsinga, près du Centre de Promotion de la Femme et de la Famille. Face à l'Agence de Promotion des PME.</p>
             </div>
           </div>
           <div class="flex gap-4">
-            <div class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center shrink-0 text-ibe-500">02</div>
+            <div class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center shrink-0 text-ibe-700">02</div>
             <div>
-              <h4 class="text-xl mb-2">Campus Nkoabang</h4>
+              <h3 class="text-xl mb-2">Campus Nkoabang</h3>
               <p class="text-sm m-0">Carrefour 10ème Arrêt Nkoabang.</p>
             </div>
           </div>

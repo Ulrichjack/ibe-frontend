@@ -14,6 +14,7 @@ import {
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { debounceTime, distinctUntilChanged, skip } from 'rxjs';
 import { SeoService } from '../../../core/services/seo.service';
+import { CloudinaryOptimizePipe } from '../../../shared/pipes/cloudinary-optimize.pipe';
 
 @Component({
   selector: 'app-formation-list',
@@ -21,7 +22,7 @@ import { SeoService } from '../../../core/services/seo.service';
   imports: [
     CommonModule, RouterLink, FormsModule, CurrencyFcfaPipe,
     LucideSearch, LucideX, LucideClock, LucideUsers,
-    LucideArrowRight, LucideChevronLeft, LucideChevronRight
+    LucideArrowRight, LucideChevronLeft, LucideChevronRight,CloudinaryOptimizePipe
   ],
   templateUrl: './formation-list.component.html'
 })

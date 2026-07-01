@@ -5,11 +5,12 @@ import { GalleryService } from '../../../../shared/services/gallery.service';
 import { GalleryImageResponse } from '../../../../shared/models/gallery.model';
 import { ToastService } from '../../../../core/services/toast.service';
 import { LucideCloudUpload, LucideTrash2 } from '@lucide/angular';
+import { CloudinaryOptimizePipe } from '../../../../shared/pipes/cloudinary-optimize.pipe';
 
 @Component({
   selector: 'app-gallery-admin',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, LucideTrash2, LucideCloudUpload],
+  imports: [CommonModule, ReactiveFormsModule, LucideTrash2, LucideCloudUpload, CloudinaryOptimizePipe],
   templateUrl: './gallery-admin.component.html'
 })
 export class GalleryAdminComponent implements OnInit {

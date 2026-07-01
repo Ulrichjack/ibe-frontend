@@ -73,7 +73,7 @@
           <div class="card-luxe group flex flex-col bg-white">
             <!-- Image -->
             <div class="relative h-56 overflow-hidden">
-              <img [src]="formation.photoPrincipale || 'assets/img/default-formation.webp'" [alt]="formation.nom" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+              <img [src]="formation.photoPrincipale | cloudinaryOptimize:400" [alt]="formation.nom" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
               <div class="absolute inset-0 bg-ibe-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
               <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-ibe-700 uppercase tracking-wider shadow-sm">

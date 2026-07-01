@@ -31,7 +31,7 @@
           <div class="space-y-4">
             <!-- Image Principale -->
             <div class="w-full h-100 md:h-125 rounded-2xl overflow-hidden shadow-[0_8px_30px_rgba(34,27,46,0.05)] border border-ibe-100 bg-white">
-              <img [src]="currentImage()" [alt]="form.nom" class="w-full h-full object-cover animate-in fade-in duration-500">
+              <img [src]="currentImage() | cloudinaryOptimize:800" [alt]="form.nom" class="w-full h-full object-cover animate-in fade-in duration-500">
             </div>
 
             <!-- Miniatures -->
@@ -41,14 +41,14 @@
                 <button (click)="setCurrentImage(form.photoPrincipale || '')"
                         class="w-24 h-24 shrink-0 rounded-xl overflow-hidden border-2 transition-all"
                         [class]="currentImage() === form.photoPrincipale ? 'border-ibe-500 opacity-100' : 'border-transparent opacity-60 hover:opacity-100'">
-                  <img [src]="form.photoPrincipale" class="w-full h-full object-cover">
+                  <img [src]="form.photoPrincipale | cloudinaryOptimize:150" class="w-full h-full object-cover">
                 </button>
 
                 @for (photo of form.photosGalerie; track photo) {
                   <button (click)="setCurrentImage(photo)"
                           class="w-24 h-24 shrink-0 rounded-xl overflow-hidden border-2 transition-all"
                           [class]="currentImage() === photo ? 'border-ibe-500 opacity-100' : 'border-transparent opacity-60 hover:opacity-100'">
-                    <img [src]="photo" class="w-full h-full object-cover">
+                    <img [src]="photo | cloudinaryOptimize:150" class="w-full h-full object-cover">
                   </button>
                 }
               </div>
