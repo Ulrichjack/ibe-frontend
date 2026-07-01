@@ -4,15 +4,15 @@
   <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
     <div class="absolute inset-0 w-full h-full">
       <picture>
-        <!-- Sur mobile (max 768px), on force l'image mobile -->
-        <source media="(max-width: 768px)" srcset="assets/img/ibe-ceremony-mobile.webp">
-        <!-- Sur PC, on met la grande image -->
-        <source media="(min-width: 769px)" srcset="assets/img/ibe-ceremony.webp">
-        <!-- Fallback par défaut -->
-        <img src="assets/img/ibe-ceremony.webp" alt="Institut Beauty's Empire"
-              fetchpriority="high" width="1920" height="1080"
-              class="w-full h-full object-cover">
-      </picture>
+       <!-- Sur mobile, on charge la petite image -->
+       <source media="(max-width: 768px)" srcset="assets/img/ibe-ceremony-mobile.webp">
+       <!-- Sur PC, on charge la grande -->
+       <source media="(min-width: 769px)" srcset="assets/img/ibe-ceremony.webp">
+       <!-- L'image par défaut (SANS l'animation slowZoom) -->
+       <img src="assets/img/ibe-ceremony.webp" alt="Institut Beauty's Empire"
+            fetchpriority="high" width="1920" height="1080"
+            class="w-full h-full object-cover">
+     </picture>
   </div>
     <div class="absolute inset-0 bg-linear-to-r from-ibe-900/95 via-ibe-900/80 to-ibe-700/40"></div>
 
@@ -110,7 +110,7 @@
   </section>
 
   <!-- 4. FORMATIONS POPULAIRES (Depuis le Backend) -->
-  <section class="py-24 bg-ibe-50 min-h-[600px]">
+  <section class="py-24 bg-ibe-50 min-h-[1400px] md:min-h-[600px]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <!-- Nouveaux Titres -->
@@ -196,7 +196,7 @@
   </section>
 
   <!-- 5. GALERIE (Grille Instagram Luxe & Performante) -->
-  <section class="py-24 bg-white min-h-[500px]">
+  <section class="py-24 bg-ibe-900 text-white relative overflow-hidden min-h-[600px] md:min-h-[400px]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center mb-16">
@@ -445,7 +445,7 @@
           <iframe
             title="Carte de localisation de l'Institut Beauty's Empire à Yaoundé"
             src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d995.1666402884808!2d11.502187620949455!3d3.8814715894893124!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2scm!4v1758312893505!5m2!1sfr!2scm"
-            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
           </iframe>
         </div>
 
