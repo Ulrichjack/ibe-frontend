@@ -109,7 +109,7 @@
   </section>
 
   <!-- 4. FORMATIONS POPULAIRES (Depuis le Backend) -->
-  <section class="py-24 bg-ibe-50 min-h-[1500px] md:min-h-[600px]">
+  <section class="py-24 bg-ibe-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <!-- Nouveaux Titres -->
@@ -127,8 +127,11 @@
             <div class="relative aspect-square rounded-md overflow-hidden mb-6 shadow-sm skeleton"></div>
             <div class="h-4 w-1/3 skeleton mx-auto mb-2 rounded"></div>
             <div class="p-6 flex flex-col grow">
-              <div class="h-6 w-3/4 skeleton mb-3 rounded"></div>
-              <div class="h-4 w-1/2 skeleton mb-4 rounded"></div>
+              <div class="min-h-[3.2rem] mb-2 space-y-2">
+                <div class="h-4 w-full skeleton rounded"></div>
+                <div class="h-4 w-2/3 skeleton rounded"></div>
+              </div>
+              <div class="h-4 w-1/2 skeleton mb-2 rounded"></div>
               <div class="h-4 w-2/3 skeleton mb-4 rounded"></div>
               <div class="mt-auto pt-4 border-t border-ibe-100 flex items-center justify-between">
                 <div class="h-4 w-24 skeleton rounded"></div>
@@ -167,9 +170,9 @@
               </p>
 
               <div class="p-6 flex flex-col grow">
-                <h3 class="text-xl mb-2 group-hover:text-ibe-600 transition-colors line-clamp-2">{{ formation.nom }}</h3>
-
-                <div class="flex items-center gap-4 text-sm text-ibe-muted mb-4">
+               <h3 class="text-xl mb-2 group-hover:text-ibe-600 transition-colors line-clamp-2 min-h-[3.2rem]">{{ formation.nom }}</h3>
+                 
+               <div class="flex items-center gap-4 text-sm text-ibe-muted mb-4">
                   <span class="flex items-center gap-1.5"><svg lucideClock [size]="16"></svg> {{ formation.duree }}</span>
                 </div>
 
