@@ -5,9 +5,11 @@
 @import "@fontsource/inter/400.css";
 @import "@fontsource/inter/500.css";
 @import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
 @import "@fontsource/poppins/400.css";
 @import "@fontsource/poppins/600.css";
 @import "@fontsource/poppins/700.css";
+@import "@fontsource/poppins/700-italic.css";
 
 @theme {
   /* Palette de couleurs Violette Strict IBE */
@@ -216,6 +218,18 @@
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
     transform: translateX(-100%);
     animation: shimmer 1.5s infinite;
+  }
+
+  @supports not (aspect-ratio: 1 / 1) {
+    .aspect-square {
+      position: relative;
+      height: 0;
+      padding-bottom: 100%;
+    }
+    .aspect-square > * {
+      position: absolute;
+      inset: 0;
+    }
   }
 }
 
