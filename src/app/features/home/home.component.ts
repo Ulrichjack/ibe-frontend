@@ -54,8 +54,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
   isLoadingTestimonials = signal(true);
   isLoadingGallery = signal(true);
   showContactModal = signal(false);
+  // À côté de vos autres signals
+  mapLoaded = signal(false);
 
-  // Références pour les carrousels
+  loadMap() {
+    this.mapLoaded.set(true);
+  }
+    // Références pour les carrousels
   @ViewChild('carouselContainer') carouselContainer!: ElementRef;
   @ViewChild('partnersContainer') partnersContainer!: ElementRef;
 
