@@ -27,8 +27,8 @@
   --animate-shrink: shrink 4s linear forwards;
 
   /* Polices d'écriture */
-  --font-serif: "Poppins", sans-serif; 
-  --font-sans: "Inter", system-ui, sans-serif; 
+  --font-serif: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 
   /* Arrondis (Border Radius) */
   --radius-sm: 4px;

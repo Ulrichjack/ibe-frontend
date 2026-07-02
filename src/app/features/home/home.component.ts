@@ -33,7 +33,7 @@ import { CloudinaryOptimizePipe } from '../../shared/pipes/cloudinary-optimize.p
     LucideUsers, LucideAward, LucideBriefcase,
     LucideMapPin, LucidePhone, LucideStar,
     ReactiveFormsModule, LucideCheck, LucideX, ContactModalComponent, LucideBanknote,
-    LucideChevronLeft, LucideChevronRight,LucideArrowRight, LucideClock
+    LucideChevronLeft, LucideChevronRight, LucideClock
   ],
   templateUrl: './home.component.html'
 })

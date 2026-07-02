@@ -14,24 +14,28 @@
 
 <!-- BARRE DE RECHERCHE (Glassmorphism) -->
 <section class="relative z-20 -mt-8 max-w-3xl mx-auto px-4 sm:px-6">
-  <div class="bg-white/90 backdrop-blur-xl p-2 rounded-full shadow-[0_8px_30px_rgba(34,27,46,0.08)] border border-ibe-100 flex items-center">
-    <div class="pl-4 pr-2 text-ibe-400">
-      <svg lucideSearch [size]="20"></svg>
-    </div>
-    <input
-      type="text"
-      [ngModel]="searchQuery()"
-      (ngModelChange)="searchQuery.set($event)"
-      (keyup.enter)="onSearch()"
-      placeholder="Rechercher une formation (ex: Onglerie, Make-up...)"
-      class="flex-grow bg-transparent border-none outline-none text-ibe-dark placeholder:text-ibe-300 py-3 text-[16px]">
+  <div class="bg-white/90 backdrop-blur-xl p-2 rounded-2xl sm:rounded-full shadow-[0_8px_30px_rgba(34,27,46,0.08)] border border-ibe-100 flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-0">
+    
+    <div class="flex items-center flex-1">
+      <div class="pl-4 pr-2 text-ibe-400 shrink-0">
+        <svg lucideSearch [size]="20"></svg>
+      </div>
+      <input
+        type="text"
+        [ngModel]="searchQuery()"
+        (ngModelChange)="searchQuery.set($event)"
+        (keyup.enter)="onSearch()"
+        placeholder="Rechercher une formation..."
+        class="flex-grow min-w-0 bg-transparent border-none outline-none text-ibe-dark placeholder:text-ibe-300 py-3 text-[16px]">
 
-    @if (searchQuery()) {
-      <button (click)="clearSearch()" class="p-2 text-ibe-400 hover:text-ibe-danger transition-colors">
-        <svg lucideX [size]="18"></svg>
-      </button>
-    }
-    <button (click)="onSearch()" class="btn-primary py-3 px-6 ml-2">
+      @if (searchQuery()) {
+        <button (click)="clearSearch()" class="p-2 text-ibe-400 hover:text-ibe-danger transition-colors shrink-0">
+          <svg lucideX [size]="18"></svg>
+        </button>
+      }
+    </div>
+
+    <button (click)="onSearch()" class="btn-primary py-3 px-6 sm:ml-2 w-full sm:w-auto">
       Rechercher
     </button>
   </div>
