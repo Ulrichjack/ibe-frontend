@@ -3,12 +3,11 @@
   <!-- 1. HERO SECTION -->
   <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
     <div class="absolute inset-0 w-full h-full">
-      <picture>
-       <!-- Sur mobile, on charge la petite image -->
+       <picture>
+       <!-- Ceci FORCE les écrans de moins de 768px à charger l'image mobile -->
        <source media="(max-width: 768px)" srcset="assets/img/ibe-ceremony-mobile.webp">
-       <!-- Sur PC, on charge la grande -->
-       <source media="(min-width: 769px)" srcset="assets/img/ibe-ceremony.webp">
-       <!-- L'image par défaut (SANS l'animation slowZoom) -->
+       
+       <!-- L'image par défaut pour les PC -->
        <img src="assets/img/ibe-ceremony.webp" alt="Institut Beauty's Empire"
             fetchpriority="high" width="1920" height="1080"
             class="w-full h-full object-cover">
@@ -110,7 +109,7 @@
   </section>
 
   <!-- 4. FORMATIONS POPULAIRES (Depuis le Backend) -->
-  <section class="py-24 bg-ibe-50 min-h-[1400px] md:min-h-[600px]">
+  <section class="py-24 bg-ibe-50 min-h-[1500px] md:min-h-[600px]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <!-- Nouveaux Titres -->
@@ -196,14 +195,12 @@
   </section>
 
   <!-- 5. GALERIE (Grille Instagram Luxe & Performante) -->
-  <section class="py-24 bg-ibe-900 text-white relative overflow-hidden min-h-[600px] md:min-h-[400px]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="text-center mb-16">
-        
-        <h2>Nos <span class="italic text-ibe-500">Réalisations</span></h2>
-        <p class="text-ibe-muted">Le talent de nos étudiantes en images.</p>
-      </div>
+  <section class="py-24 bg-white min-h-[800px] md:min-h-[500px]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-ibe-dark mb-4">Nos <span class="italic text-ibe-500">Réalisations</span></h2>
+      <p class="text-ibe-muted">Le talent de nos étudiantes en images.</p>
+    </div>
 
       @if (isLoadingGallery()) {
         <!-- Skeletons carrés pour éviter le Layout Shift (CLS) -->
@@ -250,7 +247,7 @@
   <!-- ==========================================
       6. TÉMOIGNAGES (CHEVRONS SUR LES CÔTÉS)
       ========================================== -->
-      <section class="py-24 bg-ibe-900 text-white relative overflow-hidden min-h-[400px]">
+     <section class="py-24 bg-ibe-900 text-white relative overflow-hidden min-h-[500px] md:min-h-[400px]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
           <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
