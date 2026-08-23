@@ -1,6 +1,6 @@
 import { Component, OnInit, signal, inject, DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { FormationService } from '../../../shared/services/formation.service';
@@ -9,7 +9,7 @@ import { CurrencyFcfaPipe } from '../../../shared/pipes/currency-fcfa.pipe';
 
 import {
   LucideSearch, LucideX, LucideClock,
-  LucideUsers, LucideArrowRight, LucideChevronLeft, LucideChevronRight
+  LucideArrowRight, LucideChevronLeft, LucideChevronRight
 } from '@lucide/angular';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { debounceTime, distinctUntilChanged, skip } from 'rxjs';
@@ -21,7 +21,7 @@ import { CloudinaryOptimizePipe } from '../../../shared/pipes/cloudinary-optimiz
   standalone: true,
   imports: [
     CommonModule, RouterLink, FormsModule, CurrencyFcfaPipe,
-    LucideSearch, LucideX, LucideClock, LucideUsers,
+    LucideSearch, LucideX, LucideClock,
     LucideArrowRight, LucideChevronLeft, LucideChevronRight,CloudinaryOptimizePipe
   ],
   templateUrl: './formation-list.component.html'
@@ -30,6 +30,7 @@ export class FormationListComponent implements OnInit {
   private formationService = inject(FormationService);
   private destroyRef = inject(DestroyRef);
   private seoService = inject(SeoService);
+  private route = inject(ActivatedRoute);
 
   formations = signal<FormationResponse[]>([]);
   isLoading = signal(true);
@@ -42,6 +43,19 @@ export class FormationListComponent implements OnInit {
   pageSize = 9;
 
   constructor() {
+    // Le nuancier de la page d'accueil arrive avec ?q=coiffure. On amorce la
+    // recherche AVANT de brancher le flux debouncé : son émission initiale est
+    // ignorée par skip(1), donc pas de second appel réseau au chargement.
+    const q = this.route.snapshot.queryParamMap.get('q');
+    if (q) { this.searchQuery.set(q); }
+
+    // Navigation vers /formations avec un autre ?q alors que la page est déjà
+    // affichée : le composant n'est pas recréé, on suit donc les query params.
+    this.route.queryParamMap.pipe(
+      skip(1),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(params => this.searchQuery.set(params.get('q') ?? ''));
+
     toObservable(this.searchQuery).pipe(
       skip(1),
       debounceTime(400),

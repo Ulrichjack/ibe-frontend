@@ -30,7 +30,7 @@
           <!-- Galerie d'images -->
           <div class="space-y-4">
             <!-- Image Principale -->
-            <div class="w-full h-100 md:h-125 rounded-2xl overflow-hidden shadow-[0_8px_30px_rgba(34,27,46,0.05)] border border-ibe-100 bg-white">
+            <div class="w-full h-100 md:h-125 rounded-2xl overflow-hidden shadow-ibe-raised border border-ibe-100 bg-white">
               <img [src]="currentImage() | cloudinaryOptimize:800" [alt]="form.nom" class="w-full h-full object-cover animate-in fade-in duration-500">
             </div>
 
@@ -56,7 +56,7 @@
           </div>
 
           <!-- Onglets (Custom sans Bootstrap) -->
-          <div class="bg-white rounded-2xl shadow-[0_8px_30px_rgba(34,27,46,0.03)] border border-ibe-100 overflow-hidden">
+          <div class="bg-white rounded-2xl shadow-ibe-raised border border-ibe-100 overflow-hidden">
             <!-- En-tête des onglets -->
             <div class="flex border-b border-ibe-100 overflow-x-auto scrollbar-hide">
               <button (click)="setActiveTab('programme')"
@@ -111,7 +111,7 @@
              ========================================== -->
         <div class="lg:col-span-5 lg:sticky lg:top-32 space-y-6">
 
-          <div class="bg-white rounded-3xl shadow-[0_20px_40px_rgba(34,27,46,0.06)] border border-ibe-100 p-8">
+          <div class="bg-white rounded-3xl shadow-ibe-card border border-ibe-100 p-8">
 
             <!-- En-tête -->
             <div class="mb-6">
@@ -165,7 +165,7 @@
             <div class="mb-8 p-6 bg-linear-to-br from-ibe-50 to-white rounded-2xl border border-ibe-200">
               <p class="text-sm text-ibe-muted uppercase tracking-wider mb-2 m-0">Investissement</p>
               <div class="flex items-end gap-3">
-                <span class="font-serif text-4xl font-bold text-ibe-700 leading-none">
+                <span class="text-4xl font-semibold tabular-nums text-ibe-700 leading-none">
                   {{ (form.isPromoActive ? form.prixAvecReduction : form.prix) | currencyFcfa }}
                 </span>
                 @if (form.isPromoActive) {
@@ -179,7 +179,7 @@
 
             <!-- Boutons Desktop (Cachés sur mobile car on a le Sticky CTA) -->
             <div class="hidden md:flex flex-col gap-3">
-              <button (click)="openInscriptionModal()" class="btn-primary w-full py-4 text-lg shadow-[0_8px_25px_rgba(126,72,163,0.3)]">
+              <button (click)="openInscriptionModal()" class="btn-primary w-full py-4 text-lg">
                 Pré-inscription
               </button>
               <button (click)="openContactModal()" class="btn-outline w-full py-4">
@@ -195,14 +195,14 @@
       <!-- ==========================================
            CTA STICKY MOBILE (Fixé en bas de l'écran)
            ========================================== -->
-      <div class="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-ibe-200 p-4 shadow-[0_-10px_30px_rgba(34,27,46,0.05)] z-50 flex items-center justify-between gap-4 animate-in slide-in-from-bottom-full duration-500">
+      <div class="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-ibe-200 p-4 shadow-ibe-raised z-50 flex items-center justify-between gap-4 animate-in slide-in-from-bottom-full duration-500">
         <div class="flex flex-col">
           <span class="text-[10px] text-ibe-muted uppercase font-bold">Total</span>
-          <span class="font-serif text-xl font-bold text-ibe-700 leading-none">
+          <span class="text-xl font-semibold tabular-nums text-ibe-700 leading-none">
             {{ (form.isPromoActive ? form.prixAvecReduction : form.prix) | currencyFcfa }}
           </span>
         </div>
-        <button (click)="openInscriptionModal()" class="btn-primary grow py-3 shadow-[0_4px_15px_rgba(126,72,163,0.3)]">
+        <button (click)="openInscriptionModal()" class="btn-primary grow py-3">
           S'inscrire
         </button>
       </div>

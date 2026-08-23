@@ -20,21 +20,14 @@ import {
 })
 export class AdminLayoutComponent implements OnInit { // Implémente OnInit
   private authService = inject(AuthService);
-  private messageService = inject(MessageService); // Injection
+  public messageService = inject(MessageService); // Injection
   private router = inject(Router);
 
   isSidebarOpen = signal(false);
-  unreadCount = signal(0); // Signal pour le badge
 
   ngOnInit() {
     // Charge le nombre de messages non lus au démarrage
-    this.messageService.getNonLusCount().subscribe({
-      next: (res) => {
-        if (res.success && res.data !== undefined) {
-          this.unreadCount.set(res.data);
-        }
-      }
-    });
+    this.messageService.getNonLusCount().subscribe();
   }
 
   toggleSidebar() { this.isSidebarOpen.update(v => !v); }

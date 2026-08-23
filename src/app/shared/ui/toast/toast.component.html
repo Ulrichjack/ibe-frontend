@@ -2,7 +2,7 @@
 <div class="fixed top-24 right-4 z-[100] flex flex-col gap-3 pointer-events-none">
 
   @for (toast of toastService.toasts(); track toast.id) {
-    <div class="pointer-events-auto w-80 bg-white rounded-xl shadow-[0_8px_30px_rgba(34,27,46,0.12)] border border-ibe-100 overflow-hidden animate-in slide-in-from-right-8 fade-in duration-300 flex items-stretch">
+    <div class="pointer-events-auto w-80 bg-white rounded-xl shadow-ibe-raised border border-ibe-100 overflow-hidden animate-in slide-in-from-right-8 fade-in duration-300 flex items-stretch">
 
       <!-- Bande de couleur latérale & Icône selon le type -->
       <div class="w-12 flex items-center justify-center shrink-0"

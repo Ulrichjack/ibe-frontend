@@ -52,6 +52,7 @@ IBE Frontend est l'interface web de l'Institut Beauty's Empire. Il couvre deux e
 | **Angular** | 20 | Framework principal |
 | **Tailwind CSS v4** | Latest | Styling (avec `@theme`) |
 | **Lucide Angular** | Latest | Iconographie |
+| **Instrument Serif / Inter** | @fontsource | Display éditoriale / corps et UI |
 | **RxJS** | 7.x | Gestion des flux asynchrones |
 | **Cloudinary** | Upload preset | Upload et CDN des images |
 
@@ -202,9 +203,8 @@ Les paramètres d'environnement sont dans `src/environments/`.
 
 ```
 src/environments/
-├── environment.ts           # Développement local
-├── environment.staging.ts   # Staging (Render + Vercel)
-└── environment.prod.ts      # Production (VPS)
+├── environment.ts        # Développement local (API sur localhost:8080)
+└── environment.prod.ts   # Production (API sur Render), utilisé via fileReplacements
 ```
 
 ```typescript
@@ -222,21 +222,14 @@ export const environment = {
 
 > **⚠️ Important** : Ne jamais committer de vraies clés ou numéros sensibles. Utiliser des valeurs de test en local.
 
-### Tailwind CSS v4
+### Tailwind CSS v4 et design système
 
-La palette et les tokens de design sont définis dans `src/styles.css` via la directive `@theme` :
+La palette et les tokens sont définis dans `src/styles.css` via la directive `@theme`.
+C'est la **seule** source de vérité : jamais d'hexadécimal en dur dans un template.
 
-```css
-@import "tailwindcss";
-
-@theme {
-  --color-ibe-500: #9B5FC0;   /* Couleur signature (logo) */
-  --color-ibe-600: #7E48A3;   /* CTA, liens actifs */
-  --color-ibe-800: #472566;   /* Sidebar admin, footer */
-  --color-ibe-wa:  #25D366;   /* EXCLUSIF WhatsApp — jamais utilisé ailleurs */
-  /* ... */
-}
-```
+Les intentions de design — direction visuelle, règles typographiques, composants
+signature (`.eyebrow`, `.masthead`, `.palette`) et plancher d'accessibilité — sont
+documentées dans **[`docs/design-system.md`](./docs/design-system.md)**.
 
 ---
 
@@ -304,15 +297,17 @@ La configuration Nginx est gérée par le repo backend (reverse proxy + SSL Cert
 
 ```
 ibe-frontend/
+├── public/
+│   └── assets/img/           # Logo, photos campus, partenaires (servis tels quels)
 ├── src/
 │   ├── app/                  # Code source Angular
-│   ├── assets/
-│   │   └── img/              # Logo, photos campus, partenaires
-│   └── environments/         # Configuration par environnement
-├── angular.json              # Configuration Angular CLI
-├── tailwind.config.js        # Palette + tokens (si v3) / @theme (si v4)
+│   ├── environments/         # Configuration par environnement
+│   └── styles.css            # @theme Tailwind v4 : palette, polices, composants
+├── docs/design-system.md     # Direction visuelle et règles de design
+├── CLAUDE.md                 # Règles projet pour les agents IA
+├── angular.json
 ├── tsconfig.json
-├── vercel.json               # Redirection SPA pour Vercel
+├── vercel.json               # En-têtes de sécurité + redirection SPA
 └── README.md
 ```
 

@@ -33,7 +33,7 @@ import { CloudinaryOptimizePipe } from '../../shared/pipes/cloudinary-optimize.p
     LucideUsers, LucideAward, LucideBriefcase,
     LucideMapPin, LucidePhone, LucideStar,
     ReactiveFormsModule, LucideCheck, LucideX, ContactModalComponent, LucideBanknote,
-    LucideChevronLeft, LucideChevronRight, LucideClock
+    LucideChevronLeft, LucideChevronRight, LucideClock, LucideArrowRight
   ],
   templateUrl: './home.component.html'
 })
@@ -60,9 +60,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   loadMap() {
     this.mapLoaded.set(true);
   }
-    // Références pour les carrousels
+  // Référence du carrousel de témoignages
   @ViewChild('carouselContainer') carouselContainer!: ElementRef;
-  @ViewChild('partnersContainer') partnersContainer!: ElementRef;
 
   newsletterForm = this.fb.group({
     telephone: ['', [Validators.required, Validators.pattern(/^\+?[1-9]\d{7,14}$/)]]
@@ -71,6 +70,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
   isSubmittingNewsletter = signal(false);
   newsletterSuccess = signal('');
   newsletterError = signal('');
+
+  // Nuancier des spécialités affiché sous le hero. Chaque pavé ouvre le
+  // catalogue déjà filtré sur la spécialité (paramètre `q` lu par formation-list).
+  specialites = [
+    { nom: 'Esthétique', detail: 'Visage & corps',      recherche: 'esthétique' },
+    { nom: 'Coiffure',   detail: 'Coupe, tresses, tissage', recherche: 'coiffure' },
+    { nom: 'Onglerie',   detail: 'Pose, gel, nail art', recherche: 'ongle' },
+    { nom: 'Make-up',    detail: 'Mariée, studio, scène', recherche: 'maquillage' }
+  ];
 
   partenaires = [
     { nom: "MINEFOP", logo: "assets/img/Minefop.webp" },
@@ -152,14 +160,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
     if (this.carouselContainer) {
       const container = this.carouselContainer.nativeElement;
       const scrollAmount = 374; // Largeur d'une carte avis + gap
-      container.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
-    }
-  }
-
-  scrollPartners(direction: 'left' | 'right') {
-    if (this.partnersContainer) {
-      const container = this.partnersContainer.nativeElement;
-      const scrollAmount = 224; // Largeur d'une carte partenaire + gap
       container.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
     }
   }

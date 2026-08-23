@@ -1,32 +1,36 @@
-/* ==========================================
-   1. IMPORTATION & THEME (Ancienne Étape 3)
-   ========================================== */
+/* ==========================================================================
+   IBE — Socle de design
+   Palette violette inchangée (identité de marque). La personnalité vient
+   de la typographie, de la structure éditoriale et du nuancier.
+   ========================================================================== */
+
 @import "tailwindcss";
+
+/* Display : Instrument Serif (400 + italique). Utilisée UNIQUEMENT >= 24px.
+   Corps & UI : Inter — lisible sur les Android d'entrée de gamme visés. */
+@import "@fontsource/instrument-serif/400.css";
+@import "@fontsource/instrument-serif/400-italic.css";
 @import "@fontsource/inter/400.css";
 @import "@fontsource/inter/500.css";
 @import "@fontsource/inter/600.css";
 @import "@fontsource/inter/700.css";
-@import "@fontsource/poppins/400.css";
-@import "@fontsource/poppins/600.css";
-@import "@fontsource/poppins/700.css";
-@import "@fontsource/poppins/700-italic.css";
 
 @theme {
-  /* Palette de couleurs Violette Strict IBE */
-  --color-ibe-50: #F7F1FB;       /* fond de page */
+  /* --- Palette violette IBE (ne pas modifier) --- */
+  --color-ibe-50:  #F7F1FB;      /* fond de page */
   --color-ibe-100: #F1E6FA;      /* fonds sections, badges */
   --color-ibe-200: #E0C8F0;      /* bordures, séparateurs */
-  --color-ibe-400: #AD78D1;      /* hover discret */
   --color-ibe-300: #C79FE0;      /* icônes secondaires */
+  --color-ibe-400: #AD78D1;      /* hover discret */
   --color-ibe-500: #9B5FC0;      /* couleur LOGO (signature) */
   --color-ibe-600: #7E48A3;      /* CTA, liens, nav active */
   --color-ibe-700: #623685;      /* hover CTA, texte fort */
   --color-ibe-800: #472566;      /* sidebar admin, footer */
-  --color-ibe-900: #2D1640;      /* overlay hero, gradient foncé */
+  --color-ibe-900: #2D1640;      /* aplats profonds */
   --color-ibe-dark: #221B2E;     /* texte principal (jamais #000) */
   --color-ibe-muted: #6E647C;    /* texte secondaire */
   --color-ibe-surface: #FFFFFF;  /* cards, modals */
-  --color-ibe-wa: #0D655A;       /* Vert très foncé pour contraste parfait */
+  --color-ibe-wa: #0D655A;       /* EXCLUSIF WhatsApp */
   --color-ibe-wa-hover: #094A42;
   --color-ibe-success: #3FA66A;
   --color-ibe-warning: #D89A3A;
@@ -34,18 +38,27 @@
 
   --animate-shrink: shrink 4s linear forwards;
 
-  /* Polices d'écriture */
-  --font-serif: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  /* --- Ombres ---
+     Les ombres portent une couleur : elles doivent donc être des tokens, au même
+     titre que la palette. Aucun rgba() d'ombre dans un template. */
+  --shadow-ibe-float:  0 18px 46px rgba(34, 27, 46, .22);  /* flotte au-dessus d'un aplat sombre */
+  --shadow-ibe-raised: 0 10px 34px rgba(34, 27, 46, .12);  /* barre de recherche, toasts */
+  --shadow-ibe-card:   0 16px 40px rgba(34, 27, 46, .10);  /* cartes au survol */
+  --shadow-ibe-wa:     0 8px 24px rgba(13, 101, 90, .45);  /* bulle WhatsApp */
+
+  /* --- Polices ---
+     `font-serif` = display éditoriale, `font-sans` = tout le reste. */
+  --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 
-  /* Arrondis (Border Radius) */
+  /* --- Arrondis --- */
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 16px;
   --radius-xl: 24px;
   --radius-pill: 999px;
 
-  /* Espacement — règle ×8 OBLIGATOIRE (Génère des classes comme p-s2, m-s4...) */
+  /* --- Espacement — règle ×8 OBLIGATOIRE --- */
   --spacing-s1: 8px;
   --spacing-s2: 16px;
   --spacing-s3: 24px;
@@ -54,11 +67,13 @@
   --spacing-s8: 64px;
 }
 
-/* ==========================================
-   2. STYLES DE BASE (Ancienne Étape 4)
-   ========================================== */
+/* ==========================================================================
+   Base
+   ========================================================================== */
 @layer base {
   * { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
 
   body {
     margin: 0;
@@ -70,18 +85,36 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  h1, h2, h3 {
+  /* h1/h2 en display sérif. Instrument Serif n'existe qu'en graisse 400 :
+     ne jamais lui appliquer font-weight > 400 (le navigateur synthétiserait
+     un faux gras). Le contraste vient de la taille, pas de la graisse. */
+  h1, h2 {
     font-family: var(--font-serif);
-    font-weight: 700;
-    line-height: 1.25;
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
     margin: 0 0 var(--spacing-s2) 0;
     color: var(--color-ibe-dark);
   }
 
-  h1 { font-size: clamp(1.75rem, 6vw, 3.5rem); }
-  h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); }
-  h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); font-weight: 600; }
-  p  { margin: 0 0 var(--spacing-s2) 0; color: var(--color-ibe-muted); font-size: 16px; }
+  /* h3 reste en Inter : sous ~24px la sérif à fort contraste se dégrade
+     sur les écrans Android d'entrée de gamme. */
+  h3 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.005em;
+    margin: 0 0 var(--spacing-s1) 0;
+    color: var(--color-ibe-dark);
+  }
+
+  h1 { font-size: clamp(2.5rem, 7vw, 4.75rem); }
+  h2 { font-size: clamp(2rem, 4.5vw, 3.25rem); }
+  h3 { font-size: clamp(1.0625rem, 1.4vw, 1.25rem); }
+
+  p { margin: 0 0 var(--spacing-s2) 0; color: var(--color-ibe-muted); font-size: 16px; }
+
+  em, i { font-style: italic; }
 
   img {
     max-width: 100%;
@@ -90,93 +123,176 @@
     background-repeat: no-repeat;
     background-size: cover;
   }
+
+  /* Plancher d'accessibilité : focus clavier toujours visible. */
+  :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--color-ibe-600);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+  }
+  .on-dark :where(a, button, input, [tabindex]):focus-visible { outline-color: #fff; }
 }
 
-
-
-/* ==========================================
-   3. COMPOSANTS UTILITAIRES
-   ========================================== */
+/* ==========================================================================
+   Composants
+   ========================================================================== */
 @layer components {
-  /* Bouton Principal Violet */
+
+  /* --- Signature : le nuancier ---------------------------------------------
+     L'institut enseigne la couleur ; la marque se présente donc comme une
+     palette de maquillage. Le pavé de couleur est intégré à l'exergue :
+     aucun markup supplémentaire côté template. */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--color-ibe-600);
+    margin: 0 0 var(--spacing-s2) 0;
+  }
+  .eyebrow::before {
+    content: "";
+    flex: none;
+    width: 24px;
+    height: 10px;
+    border-radius: 3px;
+    background: var(--color-ibe-500);
+  }
+  .eyebrow--light { color: var(--color-ibe-200); }
+  .eyebrow--light::before { background: var(--color-ibe-300); }
+
+  /* --- Structure : le bandeau de section -----------------------------------
+     Titre à gauche, chapeau à droite. Remplace le titre centré générique et
+     donne une ligne d'horizon commune à toutes les sections. */
+  .masthead {
+    display: grid;
+    gap: var(--spacing-s2);
+    margin-bottom: var(--spacing-s6);
+  }
+  .masthead > :last-child { margin-bottom: 0; }
+  .masthead h2 { margin-bottom: 0; }
+  .masthead p { color: var(--color-ibe-muted); font-size: 1.0625rem; margin: 0; }
+
+  @media (min-width: 900px) {
+    .masthead {
+      grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+      column-gap: var(--spacing-s8);
+      align-items: end;
+    }
+    .masthead > .masthead-lede { padding-bottom: 0.35rem; }
+  }
+
+  /* --- Nuancier des spécialités (hero) ------------------------------------- */
+  .palette {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  @media (min-width: 640px) { .palette { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+  .palette-chip {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 104px;
+    padding: var(--spacing-s2);
+    color: #fff;
+    text-decoration: none;
+    transition: background-image .25s ease;
+  }
+  /* Voile de survol appliqué en background-image : il se superpose à la couleur
+     du pavé sans créer de contexte d'empilement (un pseudo-élément en z-index
+     négatif passerait derrière le fond). */
+  .palette-chip:hover,
+  .palette-chip:focus-visible {
+    background-image: linear-gradient(rgba(255, 255, 255, .14), rgba(255, 255, 255, .14));
+  }
+
+  .palette-chip .chip-name {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    line-height: 1.1;
+  }
+  .palette-chip .chip-meta {
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: rgba(255, 255, 255, .85);
+    margin-top: 4px;
+  }
+
+  .palette-chip--1 { background: var(--color-ibe-600); }
+  .palette-chip--2 { background: var(--color-ibe-700); }
+  .palette-chip--3 { background: var(--color-ibe-800); }
+  .palette-chip--4 { background: var(--color-ibe-900); }
+
+  /* --- Boutons -------------------------------------------------------------
+     Cible tactile 48px minimum sur tous les éléments cliquables. */
+  .btn-primary,
+  .btn-outline,
+  .btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-s1);
+    min-height: 48px;
+    padding: 12px var(--spacing-s3);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background .2s ease, color .2s ease, border-color .2s ease, transform .15s ease;
+  }
+
   .btn-primary {
     background: var(--color-ibe-600);
     color: #fff;
-    padding: var(--spacing-s2) var(--spacing-s3);
     border: none;
-    border-radius: var(--radius-pill);
-    font-weight: 500;
-    font-size: 16px;
-    cursor: pointer;
-    min-height: 48px;
     min-width: 48px;
-    transition: background .2s, transform .15s;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--spacing-s1);
   }
-  .btn-primary:hover:not(:disabled) {
-    background: var(--color-ibe-700);
-    transform: translateY(-1px);
-  }
-  .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+  .btn-primary:hover:not(:disabled) { background: var(--color-ibe-700); transform: translateY(-1px); }
+  .btn-primary:disabled { opacity: .6; cursor: not-allowed; }
 
-  /* Bouton Outline */
   .btn-outline {
     background: transparent;
     color: var(--color-ibe-600);
-    border: 2px solid var(--color-ibe-600);
-    padding: var(--spacing-s2) var(--spacing-s3);
-    border-radius: var(--radius-pill);
-    font-weight: 500;
-    font-size: 16px;
-    cursor: pointer;
-    min-height: 48px;
-    transition: background .2s, color .2s;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--spacing-s1);
+    border: 1.5px solid var(--color-ibe-600);
   }
-  .btn-outline:hover {
-    background: var(--color-ibe-600);
-    color: #fff;
-  }
+  .btn-outline:hover { background: var(--color-ibe-600); color: #fff; }
 
-  /* Bouton Vert WhatsApp */
   .btn-whatsapp {
     background: var(--color-ibe-wa);
     color: #fff;
-    padding: var(--spacing-s2) var(--spacing-s3);
     border: none;
-    border-radius: var(--radius-pill);
-    font-weight: 500;
-    font-size: 16px;
-    cursor: pointer;
-    min-height: 48px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--spacing-s1);
-    transition: background .2s;
   }
-  .btn-whatsapp:hover { background: var(--color-ibe-wa-hover); }
+  .btn-whatsapp:hover:not(:disabled) { background: var(--color-ibe-wa-hover); }
 
-  /* Cartes de Prestations */
+  /* --- Cartes --- */
   .card-ibe {
     background: var(--color-ibe-surface);
     border-radius: var(--radius-lg);
     border: 1px solid var(--color-ibe-200);
     overflow: hidden;
-    transition: transform .2s ease, box-shadow .2s ease;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
   }
   .card-ibe:hover {
     transform: translateY(-4px);
-    box-shadow: 0 16px 40px rgba(34, 27, 46, .10);
+    border-color: var(--color-ibe-300);
+    box-shadow: var(--shadow-ibe-card);
   }
 
-  /* Badges de Catégories */
+  /* --- Badges --- */
   .badge-ibe {
     background: var(--color-ibe-100);
     color: var(--color-ibe-700);
@@ -187,12 +303,15 @@
     display: inline-block;
   }
 
-  /* Champs de Formulaires */
+  /* --- Formulaires ---
+     16px minimum : en dessous, iOS Safari zoome automatiquement au focus. */
   .input-field {
     width: 100%;
     padding: 12px 14px;
+    min-height: 48px;
     border: 1.5px solid var(--color-ibe-200);
     border-radius: var(--radius-md);
+    font-family: var(--font-sans);
     font-size: 16px;
     color: var(--color-ibe-dark);
     background: var(--color-ibe-surface);
@@ -204,7 +323,20 @@
 
   .error-message { color: var(--color-ibe-danger); font-size: .8rem; margin-top: 4px; }
 
-  /* Skeleton Loader pour le chargement */
+  /* --- Filet de section --- */
+  .rule-ibe { height: 1px; background: var(--color-ibe-200); border: 0; margin: 0; }
+
+  /* --- Chiffres --- */
+  .figure-ibe {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--color-ibe-600);
+  }
+
+  /* --- Skeletons (mêmes dimensions que le contenu réel : zéro CLS) --- */
   .skeleton {
     background-color: var(--color-ibe-100);
     position: relative;
@@ -214,37 +346,38 @@
   .skeleton::after {
     content: "";
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .5), transparent);
     transform: translateX(-100%);
     animation: shimmer 1.5s infinite;
   }
 
   @supports not (aspect-ratio: 1 / 1) {
-    .aspect-square {
-      position: relative;
-      height: 0;
-      padding-bottom: 100%;
-    }
-    .aspect-square > * {
-      position: absolute;
-      inset: 0;
-    }
+    .aspect-square { position: relative; height: 0; padding-bottom: 100%; }
+    .aspect-square > * { position: absolute; inset: 0; }
   }
 }
 
-/* RESPONSIVE TABLETTE (768px - 1024px) */
+/* ==========================================================================
+   Animations
+   ========================================================================== */
+@keyframes shimmer { 100% { transform: translateX(100%); } }
+@keyframes shrink { from { width: 100%; } to { width: 0%; } }
+/* Respect du réglage système « réduire les animations ». */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Tablette (768–1024px) : les grilles à 3 colonnes passent à 2. */
 @media (min-width: 768px) and (max-width: 1024px) {
   .grid-cols-3 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
   .lg\:col-span-7 { grid-column: span 12 / span 12 !important; }
   .lg\:col-span-5 { grid-column: span 12 / span 12 !important; }
 }
-
-@keyframes shimmer { 
-  100% { transform: translateX(100%); } 
-}
-@keyframes shrink {
-  from { width: 100%; }
-  to { width: 0%; }
-}
-

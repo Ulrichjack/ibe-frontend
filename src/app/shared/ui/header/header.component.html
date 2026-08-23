@@ -1,86 +1,102 @@
-<!-- Header Fixe avec effet Glassmorphism (Verre dépoli) au scroll -->
-<header
-  class="fixed top-0 w-full z-50 transition-all duration-300"
-  [class]="isScrolled() ? 'bg-white/95 backdrop-blur-md shadow-sm py-2' : 'bg-white py-3'">
+<!-- Barre fixe. Au scroll, elle se compacte et pose un filet plutôt qu'une ombre. -->
+<header class="fixed top-0 w-full z-50 bg-white transition-all duration-300"
+        [class]="isScrolled()
+          ? 'fixed top-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-ibe-200 transition-all duration-300'
+          : 'fixed top-0 w-full z-50 bg-white border-b border-transparent transition-all duration-300'">
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-14 md:h-16">
+    <div class="flex justify-between items-center gap-6 h-16 md:h-20">
 
-      <!-- Logo & Nom de l'Institut (Taille Réduite) -->
-      <a routerLink="/" class="flex items-center gap-3 group" (click)="closeMenu()">
-        <div class="w-12 h-12 md:w-12 md:h-12 rounded-full overflow-hidden border border-ibe-200 shadow-sm group-hover:shadow-md transition-all duration-300">
-          <img src="assets/img/logo-ibe.webp" alt="Logo IBE" class="w-full h-full object-cover" width="48" height="48">
-        </div>
-        <div class="flex flex-col">
-          <span class="font-sans font-bold text-ibe-dark text-base md:text-lg leading-none tracking-wide group-hover:text-ibe-500 transition-colors duration-300">
+      <!-- Marque -->
+      <a routerLink="/" (click)="closeMenu()" class="flex items-center gap-3 shrink-0 group no-underline">
+        <img src="assets/img/logo-ibe.webp" alt="" width="44" height="44" aria-hidden="true"
+             class="w-11 h-11 rounded-full object-cover">
+        <span class="flex flex-col leading-none">
+          <span class="font-serif text-2xl md:text-[1.75rem] text-ibe-dark group-hover:text-ibe-600 transition-colors">
             Beauty's Empire
           </span>
-          <span class="font-sans text-[9px] uppercase tracking-[0.15em] text-ibe-muted mt-0.5">
-            Institut de Beauté
+          <span class="text-[9px] uppercase tracking-[0.22em] text-ibe-muted mt-1">
+            Institut · Yaoundé
           </span>
-        </div>
+        </span>
       </a>
 
-      <!-- Navigation Desktop (Luxe : liens épurés avec soulignement animé) -->
-       <nav class="hidden md:flex items-center gap-10">
-        <a routerLink="/" routerLinkActive="text-ibe-600 after:scale-x-100" [routerLinkActiveOptions]="{exact: true}"
-           class="relative font-sans text-[15px] font-medium text-ibe-muted hover:text-ibe-600 transition-colors py-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-ibe-500 after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100">
-          Accueil
-        </a>
-        <a routerLink="/formations" routerLinkActive="text-ibe-600 after:scale-x-100"
-           class="relative font-sans text-[15px] font-medium text-ibe-muted hover:text-ibe-600 transition-colors py-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-ibe-500 after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100">
-          Formations
-        </a>
-        <a routerLink="/galerie" routerLinkActive="text-ibe-600 after:scale-x-100"
-           class="relative font-sans text-[15px] font-medium text-ibe-muted hover:text-ibe-600 transition-colors py-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-ibe-500 after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100">
-          Galerie
-        </a>
+      <!-- Navigation desktop.
+           Le repère de page active reprend la forme du pavé de nuancier. -->
+      <nav class="hidden lg:flex items-center gap-8">
+        <a routerLink="/" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="text-ibe-700 after:scale-x-100"
+           class="relative text-[15px] font-medium text-ibe-muted hover:text-ibe-700 transition-colors py-2 no-underline
+                  after:content-[''] after:absolute after:-bottom-0.5 after:left-0 after:h-[3px] after:w-6 after:rounded-full
+                  after:bg-ibe-500 after:scale-x-0 after:origin-left after:transition-transform after:duration-300
+                  hover:after:scale-x-100">Accueil</a>
 
-        <a routerLink="/a-propos" routerLinkActive="text-ibe-600 after:scale-x-100"
-           class="relative font-sans text-[15px] font-medium text-ibe-muted hover:text-ibe-600 transition-colors py-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-ibe-500 after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100">
-          À propos
-        </a>
+        <a routerLink="/formations" routerLinkActive="text-ibe-700 after:scale-x-100"
+           class="relative text-[15px] font-medium text-ibe-muted hover:text-ibe-700 transition-colors py-2 no-underline
+                  after:content-[''] after:absolute after:-bottom-0.5 after:left-0 after:h-[3px] after:w-6 after:rounded-full
+                  after:bg-ibe-500 after:scale-x-0 after:origin-left after:transition-transform after:duration-300
+                  hover:after:scale-x-100">Formations</a>
 
-        <a routerLink="/localisation" routerLinkActive="text-ibe-600 after:scale-x-100"
-           class="relative font-sans text-[15px] font-medium text-ibe-muted hover:text-ibe-600 transition-colors py-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-ibe-500 after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100">
-          Localisation
-        </a>
+        <a routerLink="/galerie" routerLinkActive="text-ibe-700 after:scale-x-100"
+           class="relative text-[15px] font-medium text-ibe-muted hover:text-ibe-700 transition-colors py-2 no-underline
+                  after:content-[''] after:absolute after:-bottom-0.5 after:left-0 after:h-[3px] after:w-6 after:rounded-full
+                  after:bg-ibe-500 after:scale-x-0 after:origin-left after:transition-transform after:duration-300
+                  hover:after:scale-x-100">Galerie</a>
 
-        <a routerLink="/faq" routerLinkActive="text-ibe-600 after:scale-x-100"
-           class="relative font-sans text-[15px] font-medium text-ibe-muted hover:text-ibe-600 transition-colors py-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-ibe-500 after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100">
-          FAQ
-        </a>
+        <a routerLink="/a-propos" routerLinkActive="text-ibe-700 after:scale-x-100"
+           class="relative text-[15px] font-medium text-ibe-muted hover:text-ibe-700 transition-colors py-2 no-underline
+                  after:content-[''] after:absolute after:-bottom-0.5 after:left-0 after:h-[3px] after:w-6 after:rounded-full
+                  after:bg-ibe-500 after:scale-x-0 after:origin-left after:transition-transform after:duration-300
+                  hover:after:scale-x-100">À propos</a>
 
+        <a routerLink="/localisation" routerLinkActive="text-ibe-700 after:scale-x-100"
+           class="relative text-[15px] font-medium text-ibe-muted hover:text-ibe-700 transition-colors py-2 no-underline
+                  after:content-[''] after:absolute after:-bottom-0.5 after:left-0 after:h-[3px] after:w-6 after:rounded-full
+                  after:bg-ibe-500 after:scale-x-0 after:origin-left after:transition-transform after:duration-300
+                  hover:after:scale-x-100">Localisation</a>
+
+        <a routerLink="/faq" routerLinkActive="text-ibe-700 after:scale-x-100"
+           class="relative text-[15px] font-medium text-ibe-muted hover:text-ibe-700 transition-colors py-2 no-underline
+                  after:content-[''] after:absolute after:-bottom-0.5 after:left-0 after:h-[3px] after:w-6 after:rounded-full
+                  after:bg-ibe-500 after:scale-x-0 after:origin-left after:transition-transform after:duration-300
+                  hover:after:scale-x-100">FAQ</a>
       </nav>
 
-      <!-- CTA Desktop -->
-      <div class="hidden md:flex">
-        <button (click)="openContactModal()" class="btn-primary">
-          Nous Contacter
-        </button>
+      <div class="hidden lg:flex shrink-0">
+        <button (click)="openContactModal()" class="btn-primary">Nous contacter</button>
       </div>
 
-      <button class="md:hidden p-2 text-ibe-dark" (click)="toggleMenu()" aria-label="Menu">
-        @if (isMenuOpen()) { <svg lucideX [size]="28"></svg> } 
-        @else { <svg lucideMenu [size]="28"></svg> }
+      <button class="lg:hidden w-12 h-12 -mr-2 flex items-center justify-center text-ibe-dark"
+              (click)="toggleMenu()"
+              [attr.aria-expanded]="isMenuOpen()"
+              [attr.aria-label]="isMenuOpen() ? 'Fermer le menu' : 'Ouvrir le menu'">
+        @if (isMenuOpen()) { <svg lucideX [size]="26"></svg> }
+        @else { <svg lucideMenu [size]="26"></svg> }
       </button>
     </div>
   </div>
 
-  <!-- Menu Mobile -->
+  <!-- Menu mobile -->
   @if (isMenuOpen()) {
-    <div class="md:hidden absolute top-full left-0 w-full bg-white border-b border-ibe-100 shadow-2xl">
-      <nav class="flex flex-col py-4">
-        <!-- CORRECTION : Ajout de routerLinkActive avec fond et bordure pour le mobile -->
-        <a routerLink="/" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="bg-ibe-50 text-ibe-600 border-l-4 border-ibe-500 font-bold" (click)="closeMenu()" class="px-6 py-4 text-lg text-ibe-dark transition-colors duration-200">Accueil</a>
-        <a routerLink="/formations" routerLinkActive="bg-ibe-50 text-ibe-600 border-l-4 border-ibe-500 font-bold" (click)="closeMenu()" class="px-6 py-4 text-lg text-ibe-dark transition-colors duration-200">Nos Formations</a>
-        <a routerLink="/galerie" routerLinkActive="bg-ibe-50 text-ibe-600 border-l-4 border-ibe-500 font-bold" (click)="closeMenu()" class="px-6 py-4 text-lg text-ibe-dark transition-colors duration-200">Galerie</a>
-        <a routerLink="/a-propos" routerLinkActive="bg-ibe-50 text-ibe-600 border-l-4 border-ibe-500 font-bold" (click)="closeMenu()" class="px-6 py-4 text-lg text-ibe-dark transition-colors duration-200">À propos</a>
-        <a routerLink="/localisation" routerLinkActive="bg-ibe-50 text-ibe-600 border-l-4 border-ibe-500 font-bold" (click)="closeMenu()" class="px-6 py-4 text-lg text-ibe-dark transition-colors duration-200">Localisation</a>
-        <a routerLink="/faq" routerLinkActive="bg-ibe-50 text-ibe-600 border-l-4 border-ibe-500 font-bold" (click)="closeMenu()" class="px-6 py-4 text-lg text-ibe-dark transition-colors duration-200">FAQ</a>
-        
-        <div class="px-6 mt-4">
-          <button (click)="openContactModal(); closeMenu()" class="btn-primary w-full justify-center">Nous Contacter</button>
+    <div class="lg:hidden absolute top-full left-0 w-full bg-white border-b border-ibe-200 shadow-xl
+                max-h-[calc(100vh-4rem)] overflow-y-auto">
+      <nav class="flex flex-col py-2">
+        <a routerLink="/" [routerLinkActiveOptions]="{exact: true}"
+           routerLinkActive="bg-ibe-50 text-ibe-700 border-ibe-500"
+           (click)="closeMenu()"
+           class="px-6 py-4 text-lg text-ibe-dark border-l-[3px] border-transparent transition-colors no-underline">Accueil</a>
+        <a routerLink="/formations" routerLinkActive="bg-ibe-50 text-ibe-700 border-ibe-500" (click)="closeMenu()"
+           class="px-6 py-4 text-lg text-ibe-dark border-l-[3px] border-transparent transition-colors no-underline">Formations</a>
+        <a routerLink="/galerie" routerLinkActive="bg-ibe-50 text-ibe-700 border-ibe-500" (click)="closeMenu()"
+           class="px-6 py-4 text-lg text-ibe-dark border-l-[3px] border-transparent transition-colors no-underline">Galerie</a>
+        <a routerLink="/a-propos" routerLinkActive="bg-ibe-50 text-ibe-700 border-ibe-500" (click)="closeMenu()"
+           class="px-6 py-4 text-lg text-ibe-dark border-l-[3px] border-transparent transition-colors no-underline">À propos</a>
+        <a routerLink="/localisation" routerLinkActive="bg-ibe-50 text-ibe-700 border-ibe-500" (click)="closeMenu()"
+           class="px-6 py-4 text-lg text-ibe-dark border-l-[3px] border-transparent transition-colors no-underline">Localisation</a>
+        <a routerLink="/faq" routerLinkActive="bg-ibe-50 text-ibe-700 border-ibe-500" (click)="closeMenu()"
+           class="px-6 py-4 text-lg text-ibe-dark border-l-[3px] border-transparent transition-colors no-underline">FAQ</a>
+
+        <div class="px-6 py-5">
+          <button (click)="openContactModal(); closeMenu()" class="btn-primary w-full">Nous contacter</button>
         </div>
       </nav>
     </div>
