@@ -1,13 +1,13 @@
-<!-- HEADER DE PAGE -->
-<section class="bg-ibe-900 pt-32 pb-20 relative overflow-hidden">
-  <div class="absolute inset-0 bg-[url('/assets/img/ibe-formation.webp')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
-  <div class="absolute inset-0 bg-linear-to-t from-ibe-900 to-transparent"></div>
+<!-- EN-TÊTE DE PAGE -->
+<section class="on-dark relative bg-ibe-900 pt-16 pb-20 lg:pt-24 lg:pb-24 overflow-hidden">
+  <div class="absolute inset-0 bg-[url('/assets/img/ibe-formation.webp')] bg-cover bg-center opacity-15"></div>
+  <div class="absolute inset-0 bg-linear-to-t from-ibe-900 via-ibe-900/70 to-ibe-900/40"></div>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-    <p class="text-ibe-300 font-medium tracking-widest uppercase text-sm mb-4">Aide & Support</p>
-    <h1 class="text-white mb-6">Questions <span class="italic text-ibe-200">Fréquentes</span></h1>
-    <p class="text-ibe-100 text-lg max-w-2xl mx-auto">
-      Retrouvez toutes les réponses à vos questions concernant nos formations, les paiements et les inscriptions.
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <p class="eyebrow eyebrow--light">Aide</p>
+    <h1 class="text-white mb-6 max-w-3xl">Les questions qu'on nous pose le plus.</h1>
+    <p class="text-ibe-100 text-lg max-w-2xl mb-0">
+      Inscription, paiement, matériel, diplôme : les réponses sont ici. Si la vôtre n'y figure pas, écrivez-nous.
     </p>
   </div>
 </section>
@@ -24,7 +24,7 @@
 
           <button (click)="toggleQuestion(idx)"
                   class="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none">
-            <span class="font-serif text-lg font-bold transition-colors"
+            <span class="text-lg font-semibold transition-colors"
                   [class.text-ibe-600]="openIndex() === idx"
                   [class.text-ibe-dark]="openIndex() !== idx">
               {{ faq.question }}

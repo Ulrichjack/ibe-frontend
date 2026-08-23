@@ -10,7 +10,7 @@
       <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center p-1">
         <img src="assets/img/logo-ibe.webp" alt="Logo" class="w-full h-full object-contain">
       </div>
-      <span class="font-serif font-bold text-lg leading-tight">IBE Admin</span>
+      <span class="font-bold text-lg leading-tight">IBE Admin</span>
     </div>
 
     <!-- Navigation -->
@@ -30,9 +30,9 @@
         <div class="flex items-center gap-3"><svg lucideMessageSquare [size]="20"></svg> Messages</div>
         
         <!-- Badge Dynamique -->
-        @if (unreadCount() > 0) {
+        @if (messageService.unreadCount() > 0) {
           <span class="bg-ibe-danger text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
-            {{ unreadCount() }}
+            {{ messageService.unreadCount() }}
           </span>
         }
       </a>
@@ -71,7 +71,7 @@
           <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center p-1">
             <img src="assets/img/logo-ibe.webp" alt="Logo" class="w-full h-full object-contain">
           </div>
-          <span class="font-serif font-bold text-lg">IBE Admin</span>
+          <span class="font-bold text-lg">IBE Admin</span>
         </div>
         <button (click)="closeSidebar()" class="text-ibe-200 hover:text-white"><svg lucideX [size]="24"></svg></button>
       </div>
@@ -120,7 +120,7 @@
         <div class="w-8 h-8 bg-ibe-500 rounded-full flex items-center justify-center p-1">
           <img src="assets/img/logo-ibe.webp" alt="Logo" class="w-full h-full object-contain brightness-0 invert">
         </div>
-        <span class="font-serif font-bold text-ibe-dark">IBE Admin</span>
+        <span class="font-bold text-ibe-dark">IBE Admin</span>
       </div>
       <button (click)="toggleSidebar()" class="text-ibe-dark p-2">
         <svg lucideMenu [size]="24"></svg>

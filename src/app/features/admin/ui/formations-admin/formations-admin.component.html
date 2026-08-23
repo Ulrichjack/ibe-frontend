@@ -5,7 +5,7 @@
       <h1 class="text-3xl font-bold text-ibe-dark mb-1">Gestion des Formations</h1>
       <p class="text-ibe-muted m-0">{{ totalElements() }} formations au total</p>
     </div>
-    <button (click)="createFormation()" class="btn-primary shadow-[0_8px_20px_rgba(126,72,163,0.25)]">
+    <button (click)="createFormation()" class="btn-primary">
       <svg lucidePlus [size]="20"></svg> Nouvelle Formation
     </button>
   </div>
@@ -61,7 +61,7 @@
                   </div>
                 </td>
                 <td class="px-6 py-4 text-sm text-ibe-muted">{{ form.categorie }}</td>
-                <td class="px-6 py-4 font-serif font-bold text-ibe-700">{{ form.prix | currencyFcfa }}</td>
+                <td class="px-6 py-4 font-semibold tabular-nums text-ibe-700">{{ form.prix | currencyFcfa }}</td>
                 <td class="px-6 py-4 text-center">
                   <button (click)="toggleStatus(form)" class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none" [class]="form.active ? 'bg-ibe-success' : 'bg-ibe-200'">
                     <span class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform" [class]="form.active ? 'translate-x-6' : 'translate-x-1'"></span>
@@ -98,7 +98,7 @@
               </div>
             </div>
             <div class="flex items-center justify-between mb-4">
-              <span class="font-serif font-bold text-ibe-700">{{ form.prix | currencyFcfa }}</span>
+              <span class="font-semibold tabular-nums text-ibe-700">{{ form.prix | currencyFcfa }}</span>
               <button (click)="toggleStatus(form)" class="text-xs px-3 py-1 rounded-md font-bold transition-colors"
                       [class]="form.active ? 'bg-ibe-success/10 text-ibe-success' : 'bg-ibe-danger/10 text-ibe-danger'">
                 {{ form.active ? 'ACTIVE' : 'INACTIVE' }}

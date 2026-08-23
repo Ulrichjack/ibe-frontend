@@ -25,7 +25,7 @@
           <h3 class="text-2xl mb-2">Félicitations !</h3>
           <p class="text-ibe-muted mb-8">Votre demande a bien été enregistrée. Pour finaliser votre inscription, veuillez nous confirmer votre identité sur WhatsApp.</p>
           
-          <button (click)="openWhatsApp()" class="btn-whatsapp w-full py-4 text-lg shadow-[0_8px_20px_rgba(37,211,102,0.3)]">
+          <button (click)="openWhatsApp()" class="btn-whatsapp w-full py-4 text-lg shadow-ibe-wa">
             Confirmer sur WhatsApp
           </button>
         </div>
@@ -80,7 +80,7 @@
           </div>
 
           <div class="pt-4">
-            <button type="submit" [disabled]="isSubmitting()" class="btn-primary w-full py-4 text-lg shadow-[0_8px_20px_rgba(126,72,163,0.25)]">
+            <button type="submit" [disabled]="isSubmitting()" class="btn-primary w-full py-4 text-lg">
               {{ isSubmitting() ? 'Envoi en cours...' : 'Valider ma pré-inscription' }}
             </button>
             <p class="text-center text-xs text-ibe-muted mt-4 flex items-center justify-center gap-1">

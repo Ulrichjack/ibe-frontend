@@ -99,7 +99,7 @@
             <button class="lg:hidden w-10 h-10 rounded-full bg-white border border-ibe-200 flex items-center justify-center text-ibe-dark" (click)="selectedMessage.set(null)">
               <svg lucideX [size]="20"></svg>
             </button>
-            <div class="w-14 h-14 rounded-full bg-ibe-500 flex items-center justify-center text-white font-serif font-bold text-2xl shadow-sm">
+            <div class="w-14 h-14 rounded-full bg-ibe-500 flex items-center justify-center text-white font-serif text-2xl shadow-sm">
               {{ msg.nom.charAt(0) | uppercase }}
             </div>
             <div>
@@ -164,7 +164,7 @@
 
         <!-- Footer Actions -->
         <div class="p-6 border-t border-ibe-100 bg-white shrink-0 flex flex-wrap items-center gap-4">
-          <button (click)="openWhatsApp(msg.telephone, msg.nom)" class="btn-whatsapp flex-grow shadow-[0_4px_15px_rgba(37,211,102,0.2)]">
+          <button (click)="openWhatsApp(msg.telephone, msg.nom)" class="btn-whatsapp flex-grow shadow-ibe-wa">
             <svg lucideMessageCircle [size]="20"></svg> Répondre sur WhatsApp
           </button>
           

@@ -7,7 +7,7 @@
       <div class="w-16 h-16 bg-ibe-500 rounded-full flex items-center justify-center p-2 mb-6 mx-auto lg:mx-0 shadow-lg">
         <img src="assets/img/logo-ibe.webp" alt="Logo" class="w-full h-full object-contain brightness-0 invert">
       </div>
-      <h1 class="text-3xl mb-2">Accès <span class="italic text-ibe-500">Sécurisé</span></h1>
+      <h1 class="text-3xl mb-2">Espace administration</h1>
       <p class="text-ibe-muted">Espace d'administration Beauty's Empire</p>
     </div>
 
@@ -43,7 +43,7 @@
         </div>
       </div>
 
-      <button type="submit" [disabled]="isLoading() || loginForm.invalid" class="btn-primary w-full py-4 text-lg mt-4 shadow-[0_8px_25px_rgba(126,72,163,0.3)]">
+      <button type="submit" [disabled]="isLoading() || loginForm.invalid" class="btn-primary w-full py-4 text-lg mt-4">
         {{ isLoading() ? 'Connexion...' : 'Se connecter' }}
       </button>
     </form>
