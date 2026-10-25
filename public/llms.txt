@@ -1,13 +1,13 @@
-# Institut Beauty's Empire (IBE) - Yaoundé
+# INSTITUT BEAUTY'S EMPIRE - IBE — Yaoundé
 
-L'Institut Beauty's Empire est un centre de formation professionnelle aux métiers de la beauté situé à Yaoundé, Cameroun. Nous proposons des formations certifiées MINEFOP en esthétique, coiffure, et make-up.
+L'INSTITUT BEAUTY'S EMPIRE - IBE est un centre de formation professionnelle situé à Yaoundé, Cameroun. Ses filières comprennent la beauté (esthétique, coiffure, onglerie, make-up), l’informatique, l’élevage, la gestion et d’autres parcours professionnels.
 
 ## Liens utiles
-- [Accueil](https://ibe-yaounde.com/)
-- [Nos Formations](https://ibe-yaounde.com/formations)
-- [À propos de l'Institut](https://ibe-yaounde.com/a-propos)
-- [Contact et Localisation](https://ibe-yaounde.com/localisation)
-- [Foire aux questions](https://ibe-yaounde.com/faq)
+- [Accueil](https://ibe-empire-cm.com/)
+- [Nos Formations](https://ibe-empire-cm.com/formations)
+- [À propos de l'Institut](https://ibe-empire-cm.com/a-propos)
+- [Contact et Localisation](https://ibe-empire-cm.com/localisation)
+- [Foire aux questions](https://ibe-empire-cm.com/faq)
 
 ## Contact
 - Téléphone : +237 690 56 68 36 / +237 679 35 84 84

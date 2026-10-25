@@ -70,8 +70,8 @@ export class FormationListComponent implements OnInit {
 
   ngOnInit() {
     this.seoService.setPageSeo(
-      "Nos Formations Beauté Certifiées",
-      "Découvrez nos formations professionnelles : esthétique, coiffure, make-up, DQP. Kit professionnel inclus et stage pratique garanti à Yaoundé."
+      "Nos formations professionnelles",
+      "Découvrez les formations IBE à Yaoundé : beauté, informatique, élevage, gestion et autres filières. Consultez les programmes et les modalités de chaque parcours."
     );
     this.loadFormations(0);
   }

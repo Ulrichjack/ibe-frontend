@@ -12,9 +12,9 @@ export class SeoService {
    * Configure le SEO complet d'une page
    */
   setPageSeo(pageTitle: string, description: string, image: string = '/assets/img/logo-ibe.webp') {
-    const siteName = "Institut Beauty's Empire";
-    const fullTitle = `${pageTitle} — ${siteName}`;
-    const imageUrl = `https://ibe-yaounde.com${image}`;
+    const siteName = "INSTITUT BEAUTY'S EMPIRE - IBE";
+    const fullTitle = pageTitle === siteName ? siteName : `${pageTitle} — ${siteName}`;
+    const imageUrl = `https://ibe-empire-cm.com${image}`;
 
     // 1. Titre de l'onglet
     this.title.setTitle(fullTitle);
@@ -48,7 +48,7 @@ export class SeoService {
       link.setAttribute('rel', 'canonical');
       this.document.head.appendChild(link);
     }
-    link.setAttribute('href', `https://ibe-yaounde.com${window.location.pathname}`);
+    link.setAttribute('href', `https://ibe-empire-cm.com${window.location.pathname}`);
   }
 
   /**
@@ -58,12 +58,12 @@ export class SeoService {
     const schema = {
       "@context": "https://schema.org",
       "@type": "VocationalSchool",
-      "name": "Institut Beauty's Empire",
+      "name": "INSTITUT BEAUTY'S EMPIRE - IBE",
       "alternateName": "IBE Yaoundé",
-      "description": "Centre de formation professionnelle aux métiers de la beauté à Yaoundé (Esthétique, Coiffure, Make-up).",
-      "url": "https://ibe-yaounde.com",
-      "logo": "https://ibe-yaounde.com/assets/img/logo-ibe.webp",
-      "image": "https://ibe-yaounde.com/assets/img/ibe-ceremony.webp",
+      "description": "Centre de formation professionnelle à Yaoundé : beauté, informatique, élevage, gestion et autres filières.",
+      "url": "https://ibe-empire-cm.com",
+      "logo": "https://ibe-empire-cm.com/assets/img/logo-ibe.webp",
+      "image": "https://ibe-empire-cm.com/assets/img/ibe-ceremony.webp",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Entrée PMI Tsinga",
@@ -122,10 +122,10 @@ export class SeoService {
     const schema = {
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
-      "name": "Institut Beauty's Empire - Campus Tsinga & Nkoabang",
-      "image": "https://ibe-yaounde.com/assets/img/ibe-ceremony.webp",
-      "@id": "https://ibe-yaounde.com/#business",
-      "url": "https://ibe-yaounde.com",
+      "name": "INSTITUT BEAUTY'S EMPIRE - IBE - Campus Tsinga & Nkoabang",
+      "image": "https://ibe-empire-cm.com/assets/img/ibe-ceremony.webp",
+      "@id": "https://ibe-empire-cm.com/#business",
+      "url": "https://ibe-empire-cm.com",
       "telephone": "+237690566836",
       "address": {
         "@type": "PostalAddress",

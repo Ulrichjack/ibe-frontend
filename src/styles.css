@@ -1,6 +1,6 @@
 /* ==========================================================================
    IBE — Socle de design
-   Palette violette inchangée (identité de marque). La personnalité vient
+   Palette rose inspirée des polos IBE. La personnalité vient
    de la typographie, de la structure éditoriale et du nuancier.
    ========================================================================== */
 
@@ -52,19 +52,19 @@
 }
 
 @theme {
-  /* --- Palette violette IBE (ne pas modifier) --- */
-  --color-ibe-50:  #F7F1FB;      /* fond de page */
-  --color-ibe-100: #F1E6FA;      /* fonds sections, badges */
-  --color-ibe-200: #E0C8F0;      /* bordures, séparateurs */
-  --color-ibe-300: #C79FE0;      /* icônes secondaires */
-  --color-ibe-400: #AD78D1;      /* hover discret */
-  --color-ibe-500: #9B5FC0;      /* couleur LOGO (signature) */
-  --color-ibe-600: #7E48A3;      /* CTA, liens, nav active */
-  --color-ibe-700: #623685;      /* hover CTA, texte fort */
-  --color-ibe-800: #472566;      /* sidebar admin, footer */
-  --color-ibe-900: #2D1640;      /* aplats profonds */
-  --color-ibe-dark: #221B2E;     /* texte principal (jamais #000) */
-  --color-ibe-muted: #6E647C;    /* texte secondaire */
+  /* --- Palette rose IBE — référence : polo de l’institut --- */
+  --color-ibe-50:  #FFF3F8;      /* fond de page */
+  --color-ibe-100: #FCE5F0;      /* fonds sections, badges */
+  --color-ibe-200: #F7C5DD;      /* bordures, séparateurs */
+  --color-ibe-300: #EE9EC5;      /* icônes secondaires */
+  --color-ibe-400: #D85B9D;      /* hover discret */
+  --color-ibe-500: #D92B82;      /* couleur LOGO (signature) */
+  --color-ibe-600: #B91F6B;      /* CTA, liens, nav active */
+  --color-ibe-700: #951A57;      /* hover CTA, texte fort */
+  --color-ibe-800: #68143F;      /* sidebar admin, footer */
+  --color-ibe-900: #3F102A;      /* aplats profonds */
+  --color-ibe-dark: #2B1923;     /* texte principal (jamais #000) */
+  --color-ibe-muted: #75616D;    /* texte secondaire */
   --color-ibe-surface: #FFFFFF;  /* cards, modals */
   --color-ibe-wa: #0D655A;       /* EXCLUSIF WhatsApp */
   --color-ibe-wa-hover: #094A42;
@@ -77,9 +77,9 @@
   /* --- Ombres ---
      Les ombres portent une couleur : elles doivent donc être des tokens, au même
      titre que la palette. Aucun rgba() d'ombre dans un template. */
-  --shadow-ibe-float:  0 18px 46px rgba(34, 27, 46, .22);  /* flotte au-dessus d'un aplat sombre */
-  --shadow-ibe-raised: 0 10px 34px rgba(34, 27, 46, .12);  /* barre de recherche, toasts */
-  --shadow-ibe-card:   0 16px 40px rgba(34, 27, 46, .10);  /* cartes au survol */
+  --shadow-ibe-float:  0 18px 46px rgba(43, 25, 35, .22);  /* flotte au-dessus d'un aplat sombre */
+  --shadow-ibe-raised: 0 10px 34px rgba(43, 25, 35, .12);  /* barre de recherche, toasts */
+  --shadow-ibe-card:   0 16px 40px rgba(43, 25, 35, .10);  /* cartes au survol */
   --shadow-ibe-wa:     0 8px 24px rgba(13, 101, 90, .45);  /* bulle WhatsApp */
 
   /* --- Polices ---

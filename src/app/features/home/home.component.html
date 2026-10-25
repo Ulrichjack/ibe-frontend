@@ -27,12 +27,12 @@
         <p class="eyebrow eyebrow--light">Yaoundé · Certifié MINEFOP</p>
 
         <h1 class="text-white mb-4 lg:mb-6">
-          Apprenez le métier, repartez avec le diplôme <em class="text-ibe-300">et</em> le kit.
+          Apprenez un métier, construisez <em class="text-ibe-300">votre</em> avenir.
         </h1>
 
         <p class="text-ibe-100 text-lg mb-7 lg:mb-10 max-w-xl leading-relaxed">
-          Esthétique, coiffure, onglerie, make-up. Vous recevez votre matériel professionnel
-          au premier cours, et votre stage est organisé avant la fin du cursus.
+          Beauté, informatique, élevage, gestion et autres filières professionnelles.
+          À Yaoundé, choisissez le parcours qui correspond à votre projet et développez vos compétences.
         </p>
 
         <div class="flex flex-col sm:flex-row gap-3">
@@ -52,14 +52,14 @@
 
 <!-- ==========================================================================
      2. NUANCIER DES SPÉCIALITÉS
-     Signature de la marque : l'institut enseigne la couleur, la palette IBE se
-     présente donc comme un nuancier. Chaque pavé ouvre le catalogue filtré.
+     Signature de la marque : le nuancier IBE présente les différents métiers
+     enseignés à l'institut. Chaque pavé ouvre le catalogue filtré.
      ========================================================================== -->
 <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 lg:-mt-12">
   <div class="palette shadow-ibe-float">
     @for (spe of specialites; track spe.nom; let i = $index) {
       <a [routerLink]="['/formations']" [queryParams]="{ q: spe.recherche }"
-         [class]="'palette-chip palette-chip--' + (i + 1)">
+         [class]="'palette-chip palette-chip--' + (i % 4 + 1)">
         <span class="chip-name">{{ spe.nom }}</span>
         <span class="chip-meta">{{ spe.detail }}</span>
       </a>
@@ -109,8 +109,8 @@
         <h2>Vous ne payez pas seulement des cours.</h2>
       </div>
       <p class="masthead-lede">
-        Le matériel, le stage et le diplôme font partie du cursus. Voici ce que
-        l'inscription couvre, quelle que soit la formation choisie.
+        Selon le parcours choisi, le cursus peut comprendre du matériel, un stage et une certification.
+        Retrouvez les modalités prévues dans la fiche de chaque formation.
       </p>
     </div>
 
@@ -120,16 +120,16 @@
         <svg lucideAward [size]="22" class="text-ibe-500 mb-4"></svg>
         <h3 class="mb-2">Diplôme reconnu par l'État</h3>
         <p class="text-sm m-0">
-          Les cursus sont certifiés MINEFOP. Votre diplôme est reconnu dans tout le Cameroun.
+          Consultez la fiche de votre formation pour connaître le diplôme ou le certificat préparé.
         </p>
       </article>
 
       <article class="border-t border-ibe-200 pt-6">
         <svg lucideBriefcase [size]="22" class="text-ibe-500 mb-4"></svg>
-        <h3 class="mb-2">Votre kit dès le premier cours</h3>
+        <h3 class="mb-2">Le matériel de votre parcours</h3>
         <p class="text-sm m-0">
-          Vous repartez avec votre mallette de matériel professionnel le jour de la rentrée.
-          Elle vous appartient.
+          Le matériel et les fournitures inclus sont précisés pour chaque formation
+          avant votre inscription.
         </p>
       </article>
 
@@ -144,10 +144,10 @@
 
       <article class="border-t border-ibe-200 pt-6">
         <svg lucideUsers [size]="22" class="text-ibe-500 mb-4"></svg>
-        <h3 class="mb-2">Des formatrices en activité</h3>
+        <h3 class="mb-2">Des savoir-faire concrets</h3>
         <p class="text-sm m-0">
-          Vos formatrices exercent en salon et en studio. Elles enseignent ce qu'elles pratiquent
-          toutes les semaines.
+          Développez des compétences pratiques pour avancer dans votre projet,
+          dans le domaine professionnel que vous avez choisi.
         </p>
       </article>
 

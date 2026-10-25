@@ -1,7 +1,7 @@
 # IBE Frontend — Contexte projet
 
-Site vitrine + espace admin de l'**Institut Beauty's Empire** (formations beauté
-certifiées MINEFOP, Yaoundé — Cameroun). Public cible : mobiles Android mid-range
+Site vitrine + espace admin de l'**Institut Beauty's Empire** (formations professionnelles :
+beauté, informatique, élevage et autres filières à Yaoundé — Cameroun). Public cible : mobiles Android mid-range
 sur 3G/4G. Toutes les conversions passent par **WhatsApp**.
 
 ## Stack

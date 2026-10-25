@@ -5,17 +5,18 @@ les valeurs, elles, ne vivent qu'à un seul endroit, le bloc `@theme`.
 
 ## Direction
 
-L'institut enseigne la couleur. La marque se présente donc comme **un nuancier** :
-la palette violette d'IBE est traitée comme une palette de maquillage, avec ses pavés
-de couleur pleins. C'est l'élément signature, et le seul endroit où le design hausse
+La marque se présente comme **un nuancier de métiers** : la palette rose, inspirée
+des polos IBE, relie les filières de beauté, d’informatique, d’élevage et de gestion
+avec ses pavés de couleur pleins. C'est l'élément signature, et le seul endroit où le design hausse
 la voix. Tout le reste — grilles, filets, typographie — reste sobre.
 
-Registre visuel : magazine de beauté, pas plaquette d'école. Titres en sérif éditoriale,
+Registre visuel : présentation éditoriale des parcours professionnels. Titres en sérif éditoriale,
 mises en page asymétriques, filets fins plutôt qu'ombres portées.
 
 ## Couleur
 
-La palette violette est **figée** : c'est l'identité de la marque, elle ne se renégocie pas.
+La palette **rose** reprend l’identité des polos IBE. Ses nuances claires et profondes
+conservent le contraste nécessaire aux textes et aux boutons.
 Aucune teinte nouvelle, aucun hexadécimal en dur dans un template — uniquement les tokens
 `ibe-*` déclarés dans `@theme`.
 
@@ -25,7 +26,7 @@ Aucune teinte nouvelle, aucun hexadécimal en dur dans un template — uniquemen
 | Fonds de section clairs, badges | `ibe-100` |
 | Filets, bordures | `ibe-200` |
 | Icônes secondaires, texte sur fond sombre | `ibe-300` / `ibe-400` |
-| Couleur du logo, pavés de nuancier | `ibe-500` |
+| Rose de référence, pavés de nuancier | `ibe-500` |
 | Boutons, liens, page active | `ibe-600` (survol : `ibe-700`) |
 | Aplats sombres, footer, hero | `ibe-800` / `ibe-900` |
 | Texte principal | `ibe-dark` — **jamais `#000`** |
@@ -89,9 +90,10 @@ d'horizon.
 
 ### `.palette` / `.palette-chip`
 
-Le nuancier des spécialités, sous le hero. Quatre pavés `ibe-500` → `ibe-800`, révélés
-en cascade au chargement. Chaque pavé ouvre le catalogue filtré (`/formations?q=…`) :
-la signature fait un vrai travail de navigation, elle ne décore pas.
+Le nuancier des spécialités, sous le hero. Huit pavés sur deux rangées en desktop, avec un cycle `ibe-600` → `ibe-900`.
+Les quatre métiers de la beauté sont suivis de l’informatique, de l’élevage, de la gestion
+et d’un accès aux autres filières. Chaque pavé ouvre le catalogue filtré
+(`/formations?q=…`) ; « Autres filières » ouvre le catalogue complet.
 
 Les couleurs sont portées par les modificateurs `.palette-chip--1` à `--4`, jamais par
 le template.

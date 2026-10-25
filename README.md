@@ -1,7 +1,7 @@
 # Institut Beauty's Empire — Frontend
 
 > Site vitrine et espace d'administration de l'Institut Beauty's Empire (IBE)
-> Formation professionnelle beauté certifiée MINEFOP — Yaoundé, Cameroun
+> Formations professionnelles : beauté, informatique, élevage et autres filières — Yaoundé, Cameroun
 
 ---
 
@@ -34,7 +34,7 @@ IBE Frontend est l'interface web de l'Institut Beauty's Empire. Il couvre deux e
 ```
 ┌─────────────────────────────────────────┐
 │        Institut Beauty's Empire         │
-│    Formations Beauté à Yaoundé, CMR     │
+│  Formations professionnelles à Yaoundé │
 │                                         │
 │  [Découvrir nos formations]  [Contact]  │
 │                                         │
@@ -374,7 +374,7 @@ refactor: extraire la logique de pagination dans un composant dumb
 
 ## Contexte projet
 
-**Institut Beauty's Empire (IBE)** est un institut de formation professionnelle beauté situé à Yaoundé, Cameroun. Il propose 23 formations certifiées MINEFOP dans les spécialités esthétique, coiffure, make-up et cosmétiques.
+**INSTITUT BEAUTY'S EMPIRE - IBE** est un institut de formation professionnelle situé à Yaoundé, Cameroun. Ses filières comprennent la beauté (esthétique, coiffure, onglerie, make-up), l’informatique, l’élevage, la gestion et d’autres parcours professionnels.
 
 Le site est **WhatsApp-first** : l'audience camerounaise utilise principalement WhatsApp pour communiquer. Toutes les conversions (formulaire de contact, pré-inscription, newsletter) génèrent un lien `wa.me/` que l'utilisateur clique pour ouvrir WhatsApp avec un message pré-rempli — sans envoi automatique depuis le serveur.
 

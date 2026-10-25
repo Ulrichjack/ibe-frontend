@@ -28,7 +28,7 @@ export class FaqComponent implements OnInit {
     },
     {
       question: "Faut-il un niveau scolaire particulier pour s'inscrire ?",
-      answer: "Non, nos formations sont accessibles à tous (niveau CEP minimum, à partir de 15 ans). Ce qui compte le plus pour nous, c'est votre motivation, votre passion pour la beauté et votre envie d'apprendre."
+      answer: "Non, nos formations sont accessibles à tous (niveau CEP minimum, à partir de 15 ans). Ce qui compte le plus pour nous, c'est votre motivation, votre projet professionnel et votre envie d'apprendre."
     },
     {
       question: "Le kit professionnel est-il vraiment inclus dans le prix ?",

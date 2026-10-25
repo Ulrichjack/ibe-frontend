@@ -17,7 +17,7 @@ export class AboutComponent implements OnInit {
   ngOnInit() {
     this.seoService.setPageSeo(
       "À Propos",
-      "Découvrez l'histoire de l'Institut Beauty's Empire (IBE), dirigé par Pavel Lutherking à Yaoundé. Certifié MINEFOP, 5+ ans d'excellence en formation beauté professionnelle."
+      "Découvrez l’INSTITUT BEAUTY’S EMPIRE - IBE à Yaoundé, dirigé par Pavel Lutherking : formations professionnelles en beauté, informatique, élevage, gestion et autres filières."
     );
   }
 }

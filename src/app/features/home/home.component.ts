@@ -79,7 +79,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
     { nom: 'Esthétique', detail: 'Visage & corps',      recherche: 'esthétique' },
     { nom: 'Coiffure',   detail: 'Coupe, tresses, tissage', recherche: 'coiffure' },
     { nom: 'Onglerie',   detail: 'Pose, gel, nail art', recherche: 'ongle' },
-    { nom: 'Make-up',    detail: 'Mariée, studio, scène', recherche: 'maquillage' }
+    { nom: 'Make-up',    detail: 'Mariée, studio, scène', recherche: 'maquillage' },
+    { nom: 'Informatique', detail: 'Outils & numérique', recherche: 'informatique' },
+    { nom: 'Élevage', detail: 'Pratiques & savoir-faire', recherche: 'élevage' },
+    { nom: 'Gestion', detail: 'Organisation & projets', recherche: 'gestion' },
+    { nom: 'Autres filières', detail: 'Tous nos parcours', recherche: '' }
   ];
 
   partenaires = [
@@ -99,7 +103,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ];
 
   ngOnInit() {
-    this.seoService.setPageSeo("Institut Beauty's Empire — Accueil", "Formations professionnelles en beauté à Yaoundé.");
+    this.seoService.setPageSeo("INSTITUT BEAUTY'S EMPIRE - IBE", "Centre de formation professionnelle à Yaoundé : beauté, informatique, élevage, gestion et autres filières. Découvrez les parcours de l’INSTITUT BEAUTY’S EMPIRE - IBE.");
     this.seoService.setOrganizationSchema();
 
     this.formationService.getFormationsActives(0, 1).subscribe({

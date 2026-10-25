@@ -4,7 +4,7 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () => import('./features/home/home.component').then(m => m.HomeComponent),
-    title: "Institut Beauty's Empire — Accueil"
+    title: "INSTITUT BEAUTY'S EMPIRE - IBE"
   },
   {
     path: 'formations',
