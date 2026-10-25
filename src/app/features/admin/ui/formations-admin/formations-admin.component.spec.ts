@@ -1,3 +1,4 @@
+import { provideComponentTestDependencies } from '../../../../testing/component-test-providers';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormationsAdminComponent } from './formations-admin.component';
@@ -8,6 +9,7 @@ describe('FormationsAdminComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      providers: provideComponentTestDependencies(),
       imports: [FormationsAdminComponent]
     })
     .compileComponents();

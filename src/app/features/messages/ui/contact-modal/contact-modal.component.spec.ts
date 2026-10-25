@@ -1,3 +1,4 @@
+import { provideComponentTestDependencies } from '../../../../testing/component-test-providers';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ContactModalComponent } from './contact-modal.component';
@@ -8,6 +9,7 @@ describe('ContactModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      providers: provideComponentTestDependencies(),
       imports: [ContactModalComponent]
     })
     .compileComponents();

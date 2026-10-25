@@ -1,3 +1,4 @@
+import { provideComponentTestDependencies } from '../../../../testing/component-test-providers';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormationCreateComponent } from './formation-create.component';
@@ -8,6 +9,7 @@ describe('FormationCreateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      providers: provideComponentTestDependencies(),
       imports: [FormationCreateComponent]
     })
     .compileComponents();

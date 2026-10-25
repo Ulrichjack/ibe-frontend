@@ -1,3 +1,4 @@
+import { provideComponentTestDependencies } from '../../../../testing/component-test-providers';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdminDashboardComponent } from './admin-dashboard.component';
@@ -8,6 +9,7 @@ describe('AdminDashboardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      providers: provideComponentTestDependencies(),
       imports: [AdminDashboardComponent]
     })
     .compileComponents();

@@ -1,18 +1,20 @@
+import { provideComponentTestDependencies } from '../../../testing/component-test-providers';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WhatsappBubbleComponent } from './whatsapp-bubble.component';
+import { WhatsAppBubbleComponent } from './whatsapp-bubble.component';
 
-describe('WhatsappBubbleComponent', () => {
-  let component: WhatsappBubbleComponent;
-  let fixture: ComponentFixture<WhatsappBubbleComponent>;
+describe('WhatsAppBubbleComponent', () => {
+  let component: WhatsAppBubbleComponent;
+  let fixture: ComponentFixture<WhatsAppBubbleComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [WhatsappBubbleComponent]
+      providers: provideComponentTestDependencies(),
+      imports: [WhatsAppBubbleComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(WhatsappBubbleComponent);
+    fixture = TestBed.createComponent(WhatsAppBubbleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
