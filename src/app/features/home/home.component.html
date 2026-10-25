@@ -576,6 +576,8 @@
   </div>
 </section>
 
-@if (showContactModal()) {
-  <app-contact-modal (close)="showContactModal.set(false)" />
+@defer (when showContactModal()) {
+  @if (showContactModal()) {
+    <app-contact-modal (close)="showContactModal.set(false)" />
+  }
 }

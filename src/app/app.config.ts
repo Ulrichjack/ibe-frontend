@@ -1,5 +1,5 @@
 import { ApplicationConfig, LOCALE_ID } from '@angular/core';
-import { provideRouter, withPreloading, NoPreloading, withInMemoryScrolling } from '@angular/router';
+import { provideRouter, withPreloading, NoPreloading, withInMemoryScrolling, withEnabledBlockingInitialNavigation } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideZonelessChangeDetection } from '@angular/core';
 import { provideCloudinaryLoader } from '@angular/common';
@@ -20,6 +20,8 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(
       routes,
+       // Charge la route avant la coquille pour éviter un flash du footer (CLS).
+       withEnabledBlockingInitialNavigation(),
        withPreloading(NoPreloading),
        withInMemoryScrolling({ scrollPositionRestoration: 'top' })
       ),
