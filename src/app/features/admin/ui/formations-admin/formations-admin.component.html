@@ -30,14 +30,13 @@
   </section>
 
   <ng-template #featuredControl let-form>
-    <select [value]="form.miseEnAvant ? form.ordreAffichage : ''"
-            (change)="setFeaturedPosition(form, $event)"
+    <select (change)="setFeaturedPosition(form, $event)"
             [disabled]="!form.active || isLoadingFeatured() || featuredLoadFailed() || savingFeaturedId() !== null"
             [attr.aria-label]="'Position sur l’accueil pour ' + form.nom"
             class="min-h-12 min-w-12 px-3 py-2 text-base bg-ibe-50 border border-ibe-200 rounded-lg text-ibe-dark disabled:opacity-50">
-      <option value="">Hors accueil</option>
+      <option value="" [selected]="!form.miseEnAvant">Hors accueil</option>
       @for (position of featuredPositions; track position) {
-        <option [value]="position" [disabled]="isFeaturedPositionTaken(position, form.id)">
+        <option [value]="position" [selected]="form.miseEnAvant && form.ordreAffichage === position" [disabled]="isFeaturedPositionTaken(position, form.id)">
           Position {{ position }}{{ isFeaturedPositionTaken(position, form.id) ? ' (occupée)' : '' }}
         </option>
       }
