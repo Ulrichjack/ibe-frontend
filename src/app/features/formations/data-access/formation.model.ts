@@ -19,6 +19,8 @@ export interface FormationResponse {
   pourcentageReduction?: number;
   dateFinPromo?: string;
   active: boolean;
+  miseEnAvant?: boolean;
+  ordreAffichage?: number | null;
   // -----------------------
 
   dateDemarrage?: string;

@@ -10,7 +10,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   // (Toutes les requêtes sauf GET vers formations, gallery, testimonials)
   // On vérifie exactement les routes publiques
   const isPublicGet = req.method === 'GET' && 
-    (req.url.endsWith('/formations/actives') || 
+    (req.url.endsWith('/formations/actives') ||
+     req.url.endsWith('/formations/mises-en-avant') ||
      req.url.includes('/formations/slug/') || 
      req.url.endsWith('/gallery') || 
      req.url.endsWith('/testimonials')); // Ne matche pas /testimonials/admin !

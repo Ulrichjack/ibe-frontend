@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, inject, ElementRef, ViewChildren, QueryList, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, signal, inject, ElementRef, ViewChildren, QueryList, AfterViewInit, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -28,6 +28,7 @@ import { CloudinaryOptimizePipe } from '../../shared/pipes/cloudinary-optimize.p
 @Component({
   selector: 'app-home',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule, RouterLink, CloudinaryOptimizePipe,
     LucideUsers, LucideAward, LucideBriefcase,
@@ -110,10 +111,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   loadPopularFormations() {
-    this.formationService.getFormationsActives(0, 3).subscribe({
+    this.formationService.getFormationsMisesEnAvant().subscribe({
       next: (res) => {
         if (res.success && res.data) {
-          this.popularFormations.set(res.data.content);
+          this.popularFormations.set(res.data);
         }
         this.isLoadingFormations.set(false);
       },

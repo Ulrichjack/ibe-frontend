@@ -159,7 +159,7 @@
     <div class="masthead">
       <div>
         <p class="eyebrow">Le catalogue</p>
-        <h2>Les formations les plus demandées</h2>
+        <h2>Notre sélection de formations</h2>
       </div>
       <p class="masthead-lede">
         Les places partent vite : chaque promotion est limitée pour garder assez de postes
@@ -169,7 +169,7 @@
 
     @if (isLoadingFormations()) {
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        @for (i of [1,2,3]; track i) {
+        @for (i of [1,2,3,4,5,6]; track i) {
           <div class="card-ibe flex flex-col">
             <div class="aspect-4/5 skeleton rounded-none"></div>
             <div class="p-6 flex flex-col grow">
@@ -237,11 +237,13 @@
               </div>
             </div>
           </a>
+        } @empty {
+          <p class="text-ibe-muted md:col-span-3">Consultez notre catalogue pour découvrir toutes les formations.</p>
         }
       </div>
 
       <div class="mt-12">
-        <a routerLink="/formations" class="btn-primary">Voir les 23 formations</a>
+        <a routerLink="/formations" class="btn-primary">Voir toutes les formations</a>
       </div>
     }
   </div>
@@ -331,7 +333,7 @@
            class="flex gap-5 overflow-x-auto snap-x snap-mandatory py-2
                   [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         @if (isLoadingTestimonials()) {
-          @for (i of [1,2,3]; track i) {
+          @for (i of [1,2,3,4,5,6]; track i) {
             <div class="w-[300px] md:w-[350px] h-[290px] shrink-0 skeleton rounded-lg"></div>
           }
         } @else {

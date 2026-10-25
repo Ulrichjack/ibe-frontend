@@ -25,6 +25,17 @@ export class FormationService {
     return this.http.get<ApiResponse<PageResponse<FormationResponse>>>(`${this.baseUrl}/search`, { params });
   }
 
+  getFormationsMisesEnAvant(): Observable<ApiResponse<FormationResponse[]>> {
+    return this.http.get<ApiResponse<FormationResponse[]>>(`${this.baseUrl}/mises-en-avant`);
+  }
+
+  updateFeaturedPosition(id: number, position: number | null): Observable<ApiResponse<FormationResponse>> {
+    return this.http.patch<ApiResponse<FormationResponse>>(`${this.baseUrl}/${id}/mise-en-avant`, {
+      miseEnAvant: position !== null,
+      ordreAffichage: position
+    });
+  }
+
   // ADMIN (L'intercepteur ajoutera le token plus tard)
   creerFormation(request: FormationCreateRequest): Observable<ApiResponse<FormationResponse>> {
     return this.http.post<ApiResponse<FormationResponse>>(this.baseUrl, request);

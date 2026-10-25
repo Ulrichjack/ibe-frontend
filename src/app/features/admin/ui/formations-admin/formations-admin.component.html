@@ -10,6 +10,40 @@
     </button>
   </div>
 
+  <section class="bg-white p-4 rounded-xl border border-ibe-200 mb-8" aria-labelledby="featured-heading">
+    <h2 id="featured-heading" class="font-sans text-lg font-semibold text-ibe-dark mb-2">Formations sur l'accueil</h2>
+    @if (isLoadingFeatured()) {
+      <p class="text-ibe-muted m-0" role="status">Chargement de la sélection...</p>
+    } @else if (featuredLoadFailed()) {
+      <p class="text-ibe-danger">La sélection n'a pas pu être chargée.</p>
+      <button type="button" (click)="loadFeaturedFormations()" class="btn-primary min-h-12">Réessayer</button>
+    } @else {
+      <p class="text-ibe-muted mb-4">{{ featuredFormations().length }} / 6 formations sélectionnées. Choisissez une position dans la liste ci-dessous. Libérez une position avant de l'attribuer à une autre formation.</p>
+      <ul class="list-none p-0 m-0 flex flex-col gap-2">
+        @for (featured of featuredFormations(); track featured.id) {
+          <li class="text-ibe-dark"><span class="font-semibold tabular-nums">{{ featured.ordreAffichage }}.</span> {{ featured.nom }}</li>
+        } @empty {
+          <li class="text-ibe-muted">Aucune formation sélectionnée pour l'instant.</li>
+        }
+      </ul>
+    }
+  </section>
+
+  <ng-template #featuredControl let-form>
+    <select [value]="form.miseEnAvant ? form.ordreAffichage : ''"
+            (change)="setFeaturedPosition(form, $event)"
+            [disabled]="!form.active || isLoadingFeatured() || featuredLoadFailed() || savingFeaturedId() !== null"
+            [attr.aria-label]="'Position sur l’accueil pour ' + form.nom"
+            class="min-h-12 min-w-12 px-3 py-2 text-base bg-ibe-50 border border-ibe-200 rounded-lg text-ibe-dark disabled:opacity-50">
+      <option value="">Hors accueil</option>
+      @for (position of featuredPositions; track position) {
+        <option [value]="position" [disabled]="isFeaturedPositionTaken(position, form.id)">
+          Position {{ position }}{{ isFeaturedPositionTaken(position, form.id) ? ' (occupée)' : '' }}
+        </option>
+      }
+    </select>
+  </ng-template>
+
   <!-- BARRE DE RECHERCHE & FILTRES -->
   <div class="bg-white p-4 rounded-2xl border border-ibe-100 shadow-sm mb-8 flex flex-col sm:flex-row gap-4">
     <div class="relative flex-grow">
@@ -48,6 +82,7 @@
               <th class="px-6 py-4 font-medium">Catégorie</th>
               <th class="px-6 py-4 font-medium">Prix</th>
               <th class="px-6 py-4 font-medium text-center">Statut</th>
+              <th class="px-6 py-4 font-medium">Accueil</th>
               <th class="px-6 py-4 font-medium text-right">Actions</th>
             </tr>
           </thead>
@@ -66,6 +101,9 @@
                   <button (click)="toggleStatus(form)" class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none" [class]="form.active ? 'bg-ibe-success' : 'bg-ibe-200'">
                     <span class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform" [class]="form.active ? 'translate-x-6' : 'translate-x-1'"></span>
                   </button>
+                </td>
+                <td class="px-6 py-4">
+                  <ng-container [ngTemplateOutlet]="featuredControl" [ngTemplateOutletContext]="{ $implicit: form }" />
                 </td>
                 <td class="px-6 py-4 text-right">
                   <!-- MODIFIÉ : Boutons toujours visibles avec texte -->
@@ -103,6 +141,10 @@
                       [class]="form.active ? 'bg-ibe-success/10 text-ibe-success' : 'bg-ibe-danger/10 text-ibe-danger'">
                 {{ form.active ? 'ACTIVE' : 'INACTIVE' }}
               </button>
+            </div>
+            <div class="mb-4">
+              <span class="block text-sm text-ibe-muted mb-2">Position sur l'accueil</span>
+              <ng-container [ngTemplateOutlet]="featuredControl" [ngTemplateOutletContext]="{ $implicit: form }" />
             </div>
             <div class="flex gap-2">
               <button class="flex-1 py-2 rounded-lg bg-ibe-50 text-ibe-600 text-sm font-medium flex items-center justify-center gap-2">
