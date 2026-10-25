@@ -59,7 +59,7 @@ export class FormationDetailComponent implements OnInit {
       next: (res) => {
         if (res.success && res.data) {
           this.formation.set(res.data);
-          this.currentImage.set(res.data.photoPrincipale || 'assets/img/default-formation.webp');
+          this.currentImage.set(res.data.photoPrincipale || '');
           
           // INJECTION SEO DYNAMIQUE
           this.seoService.setPageSeo(
