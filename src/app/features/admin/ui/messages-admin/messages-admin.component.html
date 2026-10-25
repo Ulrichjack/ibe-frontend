@@ -16,7 +16,7 @@
         </div>
         <input type="text" [ngModel]="searchQuery()" (ngModelChange)="searchQuery.set($event); onSearch()"
                class="w-full pl-12 pr-4 py-3 bg-ibe-50 border-none rounded-xl outline-none focus:ring-2 focus:ring-ibe-500/20" 
-               placeholder="Rechercher un nom ou un numéro...">
+               placeholder="Rechercher un nom, un numéro ou un message...">
       </div>
       
       <select [ngModel]="typeFilter()" (ngModelChange)="typeFilter.set($event); onSearch()" 
@@ -89,8 +89,8 @@
     </div>
 
     <!-- COLONNE DROITE : Détail du message (Cachée sur mobile si aucun message sélectionné) -->
-    <div class="hidden lg:flex w-7/12 bg-white rounded-2xl border border-ibe-100 shadow-sm flex-col overflow-hidden"
-         [class.!flex]="selectedMessage() !== null" [class.absolute]="true" [class.inset-0]="true" [class.z-50]="true" [class.lg:relative]="true" [class.lg:z-auto]="true">
+    <div class="hidden lg:flex fixed inset-0 z-50 w-full lg:relative lg:inset-auto lg:z-auto lg:w-7/12 bg-white rounded-2xl border border-ibe-100 shadow-sm flex-col overflow-hidden"
+         [class.!flex]="selectedMessage() !== null" >
       
       @if (selectedMessage(); as msg) {
         <!-- Header Détail -->
@@ -147,16 +147,19 @@
             }
           </div>
 
+          @if (msg.email || msg.ville || msg.quartier || msg.disponibilites) {
+            <dl class="mb-8 text-sm text-ibe-dark">
+              @if (msg.email) { <dt class="font-semibold">E-mail</dt><dd class="mb-3">{{ msg.email }}</dd> }
+              @if (msg.ville || msg.quartier) { <dt class="font-semibold">Localisation</dt><dd class="mb-3">{{ msg.ville }} {{ msg.quartier }}</dd> }
+              @if (msg.disponibilites) { <dt class="font-semibold">Disponibilités</dt><dd class="mb-3 whitespace-pre-line">{{ msg.disponibilites }}</dd> }
+            </dl>
+          }
+
           <!-- Le Message -->
           <div>
             <h4 class="text-sm font-bold text-ibe-muted uppercase tracking-wider mb-4">Message</h4>
             <div class="bg-white border border-ibe-100 p-6 rounded-2xl shadow-sm">
-              <!-- Dans ton backend actuel, le champ "message" n'est pas renvoyé dans MessageListResponse. 
-                   Il faudra s'assurer que le backend le renvoie, ou faire un appel getMessageById(id).
-                   Pour l'instant on affiche un texte générique si vide. -->
-              <p class="text-ibe-dark leading-relaxed whitespace-pre-line m-0">
-                L'étudiante a laissé ses coordonnées pour être recontactée concernant la formation {{ msg.formationNom || 'demandée' }}.
-              </p>
+              <p class="text-ibe-dark leading-relaxed whitespace-pre-line m-0">{{ msg.message || 'Aucun texte supplémentaire fourni.' }}</p>
             </div>
           </div>
 

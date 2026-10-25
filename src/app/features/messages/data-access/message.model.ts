@@ -29,6 +29,11 @@ export interface MessageResponse {
 }
 
 export interface MessageListResponse {
+  message?: string;
+  disponibilites?: string;
+  email?: string;
+  ville?: string;
+  quartier?: string;
   id: number;
   type: 'CONTACT_GENERAL' | 'PRE_INSCRIPTION';
   statut: 'NON_LU' | 'LU' | 'TRAITE' | 'ARCHIVE';

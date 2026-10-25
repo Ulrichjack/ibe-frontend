@@ -1,4 +1,6 @@
-import { Component, OnInit, signal, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, DestroyRef, OnInit, signal, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MessageService } from '../../../../shared/services/message.service';
@@ -14,6 +16,7 @@ import { MessageListResponse } from '../../../messages/data-access/message.model
 @Component({
   selector: 'app-messages-admin',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule, FormsModule,
     LucideSearch,  LucideMailOpen, 
@@ -25,6 +28,8 @@ import { MessageListResponse } from '../../../messages/data-access/message.model
 export class MessagesAdminComponent implements OnInit {
   private messageService = inject(MessageService);
   private toastService = inject(ToastService);
+  private destroyRef = inject(DestroyRef);
+  private listRequest?: Subscription;
 
   messages = signal<MessageListResponse[]>([]);
   selectedMessage = signal<MessageListResponse | null>(null);
@@ -49,31 +54,20 @@ export class MessagesAdminComponent implements OnInit {
     this.isLoading.set(true);
     this.currentPage.set(page);
 
-    this.messageService.getMessages(page, this.pageSize).subscribe({
+    this.listRequest?.unsubscribe();
+    this.listRequest = this.messageService.getMessages(page, this.pageSize,
+      this.searchQuery(), this.statusFilter(), this.typeFilter())
+      .pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (res) => {
         if (res.success && res.data) {
-          let data = res.data.content;
-          
-          // Filtres locaux (En attendant que le backend gère les filtres dans la requête)
-          if (this.searchQuery()) {
-            const q = this.searchQuery().toLowerCase();
-            data = data.filter(m => m.nom.toLowerCase().includes(q) || m.telephone.includes(q));
-          }
-          if (this.statusFilter() !== 'ALL') {
-            data = data.filter(m => m.statut === this.statusFilter());
-          }
-          if (this.typeFilter() !== 'ALL') {
-            data = data.filter(m => m.type === this.typeFilter());
-          }
-
+          const data = res.data.content;
           this.messages.set(data);
           this.totalPages.set(res.data.totalPages);
           this.totalElements.set(res.data.totalElements);
-          
-          // Si on a des messages et qu'aucun n'est sélectionné, on sélectionne le premier
-          if (data.length > 0 && !this.selectedMessage()) {
-            this.selectMessage(data[0]);
-          }
+          const previousId = this.selectedMessage()?.id;
+          this.selectedMessage.set(null);
+          const selection = data.find(message => message.id === previousId);
+          if (selection) this.selectMessage(selection);
         }
         this.isLoading.set(false);
       },
@@ -100,7 +94,9 @@ export class MessagesAdminComponent implements OnInit {
             m.id === msg.id ? { ...m, statut: 'LU' as const } : m
           );
           this.messages.set(updatedMessages);
-          this.selectedMessage.set({ ...msg, statut: 'LU' });
+          if (this.selectedMessage()?.id === msg.id) {
+            this.selectedMessage.set({ ...msg, statut: 'LU' });
+          }
         }
       });
     }
@@ -114,10 +110,8 @@ export class MessagesAdminComponent implements OnInit {
     request$.subscribe({
       next: () => {
         this.toastService.success(`Message marqué comme ${nouveauStatut.toLowerCase()}.`);
+        if (this.selectedMessage()?.id === id) this.selectedMessage.set(null);
         this.loadMessages(this.currentPage());
-        if (this.selectedMessage()?.id === id) {
-          this.selectedMessage.set(null); // Désélectionne
-        }
       },
       error: () => this.toastService.error("Erreur lors de la mise à jour du statut.")
     });

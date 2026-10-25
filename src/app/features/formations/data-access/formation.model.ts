@@ -2,13 +2,13 @@ export interface FormationResponse {
   id: number;
   nom: string;
   description: string;
-  duree: string;
-  prix: number;
-  prixAvecReduction?: number;
+  duree: string | null;
+  prix: number | null;
+  prixAvecReduction?: number | null;
   categorie: string;
 
   // --- NOUVEAUX CHAMPS ---
-  fraisInscription: number;
+  fraisInscription: number | null;
   certificatDelivre: boolean;
   nomCertificat?: string;
   programme?: string;
@@ -19,12 +19,18 @@ export interface FormationResponse {
   pourcentageReduction?: number;
   dateFinPromo?: string;
   active: boolean;
+  enPromotion?: boolean;
+  socialProofActif?: boolean;
+  nombreInscritsAffiche?: number;
+  joursFormation?: string;
+  dateFinInscription?: string;
+  dateDebutPromo?: string;
   miseEnAvant?: boolean;
   ordreAffichage?: number | null;
   // -----------------------
 
   dateDemarrage?: string;
-  nombrePlaces: number;
+  nombrePlaces: number | null;
   placesRestantesAffichees: number;
   photoPrincipale?: string;
   photosGalerie?: string[];
@@ -35,9 +41,9 @@ export interface FormationResponse {
 export interface FormationCreateRequest {
   nom: string;
   description: string;
-  duree: string;
-  fraisInscription: number;
-  prix: number;
+  duree: string | null;
+  fraisInscription: number | null;
+  prix: number | null;
   categorie: string;
   certificatDelivre?: boolean;
   nomCertificat?: string;
@@ -49,7 +55,7 @@ export interface FormationCreateRequest {
   joursFormation?: string;
   horaires?: string;
   frequence?: string;
-  nombrePlaces: number;
+  nombrePlaces: number | null;
   socialProofActif?: boolean;
   nombreInscritsAffiche?: number;
   photoPrincipale?: string;

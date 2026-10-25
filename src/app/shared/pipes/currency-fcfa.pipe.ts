@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CurrencyFcfaPipe implements PipeTransform {
   transform(value: number | null | undefined): string {
-    if (value == null) return '0 FCFA';
+    if (value == null) return 'Tarif sur demande';
     
     const isNegative = value < 0;
     const absoluteValue = Math.abs(value);

@@ -12,7 +12,7 @@
         </h1>
       </div>
     </div>
-    <button (click)="onSubmit()" [disabled]="isSubmitting()" class="btn-primary">
+    <button (click)="onSubmit()" [disabled]="isSubmitting() || isLoadingFormation()" class="btn-primary">
       <svg lucideSave [size]="18"></svg> {{ isSubmitting() ? 'Enregistrement...' : 'Enregistrer' }}
     </button>
   </div>
@@ -58,14 +58,14 @@
 
           <div class="flex items-center gap-4 text-sm text-ibe-muted mb-6">
             <span class="flex items-center gap-1.5"><svg lucideClock [size]="16"></svg> {{ previewData().duree || 'Durée' }}</span>
-            <span class="flex items-center gap-1.5"><svg lucideUsers [size]="16"></svg> {{ previewData().nombrePlaces || 0 }} places</span>
+            <span class="flex items-center gap-1.5"><svg lucideUsers [size]="16"></svg> {{ previewData().nombrePlaces == null ? 'Places à confirmer' : previewData().nombrePlaces + ' places' }}</span>
           </div>
 
           <div class="mt-auto pt-4 border-t border-ibe-100 flex items-center justify-between">
             <div>
               <p class="text-xs text-ibe-muted uppercase tracking-wider mb-1">Prix</p>
               <p class="text-xl font-semibold tabular-nums text-ibe-dark m-0">
-                {{ (previewData().prix || 0) | currencyFcfa }}
+                {{ previewData().prix | currencyFcfa }}
               </p>
             </div>
             <div class="w-10 h-10 rounded-full bg-ibe-50 flex items-center justify-center text-ibe-600">
@@ -97,15 +97,13 @@
                 <label class="block text-sm font-medium text-ibe-dark mb-1">Catégorie *</label>
                 <select formControlName="categorie" class="input-field cursor-pointer">
                   <option value="">Sélectionner...</option>
-                  <option value="Esthétique">Esthétique</option>
-                  <option value="Coiffure">Coiffure</option>
-                  <option value="Make-up">Make-up</option>
-                  <option value="Pack Beauté">Pack Beauté</option>
-                  <option value="DQP">DQP</option>
+                  @for (category of categories(); track category) {
+                    <option [value]="category">{{ category }}</option>
+                  }
                 </select>
               </div>
               <div>
-                <label class="block text-sm font-medium text-ibe-dark mb-1">Durée *</label>
+                <label class="block text-sm font-medium text-ibe-dark mb-1">Durée</label>
                 <input type="text" formControlName="duree" class="input-field" placeholder="Ex: 2 mois">
               </div>
             </div>
@@ -120,22 +118,23 @@
         <!-- Bloc 2 : Tarifs & Places -->
         <div class="bg-white p-6 md:p-8 rounded-2xl border border-ibe-100 shadow-sm">
           <h3 class="text-lg mb-6 border-b border-ibe-50 pb-4">Tarifs & Places</h3>
+          <p class="text-sm text-ibe-muted mb-4">Laissez les valeurs inconnues vides. Un tarif absent sera affiché « Tarif sur demande ».</p>
 
           <div class="grid grid-cols-2 gap-5 mb-5">
             <div>
-              <label class="block text-sm font-medium text-ibe-dark mb-1">Prix de la formation (FCFA) *</label>
-              <input type="number" formControlName="prix" class="input-field" placeholder="Ex: 60000">
+              <label class="block text-sm font-medium text-ibe-dark mb-1">Prix de la formation (FCFA)</label>
+              <input type="number" min="0" formControlName="prix" class="input-field" placeholder="Ex: 60000">
             </div>
             <div>
-              <label class="block text-sm font-medium text-ibe-dark mb-1">Frais d'inscription (FCFA) *</label>
-              <input type="number" formControlName="fraisInscription" class="input-field" placeholder="Ex: 15000">
+              <label class="block text-sm font-medium text-ibe-dark mb-1">Frais d'inscription (FCFA)</label>
+              <input type="number" min="0" formControlName="fraisInscription" class="input-field" placeholder="Ex: 15000">
             </div>
           </div>
 
           <div class="grid grid-cols-2 gap-5">
             <div>
-              <label class="block text-sm font-medium text-ibe-dark mb-1">Nombre de places total *</label>
-              <input type="number" formControlName="nombrePlaces" class="input-field" placeholder="Ex: 20">
+              <label class="block text-sm font-medium text-ibe-dark mb-1">Nombre de places total</label>
+              <input type="number" min="1" formControlName="nombrePlaces" class="input-field" placeholder="Ex: 20">
             </div>
           </div>
         </div>
@@ -190,7 +189,7 @@
                 @for (img of galleryImagePreviews(); track img; let idx = $index) {
                   <div class="relative aspect-square rounded-lg overflow-hidden border border-ibe-100 group">
                     <img [src]="img" class="w-full h-full object-cover">
-                    <button type="button" (click)="removeGalleryImage(idx)" class="absolute top-1 right-1 w-6 h-6 bg-ibe-danger text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md z-20">
+                    <button type="button" (click)="removeGalleryImage(idx)" class="absolute top-1 right-1 w-12 h-12 bg-ibe-danger text-white rounded-full flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity shadow-md z-20">
                       <svg lucideX [size]="14"></svg>
                     </button>
                   </div>

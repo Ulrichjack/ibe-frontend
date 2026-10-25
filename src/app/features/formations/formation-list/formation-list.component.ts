@@ -71,7 +71,7 @@ export class FormationListComponent implements OnInit {
   ngOnInit() {
     this.seoService.setPageSeo(
       "Nos Formations Beauté Certifiées",
-      "23 formations professionnelles certifiées MINEFOP : esthétique, coiffure, make-up, DQP. Kit professionnel inclus et stage pratique garanti à Yaoundé."
+      "Découvrez nos formations professionnelles : esthétique, coiffure, make-up, DQP. Kit professionnel inclus et stage pratique garanti à Yaoundé."
     );
     this.loadFormations(0);
   }

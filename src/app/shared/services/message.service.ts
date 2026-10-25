@@ -20,8 +20,10 @@ export class MessageService {
   }
 
   // ADMIN
-  getMessages(page = 0, size = 20): Observable<ApiResponse<PageResponse<MessageListResponse>>> {
-    const params = new HttpParams().set('page', page).set('size', size);
+  getMessages(page = 0, size = 20, query = '', statut = 'ALL', type = 'ALL'): Observable<ApiResponse<PageResponse<MessageListResponse>>> {
+    let params = new HttpParams().set('page', page).set('size', size).set('q', query.trim());
+    if (statut !== 'ALL') params = params.set('statut', statut);
+    if (type !== 'ALL') params = params.set('type', type);
     return this.http.get<ApiResponse<PageResponse<MessageListResponse>>>(this.baseUrl, { params });
   }
 

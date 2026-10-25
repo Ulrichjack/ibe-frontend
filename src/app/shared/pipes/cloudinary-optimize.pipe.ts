@@ -12,7 +12,7 @@ export class CloudinaryOptimizePipe implements PipeTransform {
    * @param width La largeur désirée en pixels (ex: 400 pour une carte, 800 pour un détail)
    */
   transform(url: string | undefined | null, width: number = 800): string {
-    if (!url) return 'assets/img/default-formation.webp';
+    if (!url) return 'assets/img/ibe-formation.webp';
     
     // Si c'est bien une image Cloudinary et qu'elle n'est pas déjà optimisée
     if (url.includes('cloudinary.com') && !url.includes('/upload/f_auto')) {

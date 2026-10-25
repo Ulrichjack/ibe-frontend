@@ -77,10 +77,14 @@
           <div class="flex items-baseline">
             <!-- La largeur est réservée d'après la valeur finale : le compteur
                  s'anime sans provoquer de décalage de mise en page. -->
+            @if (stat.label === 'Formations disponibles') {
+              <span class="figure-ibe text-[2.75rem] lg:text-6xl min-w-[2ch]">{{ formationCount() ?? '—' }}</span>
+            } @else {
             <span #statNumber
                   [attr.data-value]="stat.value"
                   [style.min-width.ch]="stat.value.toString().length"
                   class="figure-ibe text-[2.75rem] lg:text-6xl">0</span>
+            }
             <span class="figure-ibe text-3xl lg:text-4xl text-ibe-400">{{ stat.suffix }}</span>
           </div>
           <p class="m-0 mt-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-ibe-muted">
@@ -220,10 +224,10 @@
 
               <div class="flex items-center gap-4 text-sm text-ibe-muted mb-1">
                 <span class="flex items-center gap-1.5">
-                  <svg lucideClock [size]="15"></svg> {{ formation.duree }}
+                  <svg lucideClock [size]="15"></svg> {{ formation.duree || 'Durée à confirmer' }}
                 </span>
                 <span class="flex items-center gap-1.5">
-                  <svg lucideUsers [size]="15"></svg> {{ formation.placesRestantesAffichees }} places
+                  <svg lucideUsers [size]="15"></svg> {{ formation.nombrePlaces == null ? 'Places à confirmer' : formation.placesRestantesAffichees + ' places' }}
                 </span>
               </div>
 
@@ -527,7 +531,7 @@
     <p class="eyebrow eyebrow--light">Catalogue complet</p>
     <h2 class="text-white mb-4">Recevez tous les programmes sur WhatsApp.</h2>
     <p class="text-ibe-100 text-lg mb-10">
-      Les 23 formations, leurs durées, leurs tarifs et le contenu du kit — envoyés directement
+      Les formations, leurs durées, leurs tarifs et le contenu du kit — envoyés directement
       dans votre conversation.
     </p>
 

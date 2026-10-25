@@ -146,10 +146,10 @@
               <ng-container [ngTemplateOutlet]="featuredControl" [ngTemplateOutletContext]="{ $implicit: form }" />
             </div>
             <div class="flex gap-2">
-              <button class="flex-1 py-2 rounded-lg bg-ibe-50 text-ibe-600 text-sm font-medium flex items-center justify-center gap-2">
+              <button (click)="editFormation(form.id)" class="flex-1 min-h-12 py-2 rounded-lg bg-ibe-50 text-ibe-600 text-sm font-medium flex items-center justify-center gap-2">
                 <svg lucidePencil [size]="14"></svg> Modifier
               </button>
-              <button (click)="deleteFormation(form.id)" class="w-10 rounded-lg bg-ibe-danger/10 text-ibe-danger flex items-center justify-center">
+              <button (click)="deleteFormation(form.id)" class="w-12 min-h-12 rounded-lg bg-ibe-danger/10 text-ibe-danger flex items-center justify-center">
                 <svg lucideTrash2 [size]="14"></svg>
               </button>
             </div>

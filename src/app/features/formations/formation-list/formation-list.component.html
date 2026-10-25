@@ -7,7 +7,7 @@
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     <p class="eyebrow eyebrow--light">Catalogue complet</p>
-    <h1 class="text-white mb-6 max-w-3xl">23 formations, un seul objectif : que vous soyez employable.</h1>
+    <h1 class="text-white mb-6 max-w-3xl">Nos formations, un seul objectif : que vous soyez employable.</h1>
     <p class="text-ibe-100 text-lg max-w-2xl mb-0">
       Toutes sont certifiées MINEFOP et livrées avec le kit professionnel. Cherchez par métier,
       par technique ou par nom de formation.
@@ -127,10 +127,11 @@
               <p class="text-sm line-clamp-2 mb-4">{{ formation.description }}</p>
 
               <div class="flex items-center gap-4 text-sm text-ibe-muted mb-5">
-                <span class="flex items-center gap-1.5"><svg lucideClock [size]="15"></svg> {{ formation.duree }}</span>
+                <span class="flex items-center gap-1.5"><svg lucideClock [size]="15"></svg> {{ formation.duree || 'Durée à confirmer' }}</span>
               </div>
 
               <!-- Remplissage de la promotion : rend l'urgence lisible d'un coup d'œil -->
+              @if (formation.nombrePlaces != null) {
               <div class="mb-5">
                 <div class="flex justify-between items-baseline text-xs mb-2">
                   <span class="text-ibe-muted">Places restantes</span>
@@ -142,6 +143,9 @@
                 </div>
               </div>
 
+              } @else {
+                <p class="text-sm text-ibe-muted mb-5">Places à confirmer</p>
+              }
               <div class="mt-auto pt-5 border-t border-ibe-100 flex items-end justify-between gap-3">
                 <div>
                   <p class="m-0 text-[10px] font-semibold uppercase tracking-[0.16em] text-ibe-muted mb-1">Tarif</p>

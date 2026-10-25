@@ -47,6 +47,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   private seoService = inject(SeoService);
 
   popularFormations = signal<FormationResponse[]>([]);
+  formationCount = signal<number | null>(null);
   testimonials = signal<TestimonialResponse[]>([]);
   galleryImages = signal<GalleryImageResponse[]>([]);
 
@@ -92,7 +93,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChildren('statNumber') statElements!: QueryList<ElementRef>;
   stats = [
     { label: "Étudiantes formées", value: 1500, suffix: "+" },
-    { label: "Formations certifiées", value: 23, suffix: "" },
+    { label: "Formations disponibles", value: 0, suffix: "" },
     { label: "Années d'expérience", value: 5, suffix: "+" },
     { label: "Taux de réussite", value: 98, suffix: "%" }
   ];
@@ -101,6 +102,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.seoService.setPageSeo("Institut Beauty's Empire — Accueil", "Formations professionnelles en beauté à Yaoundé.");
     this.seoService.setOrganizationSchema();
 
+    this.formationService.getFormationsActives(0, 1).subscribe({
+      next: res => {
+        if (res.success && res.data) this.formationCount.set(res.data.totalElements);
+      },
+      error: () => this.formationCount.set(null)
+    });
     this.loadPopularFormations();
     this.loadTestimonials();
     this.loadGallery();
